@@ -1,5 +1,12 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { useState } from 'react';
+import Header from './components/Header';
+import Footer from './components/Footer';
+
+
+
+
+// import Contact from './components/Contact';
+// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { ApolloProvider } from '@apollo/react-hooks';
 // import ApolloClient from 'apollo-boost';
 
@@ -15,12 +22,27 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //     },
 //     uri: '/graphql',
 // })
-  
+
 function App() {
+    const [pages] = useState(["dashboard", "customers", "sales", "other"]);
+    const [pageSelected, setPageSelected] = useState(pages[0]);
 
     return (
-    <div> Hello World </div>
-    )
+
+
+        <div id="html">
+            <Header pageSelected={pageSelected}
+                setPageSelected={setPageSelected} />
+            <main className="light-blue darken-3 white-text">
+                {/* {(pageSelected === "dashboard") && <Dashboard />}
+            {(pageSelected === "customers") && <Customers />} */}
+                {/* {(pageSelected === "sales") && <Sales />}
+            {(pageSelected === "other") && <Other />} */}
+            </main>
+
+        </div>
+      
+    );
 }
 
-export default App
+export default App;
