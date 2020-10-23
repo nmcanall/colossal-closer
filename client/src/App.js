@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Header from './components/header';
-import Footer from './components/footer';
+import Header from './Header';
+import Footer from './components/Footer';
 import Dashboard from './components/dashboard';
 import Customers from './components/customers';
 import Sales from './components/sales';

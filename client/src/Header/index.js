@@ -1,6 +1,6 @@
 import React from "react";
 
-function Nav(props) {
+function Header(props) {
 
     const {
         setPageSelected,
@@ -39,4 +39,4 @@ function Nav(props) {
     );
 }
 
-export default Nav;
+export default Header;
