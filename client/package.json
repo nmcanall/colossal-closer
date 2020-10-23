@@ -12,8 +12,8 @@
     "graphql": "^15.3.0",
     "graphql-tag": "^2.11.0",
     "jwt-decode": "^2.2.0",
-    "react": "next",
-    "react-dom": "next",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1"
   },
