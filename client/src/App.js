@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Dashboard from './components/dashboard';
-import Customers from './components/customers';
-import Sales from './components/sales';
-import Other from './components/other';
+
+
 
 
 // import Contact from './components/Contact';
@@ -24,25 +22,26 @@ import Other from './components/other';
 //     },
 //     uri: '/graphql',
 // })
-  
+
 function App() {
     const [pages] = useState(["dashboard", "customers", "sales", "other"]);
     const [pageSelected, setPageSelected] = useState(pages[0]);
-    
+
     return (
+
+
         <div id="html">
-          <Header pageSelected={pageSelected}
-            setPageSelected={setPageSelected} />
-          <main className="light-blue darken-3 white-text">
-            {(pageSelected === "dashboard") && <Dashboard />}
-            {(pageSelected === "customers") && <Customers />}
-            {(pageSelected === "sales") && <Sales />}
-            {(pageSelected === "other") && <Other />}
-          </main>
-          <Footer>
-            
-          </Footer>
+            <Header pageSelected={pageSelected}
+                setPageSelected={setPageSelected} />
+            <main className="light-blue darken-3 white-text">
+                {/* {(pageSelected === "dashboard") && <Dashboard />}
+            {(pageSelected === "customers") && <Customers />} */}
+                {/* {(pageSelected === "sales") && <Sales />}
+            {(pageSelected === "other") && <Other />} */}
+            </main>
+
         </div>
+      
     );
 }
 
