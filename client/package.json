@@ -12,16 +12,10 @@
     "graphql": "^15.3.0",
     "graphql-tag": "^2.11.0",
     "jwt-decode": "^2.2.0",
-<<<<<<< HEAD
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-router-dom": "^5.1.2",
-=======
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
->>>>>>> 2fe6b519a15ba5528b902c22dd9daae60b7f5b2f
     "react-scripts": "3.4.1"
   },
   "scripts": {
