@@ -118,9 +118,86 @@ const customerSchema = new Schema(
                 },
                 message: "Customer status must be active, won, or lost."
             }
-        }
+        },
+
+        // Transactions made between the employee and customer
+        transactions: [transactionSchema],
+
+        // Contacts made between the employee and customer
+        contacts: [contactSchema]
+    },
+    {
+      toJSON: {
+        virtuals: true
+      }
     }
 );
+
+// Returns total dollars sold to the customer
+customerSchema.virtual("dollarsSold").get(function() {
+    let value = 0;
+    for(let i = 0; i < this.transactions.length; i++) {
+        if(this.transactions[i].status === "accepted") {
+            value += this.transactions[i].dollars;
+        }
+    }
+    return value;
+});
+
+// Returns total dollars offered to the customer
+customerSchema.virtual("dollarsOffered").get(function() {
+    let value = 0;
+    for(let i = 0; i < this.transactions.length; i++) {
+        if(this.transactions[i].status === "offered") {
+            value += this.transactions[i].dollars;
+        }
+    }
+    return value;
+});
+
+// Returns total dollars denied by customer
+customerSchema.virtual("dollarsDenied").get(function() {
+    let value = 0;
+    for(let i = 0; i < this.transactions.length; i++) {
+        if(this.transactions[i].status === "denied") {
+            value += this.transactions[i].dollars;
+        }
+    }
+    return value;
+});
+
+// Returns number of transactions won with the customer
+customerSchema.virtual("transactionsWon").get(function() {
+    let count = 0;
+    for(let i = 0; i < this.transactions.length; i++) {
+        if(this.transactions[i].status === "accepted") {
+            count++;
+        }
+    }
+    return count;
+});
+
+// Returns number of transactions offered to the customer
+customerSchema.virtual("transactionsOffered").get(function() {
+    let count = 0;
+    for(let i = 0; i < this.transactions.length; i++) {
+        if(this.transactions[i].status === "offered") {
+            count++;
+        }
+    }
+    return count;
+});
+
+// Returns number of transactions denied by customer
+customerSchema.virtual("transactionsDenied").get(function() {
+    let count = 0;
+    for(let i = 0; i < this.transactions.length; i++) {
+        if(this.transactions[i].status === "denied") {
+            count++;
+        }
+    }
+    return count;
+});
 
 const Customer = model("Customer", customerSchema);
 
