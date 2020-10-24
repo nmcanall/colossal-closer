@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Dashboard from './pages/Dashboard'
 
 
 
@@ -33,16 +34,13 @@ function App() {
         <div id="html">
             <Header pageSelected={pageSelected}
                 setPageSelected={setPageSelected} />
-            <main className="light-blue darken-3 white-text">
-                {/* {(pageSelected === "dashboard") && <Dashboard />}
-            {(pageSelected === "customers") && <Customers />} */}
-                {/* {(pageSelected === "sales") && <Sales />}
-            {(pageSelected === "other") && <Other />} */}
+            <main className="">
+                <Dashboard></Dashboard>
+
             </main>
 
         </div>
-      
     );
-}
+};
 
 export default App;
