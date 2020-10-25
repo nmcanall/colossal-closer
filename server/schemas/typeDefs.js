@@ -55,6 +55,13 @@ const typeDefs = gql`
             email: String!,
             password: String!    
         ): Auth
+        addCustomer(
+            businessName: String!
+            contactName: String
+            phone: String
+            email: String
+            status: String
+        ): Customer
     }
 `;
 

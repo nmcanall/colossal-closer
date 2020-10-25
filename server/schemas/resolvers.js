@@ -30,7 +30,7 @@ const resolvers = {
     },
     Mutation: {
         login: async (parent, {email, password}) => {
-            // Find the user by email
+            // Find the employee by email
             const employee = await Employee.findOne({email});
             // If email is not found, throw an error
             if(!employee) {
@@ -50,8 +50,27 @@ const resolvers = {
             const employee = await Employee.create(args);
             const token = signToken(employee);
             return {token, employee};
-        }
+        },
+        // Use context to get the employee creating the customer
+        addCustomer: async (parent, args, context) => {
+            // Only allow an authenticated employee add a customer
+            if(context.user) {
+                // Create the new customer
+                const customer = await Customer.create({...args, salesman: context.user._id});
 
+                // Add the customer to the employee's customer list
+                await Employee.findOneAndUpdate(
+                    {_id: context.user._id},
+                    {$push: {customers: customer._id}},
+                    {new: true}
+                )
+
+                return customer;
+            }
+
+            // Throw an error is there is no authenticated employee
+            throw new AuthenticationError("You must be logged in.");
+        }
     }
 };
 
