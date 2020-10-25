@@ -30,18 +30,6 @@ const transactionSchema = new Schema(
             type: Date,
             default: Date.now,
             get: timestamp => moment(timestamp).format('MMM Do, YYYY [at] hh:mm a')
-        },
-
-        // Transaction status must be offered, denied, or accepted
-        status: {
-            type: String,
-            default: "offered",
-            validate: {
-                validator: function(input) {
-                    return input === "offered" || input === "denied" || input === "accepted";
-                },
-                message: "Status must be offered, denied, or accepted."
-            }
         }
     }
 );
@@ -53,6 +41,11 @@ const contactSchema = new Schema(
         type: {
             type: String,
             required: true
+        },
+
+        // Note for a particular contact
+        note: {
+            type: String
         },
 
         // Time the contact was made
@@ -95,9 +88,10 @@ const customerSchema = new Schema(
             match: [/.+@.+\..+/, 'Must be a valid email address.']
         },
 
-        // Name of employee (note: only a logged in employee will be able to create a customer, so it will be filled by context)
+        // Employee (note: only a logged in employee will be able to create a customer, so it will be filled by context)
         salesman: {
-            type: String,
+            type: Schema.Types.ObjectId,
+            ref: "Employee",
             required: true
         },
 
@@ -137,66 +131,14 @@ const customerSchema = new Schema(
 customerSchema.virtual("dollarsSold").get(function() {
     let value = 0;
     for(let i = 0; i < this.transactions.length; i++) {
-        if(this.transactions[i].status === "accepted") {
-            value += this.transactions[i].dollars;
-        }
-    }
-    return value;
-});
-
-// Returns total dollars offered to the customer
-customerSchema.virtual("dollarsOffered").get(function() {
-    let value = 0;
-    for(let i = 0; i < this.transactions.length; i++) {
-        if(this.transactions[i].status === "offered") {
-            value += this.transactions[i].dollars;
-        }
-    }
-    return value;
-});
-
-// Returns total dollars denied by customer
-customerSchema.virtual("dollarsDenied").get(function() {
-    let value = 0;
-    for(let i = 0; i < this.transactions.length; i++) {
-        if(this.transactions[i].status === "denied") {
-            value += this.transactions[i].dollars;
-        }
+        value += this.transactions[i].dollars;
     }
     return value;
 });
 
 // Returns number of transactions won with the customer
 customerSchema.virtual("transactionsWon").get(function() {
-    let count = 0;
-    for(let i = 0; i < this.transactions.length; i++) {
-        if(this.transactions[i].status === "accepted") {
-            count++;
-        }
-    }
-    return count;
-});
-
-// Returns number of transactions offered to the customer
-customerSchema.virtual("transactionsOffered").get(function() {
-    let count = 0;
-    for(let i = 0; i < this.transactions.length; i++) {
-        if(this.transactions[i].status === "offered") {
-            count++;
-        }
-    }
-    return count;
-});
-
-// Returns number of transactions denied by customer
-customerSchema.virtual("transactionsDenied").get(function() {
-    let count = 0;
-    for(let i = 0; i < this.transactions.length; i++) {
-        if(this.transactions[i].status === "denied") {
-            count++;
-        }
-    }
-    return count;
+    return this.transactions.length;
 });
 
 const Customer = model("Customer", customerSchema);
