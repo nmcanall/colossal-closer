@@ -15,7 +15,7 @@ const resolvers = {
         customers: async (parent, {_id}) => {
             // If employeeId is passed, set params and search for that.
             // Otherwise, params is empty and search for all customers
-            const params = _id ? {_id} : {};
+            const params = _id ? {salesman: {_id}} : {};
             return Customer.find(params)
                 .select("-__v -password")
                 .populate("salesman");
