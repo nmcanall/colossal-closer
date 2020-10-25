@@ -43,22 +43,14 @@ const typeDefs = gql`
         customers(_id: ID): [Customer]
         customer(_id: ID!): Customer
     }
+    type Mutation {
+        addEmployee(
+            firstName: String!,
+            lastName: String!,
+            email: String!,
+            password: String!    
+        ): Employee
+    }
 `;
-
-
-// transactions: [Transaction]
-// contacts: [Contact]
-    // type Mutation {
-    //     login(email: String!, password: String!): Auth
-    //     addEmployee(
-    //         firstName: String!,
-    //         lastName: String!,
-    //         email: String!, 
-    //         password: String!
-    //     ): Auth
-    //     addThought(thoughtText: String!): Thought
-    //     addReaction(thoughtId: ID!, reactionBody: String!): Thought
-    //     addFriend(friendId: ID!): User
-    // }
 
 module.exports = typeDefs;

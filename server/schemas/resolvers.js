@@ -25,6 +25,13 @@ const resolvers = {
                 .select("-__v -password")
                 .populate("salesman");
         }
+    },
+    Mutation: {
+        addEmployee: async (parent, args) => {
+            const employee = await Employee.create(args);
+            return employee;
+        }
+
     }
 };
 
