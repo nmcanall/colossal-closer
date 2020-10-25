@@ -49,7 +49,25 @@ db.once('open', async () => {
             {_id: employeeId},
             {$push: {customers: createdCustomers.ops[i]._id}}
         );
-    }
+    };
+
+    // Populate transactions for each customer
+    // Loop through each customer
+    for(let i = 0; i < createdCustomers.ops.length; i++) {
+        const numTransactions = Math.floor(Math.random() * 4); // allow up to three transactions
+        for(let j = 0; j < numTransactions; j++) {
+            // Create transaction data
+            const product = faker.lorem.word();
+            const dollars = faker.random.number(1000) + faker.random.number(100)/100;
+            const units = faker.random.number(250);
+            // Update the customer model
+            await Customer.updateOne(
+                {_id: createdCustomers.ops[i]},
+                {$push: {transactions: {product, dollars, units}}}
+            );
+        }
+    };
+
 
     // // create thoughts
     // let createdThoughts = [];

@@ -21,7 +21,9 @@ const resolvers = {
                 .populate("salesman");
         },
         customer: async (parent, {_id}) => {
-            return Customer.findOne({_id});
+            return Customer.findOne({_id})
+                .select("-__v -password")
+                .populate("salesman");
         }
     }
 };
