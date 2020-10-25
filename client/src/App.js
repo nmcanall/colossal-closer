@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard'
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import AllCustomers from './pages/AllCustomers';
 
 
 
@@ -35,7 +38,10 @@ function App() {
             <Header pageSelected={pageSelected}
                 setPageSelected={setPageSelected} />
             <main className="">
-                <Dashboard></Dashboard>
+                {/* <Dashboard></Dashboard> */}
+                {/* <Login></Login> */}
+                {/* <Signup></Signup> */}
+                <AllCustomers></AllCustomers>
 
             </main>
 

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Chart, Ticks, Layer, Bars,  } from 'rumble-charts';
 //import sample data
 
 
@@ -113,28 +112,7 @@ const Dashboard = () => {
                 <div className="row">
                     <div className="col s12 m5">
                         <div className="card-panel hoverable"  style={{fontFamily:'sans-serif',fontSize:'0.8em'}} >
-                            <Chart width={600} height={300} series={salesType} minY={0}>
-                                <Layer width='80%' height='90%' position='top center'>
-                                        <Ticks
-                                        axis='y'
-                                        lineLength='100%'
-                                        lineVisible={true}
-                                        lineStyle={{stroke:'lightgray'}}
-                                        labelStyle={{textAnchor:'end',dominantBaseline:'middle',fill:'lightgray'}}
-                                        labelAttributes={{x: -5}}
-                                        />
-                                        <Ticks
-                                        axis='x'
-                                        label={({index, props}) => props.series[index].name}
-                                        labelStyle={{textAnchor:'middle',dominantBaseline:'text-before-edge',fill:'lightgray'}}
-                                        labelAttributes={{y: 3}}
-                                        />
-                                        <Bars
-                                        groupPadding='3%'
-                                        innerPadding='0.5%'
-                                        />
-                                    </Layer>
-                            </Chart>
+                           
                         </div>
                     </div>
 
