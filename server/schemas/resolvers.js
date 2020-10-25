@@ -1,4 +1,6 @@
+const { AuthenticationError } = require("apollo-server-express");
 const {Employee, Customer} = require("../models");
+const {signToken} = require("../utils/auth");
 
 const resolvers = {
     Query: {
@@ -27,9 +29,27 @@ const resolvers = {
         }
     },
     Mutation: {
+        login: async (parent, {email, password}) => {
+            // Find the user by email
+            const employee = await Employee.findOne({email});
+            // If email is not found, throw an error
+            if(!employee) {
+                throw new AuthenticationError("Incorrect credentials");
+            }
+            // Boolean for if the password is correct or not
+            const correctPw = await employee.isCorrectPassword(password);
+            // If password is incorrect, throw an error
+            if(!correctPw) {
+                throw new AuthenticationError("Incorrect credentials");
+            }
+            // Sign the token for an authenticated employee
+            const token = signToken(employee);
+            return {token, employee};
+        },
         addEmployee: async (parent, args) => {
             const employee = await Employee.create(args);
-            return employee;
+            const token = signToken(employee);
+            return {token, employee};
         }
 
     }

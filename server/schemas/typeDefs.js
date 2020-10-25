@@ -37,6 +37,10 @@ const typeDefs = gql`
         transactions: [Transaction]
         contacts: [Contact]
     }
+    type Auth {
+        token: ID!
+        employee: Employee
+    }
     type Query {
         employees: [Employee]
         employee(_id: ID!): Employee
@@ -44,12 +48,13 @@ const typeDefs = gql`
         customer(_id: ID!): Customer
     }
     type Mutation {
+        login(email: String!, password: String!): Auth
         addEmployee(
             firstName: String!,
             lastName: String!,
             email: String!,
             password: String!    
-        ): Employee
+        ): Auth
     }
 `;
 
