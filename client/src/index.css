@@ -6,8 +6,41 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  body, html {
+    height: 100%;
+    margin: 0;
+}
   
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
+
+  #login-page{
+    background-image: url(../src/assets/mobile-background.jpg);
+    background-Position: center;
+    background-Size: cover;
+    background-Repeat: no-repeat;
+    width: 100vw;
+    height: 93vh;
+    
+  }
+
+  #login-card{
+    margin-top: 50px;
+  }
+
+  #signup-card{
+    margin-top: 10px;
+  }
+
+  #colossal-logo{
+    margin-top: 0;
+  }
+#signup-from{
+  margin-top: 0;
+  padding: 0;
+  
+}
+
