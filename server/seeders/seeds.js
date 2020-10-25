@@ -68,41 +68,21 @@ db.once('open', async () => {
         }
     };
 
-
-    // // create thoughts
-    // let createdThoughts = [];
-    // for (let i = 0; i < 100; i += 1) {
-    //     const thoughtText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
-
-    //     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-    //     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
-
-    //     const createdThought = await Thought.create({ thoughtText, username });
-
-    //     const updatedUser = await User.updateOne(
-    //         { _id: userId },
-    //         { $push: { thoughts: createdThought._id } }
-    //     );
-
-    //     createdThoughts.push(createdThought);
-    // }
-
-    // // create reactions
-    // for (let i = 0; i < 100; i += 1) {
-    //     const reactionBody = faker.lorem.words(Math.round(Math.random() * 20) + 1);
-
-    //     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-    //     const { username } = createdUsers.ops[randomUserIndex];
-
-    //     const randomThoughtIndex = Math.floor(Math.random() * createdThoughts.length);
-    //     const { _id: thoughtId } = createdThoughts[randomThoughtIndex];
-
-    //     await Thought.updateOne(
-    //         { _id: thoughtId },
-    //         { $push: { reactions: { reactionBody, username } } },
-    //         { runValidators: true }
-    //     );
-    // }
+    // Populate contacts with each customer
+    // Loop through each customer
+    for(let i = 0; i < createdCustomers.ops.length; i++) {
+        const numContacts = Math.floor(Math.random() * 4); // allow up to three Contacts
+        for(let j = 0; j < numContacts; j++) {
+            // Create contact data
+            const type = "email";
+            const note = faker.lorem.words();
+            // Update the customer model
+            await Customer.updateOne(
+                {_id: createdCustomers.ops[i]},
+                {$push: {contacts: {type, note}}}
+            );
+        }
+    };
 
     console.log('all done!');
     process.exit(0);

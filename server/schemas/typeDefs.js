@@ -17,6 +17,12 @@ const typeDefs = gql`
         units: Int
         createdAt: String
     }
+    type Contact {
+        _id: ID
+        type: String
+        note: String
+        createdAt: String
+    }
     type Customer {
         _id: ID
         businessName: String
@@ -29,6 +35,7 @@ const typeDefs = gql`
         dollarsSold: Float
         transactionsWon: Int
         transactions: [Transaction]
+        contacts: [Contact]
     }
     type Query {
         employees: [Employee]

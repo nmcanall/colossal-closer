@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 const moment = require("moment");
-const Employee = require('./Employee');
 
 // Structure for an offer or sale to a single customer
 const transactionSchema = new Schema(
