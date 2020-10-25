@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+// make sure there's a server/.env file with a JWT_SECRET="putsomethinghere" variable declared
 const secret = process.env.JWT_SECRET
 const expiration = '2h';
 
@@ -15,9 +16,6 @@ module.exports = {
         .pop()
         .trim();
     }
-
-    console.log("token", token)
-
 
     if (!token) {
       return req;
