@@ -8,6 +8,10 @@ const typeDefs = gql`
         email: String
         createdAt: String
         customerCount: Int
+        activeCustomerCount: Int
+        wonCustomerCount: Int
+        lostCustomerCount: Int
+        dollarsSold: Float
         customers: [Customer]
     }
     type Auth {
