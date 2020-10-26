@@ -8,7 +8,7 @@ function Header(props) {
     } = props;
 
     return (
-
+       
         <nav className="blue lighten-3">
 
             <ul className="flex-row">
@@ -28,8 +28,13 @@ function Header(props) {
             </a>
                 </li>
                 <li className="mx-2">
-                    <a data-testid="other" href="#other" onClick={() => setPageSelected("other")}>
-                        OTHER?
+                    <a data-testid="customerGraphs" href="#customerGraphs" onClick={() => setPageSelected("customerGraphs")}>
+                        Customers Graph
+            </a>
+                </li>
+                <li className="mx-2">
+                    <a data-testid="salesGraph" href="#salesGraph" onClick={() => setPageSelected("salesGraph")}>
+                        Sales Graph
             </a>
                 </li>
 
@@ -38,5 +43,4 @@ function Header(props) {
 
     );
 }
-
 export default Header;
