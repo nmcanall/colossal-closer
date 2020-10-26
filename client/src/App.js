@@ -44,6 +44,9 @@ function App() {
                 <AllCustomers></AllCustomers>
 
             </main>
+            <Footer>
+                
+            </Footer>
 
         </div>
     );
