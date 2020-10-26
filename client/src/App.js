@@ -38,10 +38,10 @@ function App() {
             <Header pageSelected={pageSelected}
                 setPageSelected={setPageSelected} />
             <main className="">
-                {/* <Dashboard></Dashboard> */}
+                <Dashboard></Dashboard>
                 {/* <Login></Login> */}
                 {/* <Signup></Signup> */}
-                <AllCustomers></AllCustomers>
+                {/* <AllCustomers></AllCustomers> */}
 
             </main>
 
