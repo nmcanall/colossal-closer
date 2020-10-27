@@ -1,4 +1,8 @@
 import React from 'react';
+import ClosingPercent from '../../components/ClosingPercent';
+import CustomerStatusGraph from '../../components/CustomerStatusGraph';
+import SaleByTypeGraph from '../../components/SaleByTypeGraph';
+
 
 //import sample data
 
@@ -29,24 +33,10 @@ const Dashboard = () => {
     }
     console.log(customers)
 
-    const salesType = [
-        {
-            name: 'Printer',
-            data: [48]
-        },
-        {
-            name: 'glossy',
-            data: [34]
-        },
-        {
-            name: 'cardstock',
-            data: [29]
 
-        }
-]
 
     return(
-        <section>
+        <section className="container center">
             <h5 className="center">Dwights Sales Dashboard</h5>
 
             <div className="sales-data">
@@ -79,9 +69,6 @@ const Dashboard = () => {
                             </h3>
                         </div>
                     </div>
-                </div>
-
-                <div className="row">
                     <div className="col s12 m5 l3">
                         <div className="card-panel hoverable">
                         <h5 className="center">YTD Units</h5>
@@ -90,6 +77,10 @@ const Dashboard = () => {
                             </h3>
                         </div>
                     </div>
+                </div>
+
+                <div className="row">
+                    
 
                     <div className="col s12 m5 l3">
                         <div className="card-panel hoverable">
@@ -101,27 +92,46 @@ const Dashboard = () => {
                     </div>
 
                     <div className="col s12 m5 l3">
-                        <div className="card-panel hoverable">
-                        <h5 className="center">YTD Units</h5>
+                        <div className="card-panel ">
+                        <h5 className="center">Total Customers</h5>
                             <h3 className=" center">
-                                9,865
+                                52
+                            </h3>
+                        </div>
+                    </div>
+                    <div className="col s12 m5 l3">
+                        <div className="card-panel ">
+                        <h5 className="center">Avtive Customers</h5>
+                            <h3 className=" center">
+                                25
+                            </h3>
+                        </div>
+                    </div>
+                    <div className="col s12 m5 l3">
+                        <div className="card-panel ">
+                        <h5 className="center">New Transactions</h5>
+                            <h3 className=" center">
+                                2
                             </h3>
                         </div>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col s12 m5">
+                    <div className="col s12 m4">
                         <div className="card-panel hoverable"  style={{fontFamily:'sans-serif',fontSize:'0.8em'}} >
-                           
+                        <CustomerStatusGraph></CustomerStatusGraph>
                         </div>
                     </div>
 
-                    <div className="col s12 m5">
+                    <div className="col s12 m4">
                         <div className="card-panel hoverable">
-                        <h5 className="center">YTD Units</h5>
-                            <h3 className=" center">
-                                9,865
-                            </h3>
+                            <SaleByTypeGraph></SaleByTypeGraph>
+                        </div>
+                    </div>
+                    
+                    <div className="col s12 m4">
+                        <div className="card-panel hoverable">
+                            <ClosingPercent></ClosingPercent>
                         </div>
                     </div>
                 </div>
