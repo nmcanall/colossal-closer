@@ -18,6 +18,7 @@ const typeDefs = gql`
         token: ID
         employee: Employee
     }
+    
     type Transaction {
         _id: ID
         product: String
@@ -53,12 +54,14 @@ const typeDefs = gql`
     }
     type Mutation {
         login(email: String!, password: String!): Auth
+
         addEmployee(
             firstName: String!,
             lastName: String!,
             email: String!,
             password: String!    
         ): Auth
+
         addCustomer(
             businessName: String!
             contactName: String
@@ -66,6 +69,7 @@ const typeDefs = gql`
             email: String
             status: String
         ): Customer
+
         updateCustomer(
             _id: ID!
             businessName: String

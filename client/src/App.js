@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+
+//pages and components
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AllCustomers from './pages/AllCustomers';
+import SingleCustomer from './pages/SingleCustomer'
+import NoMatch from './pages/NoMatch'
 
 
 
@@ -17,12 +22,12 @@ import ApolloClient from 'apollo-boost';
 // borrowed from the classwork, will uncomment when the JWT auth is set up
 const client = new ApolloClient({
     request: (operation) => {
-      const token = localStorage.getItem('id_token')
-      operation.setContext({
+        const token = localStorage.getItem('id_token')
+        operation.setContext({
         headers: {
-          authorization: token ? `Bearer ${token}` : ''
+            authorization: token ? `Bearer ${token}` : ''
         }
-      })
+    })
     },
     uri: '/graphql',
 })
@@ -33,21 +38,29 @@ function App() {
 
     return (
         <ApolloProvider client={client}>
-            <div id="html">
-                <Header pageSelected={pageSelected}
-                    setPageSelected={setPageSelected} />
-                <main className="">
-                    {/* <Dashboard></Dashboard> */}
-                    {/* <Login></Login> */}
-                    {/* <Signup></Signup> */}
-                    <AllCustomers></AllCustomers>
+            <Router>
+                <div id="html">
+                    <Header pageSelected={pageSelected}
+                        setPageSelected={setPageSelected} />
+                    <main className="">
+                        <Switch>
+                            <Route exact path = '/' component = {Login}/>
+                            <Route exact path = '/signup' component = {Signup}/>
+                            <Route exact path = '/dashboard' component = {Dashboard}/>
+                            {/* <Route exact path = '/customers/:id' component = {AllCustomers}/> */}
+                            {/* <Route exact path = '/:id/:customerid' component = {SingleCustomer}/> */}
 
-                </main>
-                <Footer>
-                    
-                </Footer>
 
-            </div>
+                            <Route component ={NoMatch}/>
+                        </Switch>
+
+                    </main>
+                    <Footer>
+                        
+                    </Footer>
+
+                </div>
+            </Router>
         </ApolloProvider>
     );
 };
