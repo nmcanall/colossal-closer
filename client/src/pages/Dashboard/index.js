@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ClosingPercent from '../../components/ClosingPercent';
 import CustomerStatusGraph from '../../components/CustomerStatusGraph';
 import SaleByTypeGraph from '../../components/SaleByTypeGraph';

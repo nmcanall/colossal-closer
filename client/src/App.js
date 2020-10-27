@@ -46,7 +46,7 @@ function App() {
                         <Switch>
                             <Route exact path = '/' component = {Login}/>
                             <Route exact path = '/signup' component = {Signup}/>
-                            <Route exat path = '/dashboard' compont = {Dashboard}/>
+                            <Route exact path = '/dashboard' component = {Dashboard}/>
                             {/* <Route exact path = '/customers/:id' component = {AllCustomers}/> */}
                             {/* <Route exact path = '/:id/:customerid' component = {SingleCustomer}/> */}
 
