@@ -8,8 +8,8 @@ import Dashboard from './pages/Dashboard'
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AllCustomers from './pages/AllCustomers';
-import SingleCustomer from './pages/SingleCustomer'
-import NoMatch from './pages/NoMatch'
+import SingleCustomer from './pages/SingleCustomer';
+import NoMatch from './pages/NoMatch';
 
 
 
