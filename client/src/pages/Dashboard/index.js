@@ -1,38 +1,35 @@
 import React from 'react';
+import {Link } from 'react-router-dom';
+
+import {QUERY_EMPLOYEE, QUERY_CUSTOMERS} from '../../utils/queries'
+
+import {useQuery} from '@apollo/react-hooks'
 
 import ClosingPercent from '../../components/ClosingPercent';
 import CustomerStatusGraph from '../../components/CustomerStatusGraph';
 import SaleByTypeGraph from '../../components/SaleByTypeGraph';
+
+import Auth from '../../utils/auth';
 
 
 //import sample data
 
 
 const Dashboard = () => {
-    const customers = {
-        0: {
-            businessName: "Print Max",
-            contactName: "Bob Warner",
-            status: "active",
-            salesman: "Dwight Schrute",
-            createdAt: "01/22/2020", /*dont care about date format */
-            phone: "925-518-1195",
-            email: "bob@printmax.com",
-            sales: [
-                {
-                    product: "Glossy",
-                    dollars: 2500,
-                    units: 400
-                },
-                {
-                    product: "cardstock",
-                    dollars: 3200,
-                    units: 250
-                },
-            ]
-        }
-    }
-    console.log(customers)
+    const _id = Auth.getProfile().data._id
+
+    const { loading, data} = useQuery(QUERY_EMPLOYEE, {variables: {_id}})
+    const  employee  = data ? data.employee : {}
+
+    console.log(employee)
+    
+    let totalSales = employee.dollarsSold
+    totalSales = totalSales.tofixed(2)
+
+    console.log('log totalsales', totalSales)
+
+
+    
 
 
 
@@ -55,9 +52,9 @@ const Dashboard = () => {
 
                     <div className="col s12 m5 l3">
                         <div className="card-panel hoverable">
-                        <h5 className="center">YTD Sales</h5>
+                        <h5 className="center">Total Sales</h5>
                             <h3 className=" center">
-                                $185,075
+                                ${}
                             </h3>
                         </div>
                     </div>
