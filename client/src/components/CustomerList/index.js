@@ -1,10 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks'
 import { QUERY_CUSTOMERS } from '../../utils/queries'
-import Auth from '../../utils/auth'
 
-const CustomerList = () => {
-    const _id = Auth.getProfile().data._id
+const CustomerList = ({ _id }) => {
     const { loading, data} = useQuery(QUERY_CUSTOMERS, {variables: {_id}})
     const  customers  = data ? data.customers : {}
     
@@ -28,7 +26,7 @@ const CustomerList = () => {
                 <tbody>
                     {customers.map((customer, i) => (
                         
-                        <tr>
+                        <tr key={i}>
                             <td>{customer.businessName}</td>
                             <td>{customer.phone}</td>
                             <td>${customer.dollarsSold}</td>
