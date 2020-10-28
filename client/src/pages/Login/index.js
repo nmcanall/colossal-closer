@@ -9,7 +9,7 @@ import Auth from '../../utils/auth';
 
 
 const Login = (props) => {
-    const [formState, setFormState] = useState({ eamil: '', password: ''})
+    const [formState, setFormState] = useState({ email: '', password: ''})
 
     const [login, {error}] = useMutation(LOGIN);
 
@@ -32,7 +32,7 @@ const Login = (props) => {
             const {data}= await login({
                 variables: {...formState}
             });
-            Auth.login(data.login.token)
+            Auth.login(data.token)
         }catch (e){
             console.error(e)
         }
