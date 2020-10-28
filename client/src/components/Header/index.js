@@ -1,20 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 // import profileImage from "../../assets/colossal-logo.png";
 import {Link} from 'react-router-dom';
-import auth from "../../utils/auth";
 import Auth from '../../utils/auth';
 
 
-function Header(props) {
+function Header() {
     const logout = event =>{
         event.preventDefault();
         Auth.logout()
     }
-
-    const {
-        setPageSelected,
-        pageSelected
-    } = props;
+    const loggedIn = Auth.loggedIn()
+    const [pageSelected, setPageSelected] = useState(loggedIn ? "dashboard" : "");
+    
 
     return (
 
@@ -27,7 +24,7 @@ function Header(props) {
 
                 <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                 <ul id="nav-mobile" className="right ">
-                    {auth.loggedIn() ? (
+                    {loggedIn ? (
                         <>
                         <li><a href="" onClick={logout}>Logout</a></li>
                         </>
@@ -48,29 +45,29 @@ function Header(props) {
                 <ul className="tabs tabs-transparent">
                     <ul className="flex-row">
                         <li className={`mx-2 ${(pageSelected === "dashboard") ? 'active' : ''}`}>
-                            <a data-testid="dashboard" href="#dashboard" onClick={() => setPageSelected("dashboard")}>
+                            <Link to="/" data-testid="dashboard" onClick={() => setPageSelected("dashboard")}>
                                 Dashboard
-                                </a>
+                            </Link>
                         </li>
                         <li className={`mx-2 ${(pageSelected === "customers") ? 'active' : ''}`}>
-                            <a data-testid="customers" href="#customers" onClick={() => setPageSelected("customers")}>
+                            <Link to="/customers" data-testid="customers" onClick={() => setPageSelected("customers")}>
                                 Customers
-                                </a>
+                            </Link>
                         </li>
                         <li className="mx-2">
-                            <a data-testid="sales" href="#sales" onClick={() => setPageSelected("sales")}>
+                            <Link to="/sales" data-testid="sales" onClick={() => setPageSelected("sales")}>
                                 Sales
-                            </a>
+                            </Link>
                         </li>
                         <li className="mx-2">
-                            <a data-testid="customerGraphs" href="#customerGraphs" onClick={() => setPageSelected("customerGraphs")}>
+                            <Link to="/customer-graphs" data-testid="customerGraphs" onClick={() => setPageSelected("customerGraphs")}>
                                 Customers Graph
-                            </a>
+                            </Link>
                         </li>
                         <li className="mx-2">
-                            <a data-testid="salesGraph" href="#salesGraph" onClick={() => setPageSelected("salesGraph")}>
+                            <Link to="sales-graph" data-testid="salesGraph" onClick={() => setPageSelected("salesGraph")}>
                                 Sales Graph
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </ul>

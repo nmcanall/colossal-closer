@@ -32,15 +32,12 @@ const client = new ApolloClient({
 })
 
 function App() {
-    const [pages] = useState(["dashboard", "customers", "sales", "other"]);
-    const [pageSelected, setPageSelected] = useState(pages[0]);
     const loggedIn = Auth.loggedIn()
     return (
         <ApolloProvider client={client}>
             <Router>
                 <div id="html">
-                    <Header pageSelected={pageSelected}
-                        setPageSelected={setPageSelected} />
+                    <Header/>
                     <main className="">
                         {loggedIn ? (
                                 <Switch>
