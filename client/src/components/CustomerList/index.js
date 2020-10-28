@@ -1,11 +1,14 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks'
 import { QUERY_CUSTOMERS } from '../../utils/queries'
+import Auth from '../../utils/auth'
 
 const CustomerList = () => {
-
-    const { loading, data} = useQuery(QUERY_CUSTOMERS)
+    const _id = Auth.getProfile().data._id
+    const { loading, data} = useQuery(QUERY_CUSTOMERS, {variables: {_id}})
     const  customers  = data ? data.customers : {}
+    
+
     if (loading) {
         return (
             <div>Loading...</div>
