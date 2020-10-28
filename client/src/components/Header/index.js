@@ -44,17 +44,17 @@ function Header() {
             <div className="nav-content">
                 <ul className="tabs tabs-transparent">
                     <ul className="flex-row">
-                        <li className={`mx-2 ${(pageSelected === "dashboard") ? 'active' : ''}`}>
+                        <li className={`mx-2 ${(pageSelected === "dashboard") && 'active'}`}>
                             <Link to="/" data-testid="dashboard" onClick={() => setPageSelected("dashboard")}>
                                 Dashboard
                             </Link>
                         </li>
-                        <li className={`mx-2 ${(pageSelected === "customers") ? 'active' : ''}`}>
+                        <li className={`mx-2 ${(pageSelected === "customers") && 'active'}`}>
                             <Link to="/customers" data-testid="customers" onClick={() => setPageSelected("customers")}>
                                 Customers
                             </Link>
                         </li>
-                        <li className="mx-2">
+                        <li className={`mx-2 ${(pageSelected === "sales") && 'active'}`}>
                             <Link to="/sales" data-testid="sales" onClick={() => setPageSelected("sales")}>
                                 Sales
                             </Link>
