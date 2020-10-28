@@ -6,22 +6,25 @@ const { Employee, Customer } = require('../models');
 db.once('open', async () => {
     await Employee.deleteMany({});
     await Customer.deleteMany({});
+    
+    const employeeData = [];
 
     // Create employees
-    const employeeData = [];
     for (let i = 0; i < 8; i++) {
         const firstName = faker.name.firstName();
         const lastName = faker.name.lastName();
-        const email = firstName.toLowerCase() + "@clossalcloser.com"
+        const email = firstName.toLowerCase() + "@colossalcloser.com"
         const password = "password123";
 
-        employeeData.push({ firstName, lastName, email, password });
+        
+        employeeData.push(await Employee.create({ firstName, lastName, email, password }) );
+        
     }
-    const createdEmployees = await Employee.collection.insertMany(employeeData);
+    
 
     // Create customers
     const customerData = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 45; i++) {
 
         // Create the basic details
         const businessName = faker.company.companyName();
@@ -30,8 +33,8 @@ db.once('open', async () => {
         const email = faker.internet.email();
 
         // Get random employee to create the customer
-        const randomIndex = Math.floor(Math.random() * createdEmployees.ops.length);
-        const salesman = createdEmployees.ops[randomIndex]._id;
+        const randomIndex = Math.floor(Math.random() * employeeData.length);
+        const salesman = employeeData[randomIndex]._id;
         
         // Get status of the customer
         const randomStatus = Math.floor(Math.random() * 3);
@@ -54,7 +57,7 @@ db.once('open', async () => {
     // Populate transactions for each customer
     // Loop through each customer
     for(let i = 0; i < createdCustomers.ops.length; i++) {
-        const numTransactions = Math.floor(Math.random() * 4); // allow up to three transactions
+        const numTransactions = Math.floor(Math.random() * 6); // allow up to three transactions
         for(let j = 0; j < numTransactions; j++) {
             // Create transaction data
             const product = faker.lorem.word();
