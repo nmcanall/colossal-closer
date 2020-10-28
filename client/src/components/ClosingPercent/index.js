@@ -1,19 +1,22 @@
 import React from 'react';
 import { CircularProgress, CircularProgressLabel } from "@chakra-ui/core";
 
-const ClosingPercent = () =>{
-    // const totalCustomers = data.customers.length
-    //const customersWon = 
-    const percentage= 45
-    //customersWon / totalCustomers
+import {useQuery} from '@apollo/react-hooks';
+import {QUERY_EMPLOYEE} from '../../utils/queries';
 
-//need to figure out how to make chakra UI theme to change color
-    // let color = '';
-    //     if (percentage > 15){
-    //         color = 'red'
-    //     }else if(percentage > 15 && percentage < 30 ){
-    //         color = 'yellow'
-    //     }else{color = 'green'}
+import Auth from '../../utils/auth'
+
+const ClosingPercent = () =>{
+
+    const _id = Auth.getProfile().data._id
+
+    const { loading, data} = useQuery(QUERY_EMPLOYEE, {variables: {_id}})
+    const  employee  = data ? data.employee : {}
+    let percentage= (employee.customerCount / employee.wonCustomerCount) * 100
+    if(employee.wonCustomerCount == 0){
+        percentage=0
+    }
+    
 
     return(
         <div>

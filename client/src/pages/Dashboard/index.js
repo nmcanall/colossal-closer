@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link } from 'react-router-dom';
 
+import moment from 'moment'
+
 import {QUERY_EMPLOYEE, QUERY_CUSTOMERS} from '../../utils/queries'
 
 import {useQuery} from '@apollo/react-hooks'
@@ -16,26 +18,30 @@ import Auth from '../../utils/auth';
 
 
 const Dashboard = () => {
+    
     const _id = Auth.getProfile().data._id
 
     const { loading, data} = useQuery(QUERY_EMPLOYEE, {variables: {_id}})
     const  employee  = data ? data.employee : {}
 
     console.log(employee)
+
+    const totalSales = Math.round(employee.dollarsSold)
+
+    let numCustomers 
+    if(data){
+        const customers = employee.customers
+        console.log('customers', customers.length)
+        numCustomers = customers.length
+        
+    }
     
-    let totalSales = employee.dollarsSold
-    totalSales = totalSales.tofixed(2)
-
-    console.log('log totalsales', totalSales)
 
 
-    
-
-
-
+    if(loading){return(<div>Loading...</div>)}
     return(
         <section className="container center">
-            <h5 className="center">Dwights Sales Dashboard</h5>
+            <h5 className="center">{employee.firstName}'s Sales Dashboard</h5>
 
             <div className="sales-data">
 
@@ -54,7 +60,7 @@ const Dashboard = () => {
                         <div className="card-panel hoverable">
                         <h5 className="center">Total Sales</h5>
                             <h3 className=" center">
-                                ${}
+                                ${totalSales}
                             </h3>
                         </div>
                     </div>
@@ -80,11 +86,12 @@ const Dashboard = () => {
                 <div className="row">
                     
 
+
                     <div className="col s12 m5 l3">
                         <div className="card-panel hoverable">
                         <h5 className="center">Daily Actions</h5>
                             <h3 className=" center">
-                                25
+                                num customers {numCustomers}
                             </h3>
                         </div>
                     </div>
@@ -93,7 +100,7 @@ const Dashboard = () => {
                         <div className="card-panel ">
                         <h5 className="center">Total Customers</h5>
                             <h3 className=" center">
-                                52
+                                {employee.customerCount}
                             </h3>
                         </div>
                     </div>

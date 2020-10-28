@@ -1,7 +1,17 @@
 import React from 'react';
-import { VictoryPie, VictoryChart, VictoryLabel, VictoryTheme, } from 'victory';
+import { VictoryPie,  VictoryLabel, } from 'victory';
+
+import { useQuery } from '@apollo/react-hooks'
+import { QUERY_CUSTOMERS } from '../../utils/queries'
+import Auth from '../../utils/auth'
 
 const SaleByTypeGraph = () => {
+
+    const _id = Auth.getProfile().data._id
+    const { loading, data} = useQuery(QUERY_CUSTOMERS, {variables: {_id}})
+    const  customers  = data ? data.customers : {}
+    console.log(customers)
+    
 
     const saleType = [
         {x: "card", y: 450},
