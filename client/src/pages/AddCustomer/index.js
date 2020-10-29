@@ -4,6 +4,16 @@ import {ADD_CUSTOMER} from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
 const AddCustomer = () => {
+    const profile = Auth.getProfile().data.email
+
+    
+    const headers = Auth.getToken();
+
+    const httpHeaders = profile + ' ' + headers
+    console.log(httpHeaders)
+
+
+    
     const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: ''})
 
     const [addCustomer, { error }] = useMutation(ADD_CUSTOMER);
@@ -25,15 +35,15 @@ const AddCustomer = () => {
         try{
         //execute addUser mutation and pass in variable data from form
         const { data } = await addCustomer({
-            variables: { ...formState }
+            variables: { ...formState, },
         });
-        Auth.login(data.addCustomer.token);
+        Auth.getToken(data.addCustomer.token);
         } catch (e){
         console.error(e);
         }
      
         setFormState({
-            bussinessName : '', 
+            businessName : '', 
             contactName: '',
             phone: '',
             email: '',
@@ -57,14 +67,16 @@ const AddCustomer = () => {
                                         <div className="row">
                                             <div className="input-field col s12">
                                                 <input 
-                                                id="bussinessName" 
+                                                id="businessName" 
                                                 type="text" 
-                                                name="bussinessName"
-                                                value= {formState.bussinessName}
+                                                name="businessName"
+                                                value= {formState.businessName}
                                                 onChange={handleChange}
                                                 />
-                                                <label htmlFor="bussinessName">Business Name</label>
+                                                <label htmlFor="businessName">Business Name</label>
                                             </div>
+                                        </div>
+                                        <div className="row">
                                             <div className="input-field col s12">
                                                 <input 
                                                 id="contactName" 
@@ -79,16 +91,6 @@ const AddCustomer = () => {
                                         <div className="row">
                                             <div className="input-field col s12">
                                                 <input
-                                                    id="phone" 
-                                                    type="text"
-                                                    name="phone"
-                                                    value= {formState.phone}
-                                                    onChange={handleChange}
-                                                />
-                                                <label htmlFor="phone">Phone #</label>
-                                            </div>
-                                            <div className="input-field col s12">
-                                                <input
                                                     id="email" 
                                                     type="email"
                                                     name="email"
@@ -98,21 +100,34 @@ const AddCustomer = () => {
                                                 <label htmlFor="email">Email</label>
                                             </div>
                                         </div>
+                                        <div className="row">
+                                            <div className="input-field col s12">
+                                                <input
+                                                    id="phone" 
+                                                    type="text"
+                                                    name="phone"
+                                                    value= {formState.phone}
+                                                    onChange={handleChange}
+                                                />
+                                                <label htmlFor="phone">Phone #</label>
+                                            </div>
+                                        </div>
+                                        
 
 
-                                        {/* <div className="row">
+                                        <div className="row">
                                             <div className="input-field col s12">
                                             
                                                 <input
                                                     id="status" 
-                                                    type="status"
+                                                    type="text"
                                                     name="status"
                                                     value= {formState.status}
                                                     onChange={handleChange}
                                                 />
-                                                <label htmlFor="email">Status</label>
+                                                <label htmlFor="status">Status</label>
                                             </div>
-                                        </div> */}
+                                        </div>
 
                                         <button className="blue lighten-3 waves-effect waves-light btn" type="submit" >Add Customer</button>
                                     </form>
