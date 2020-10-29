@@ -20,7 +20,18 @@ export const ADD_EMPLOYEE = gql`
       }
   }
 `
-
+export const ADD_TRANSACTION = gql`
+mutation addTransaction($customerId: ID!, $product: String!, $dollars: Float!, $units: Int) {
+  addTransaction(customerId: $customerId, product: $product, dollars: $dollars, units: $units) {
+    transactions {
+      _id
+      product
+      dollars
+      units
+    }
+  }
+}
+`
 export const ADD_CUSTOMER = gql`
   mutation addCustomer($businessName: String!, $contactName: String!, $phone: String!, $email: String!, $status: String!) {
       addCustomer(bussinessName: $businessName, constactName: $contactName, phone: $phone, email: $email, status: $status) {

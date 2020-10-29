@@ -8,10 +8,11 @@ import Dashboard from './pages/Dashboard'
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AddCustomer from './pages/AddCustomer';
+import AddSale from './pages/AddSale';
 import AllCustomers from './pages/AllCustomers';
 import SingleCustomer from './pages/SingleCustomer';
 import NoMatch from './pages/NoMatch';
-
+import Auth from '../src/utils/auth'
 
 
 
@@ -20,7 +21,6 @@ import NoMatch from './pages/NoMatch';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 
-// borrowed from the classwork, will uncomment when the JWT auth is set up
 const client = new ApolloClient({
     request: (operation) => {
         const token = localStorage.getItem('id_token')
@@ -34,33 +34,32 @@ const client = new ApolloClient({
 })
 
 function App() {
-    const [pages] = useState(["dashboard", "customers", "sales", "other"]);
-    const [pageSelected, setPageSelected] = useState(pages[0]);
-
+    const loggedIn = Auth.loggedIn()
     return (
         <ApolloProvider client={client}>
             <Router>
                 <div id="html">
-                    <Header pageSelected={pageSelected}
-                        setPageSelected={setPageSelected} />
+                    <Header/>
                     <main className="">
-                        <Switch>
-                            <Route exact path = '/' component = {Login}/>
-                            <Route exact path = '/signup' component = {Signup}/>
-                            <Route exact path = '/dashboard' component = {Dashboard}/>
-                            <Route exact path = '/addcustomer' component = {AddCustomer}/>
-                            {/* <Route exact path = '/customers/:id' component = {AllCustomers}/> */}
-                            {/* <Route exact path = '/:id/:customerid' component = {SingleCustomer}/> */}
-
-
-                            <Route component ={NoMatch}/>
-                        </Switch>
-
+                        {loggedIn ? (
+                                <Switch>
+                                <Route exact path = '/' component = {Dashboard}/>
+                                <Route exact path = '/signup' component = {Signup}/>
+                                <Route exact path = '/customers' component = {AllCustomers}/>
+                                <Route exact path = '/addcustomer' component = {AddCustomer}/>
+                                <Route exact path = '/addsale' component = {AddSale}/>
+                                {/* <Route exact path = '/customers/:customerId' component = {SingleCustomer}/> */}
+                                <Route component ={NoMatch}/>
+                                </Switch>
+                            ) : (
+                                <Switch>
+                                <Route exact path = '/signup' component = {Signup}/>
+                                <Route component = {Login} />
+                                </Switch>
+                            )}
                     </main>
                     <Footer>
-                        
                     </Footer>
-
                 </div>
             </Router>
         </ApolloProvider>
@@ -68,3 +67,50 @@ function App() {
 };
 
 export default App;
+
+// function App() {
+//     const loggedIn = Auth.loggedIn()
+//     return (
+//         <ApolloProvider client={client}>
+//             <Router>
+//                 <div id="html">
+//                     <Header/>
+//                     <main className="">
+//                         <Switch>
+//                             <Route exact path = '/' component = {Login}/>
+//                             <Route exact path = '/signup' component = {Signup}/>
+//                             <Route exact path = '/dashboard' component = {Dashboard}/>
+//                             <Route exact path = '/addcustomer' component = {AddCustomer}/>
+//                             <Route exact path = '/addsale' component = {AddSale}/>
+//                             {/* <Route exact path = '/customers/:id' component = {AllCustomers}/> */}
+//                             {/* <Route exact path = '/:id/:customerid' component = {SingleCustomer}/> */}
+
+
+//                             <Route component ={NoMatch}/>
+//                         </Switch>
+
+//                         {loggedIn ? (
+//                                 <Switch>
+//                                 <Route exact path = '/' component = {Dashboard}/>
+//                                 <Route exact path = '/signup' component = {Signup}/>
+//                                 <Route exact path = '/customers' component = {AllCustomers}/>
+//                                 {/* <Route exact path = '/customers/:customerId' component = {SingleCustomer}/> */}
+//                                 <Route component ={NoMatch}/>
+//                                 </Switch>
+//                             ) : (
+//                                 <Switch>
+//                                 <Route exact path = '/signup' component = {Signup}/>
+//                                 <Route component = {Login} />
+//                                 </Switch>
+//                             )}
+//                     </main>
+//                     <Footer>
+                        
+//                     </Footer>
+
+//                 </div>
+//             </Router>
+//         </ApolloProvider>
+//     );
+// };
+

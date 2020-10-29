@@ -7,11 +7,14 @@ import Auth from '../../utils/auth';
 import logo from '../../assets/colossal-logo.png';
 
 const Signup = () => {
+
     const [formState, setFormState] = useState({ firstName : '', lastName: '', email: '', password: ''})
 
     const [addEmployee, { error }] = useMutation(ADD_EMPLOYEE);
-
-    
+    const loggedIn = Auth.loggedIn()
+    if (loggedIn) {
+        return window.location.assign('/')
+    }
     const handleChange = (event) =>{
         const {name,value} = event.target
 
@@ -31,7 +34,7 @@ const Signup = () => {
         const { data } = await addEmployee({
             variables: { ...formState }
         });
-        Auth.login(data.token);
+        Auth.login(data.addEmployee.token);
         } catch (e){
         console.error(e);
         }

@@ -1,23 +1,17 @@
 import React from 'react';
+import { useQuery } from '@apollo/react-hooks'
+import { QUERY_CUSTOMERS } from '../../utils/queries'
 
-const CustomerList = () => {
-    const customers= [
-        {
-            name: "Global Paper",
-            sales: 34550,
-            phone: '925-545-9685'
-        },
-        {
-            name: "Print-R-Us",
-            sales: 18450,
-            phone: '415-623-4584'
-        },
-        {
-            name: "Big Boy Office",
-            sales: 8950,
-            phone: '626-385-2142'
-        },
-    ]
+const CustomerList = ({ _id }) => {
+    const { loading, data} = useQuery(QUERY_CUSTOMERS, {variables: {_id}})
+    const  customers  = data ? data.customers : {}
+    
+
+    if (loading) {
+        return (
+            <div>Loading...</div>
+        )
+    }
     return (
         <div>
             <table>
@@ -31,10 +25,11 @@ const CustomerList = () => {
 
                 <tbody>
                     {customers.map((customer, i) => (
-                        <tr>
-                            <td>{customer.name}</td>
+                        
+                        <tr key={i}>
+                            <td>{customer.businessName}</td>
                             <td>{customer.phone}</td>
-                            <td>${customer.sales}</td>
+                            <td>${customer.dollarsSold}</td>
                         </tr>
                     ))}
                     
