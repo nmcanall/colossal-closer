@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {useMutation} from '@apollo/react-hooks';
 import {ADD_CUSTOMER} from '../../utils/mutations';
 import Auth from '../../utils/auth';
+
 const AddCustomer = () => {
     const profile = Auth.getProfile().data.email
     const headers = Auth.getToken();
