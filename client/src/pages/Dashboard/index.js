@@ -3,7 +3,7 @@ import {Link } from 'react-router-dom';
 
 import moment from 'moment'
 
-import {QUERY_EMPLOYEE, QUERY_CUSTOMERS} from '../../utils/queries'
+import {QUERY_EMPLOYEE} from '../../utils/queries'
 
 import {useQuery} from '@apollo/react-hooks'
 

@@ -66,7 +66,7 @@ export const QUERY_CUSTOMERS = gql`
                 note
             }
             transactions{
-                product: String
+                product
             }
         }
     }

@@ -3,10 +3,14 @@ import { useQuery } from '@apollo/react-hooks'
 import { QUERY_CUSTOMERS } from '../../utils/queries'
 
 const CustomerList = ({ _id }) => {
+    console.log('id please',_id)
+
     const { loading, data} = useQuery(QUERY_CUSTOMERS, {variables: {_id}})
+    
+
     const  customers  = data ? data.customers : {}
-    
-    
+    console.log('dollar dolla billz', customers.dollarsSold)
+   
 
     if (loading) {
         return (
