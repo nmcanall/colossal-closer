@@ -29,15 +29,23 @@ function Header(props) {
                 <ul id="nav-mobile" className="right ">
                     {auth.loggedIn() ? (
                         <>
-                        <li><a href="" onClick={logout}>Logout</a></li>
+                            <li><a href="" onClick={logout}>Logout</a></li>
+                            <li>
+                            <Link to ="/AddCustomer"
+                            href="/AddCustomer">Customer +
+                            </Link>
+                        
+                        </li>
                         </>
                     ):(
                          // <li><a href="sign.html">Login</a></li>
-                    <li>
-                        <Link to ="/signup"
-                            href="/signup">Signup
-                        </Link>
-                    </li>
+                        <li>
+                            <Link to ="/signup"
+                            href="/signup">sign up
+                            </Link>
+                        
+                        </li>
+                    
                     )
                     }
                 

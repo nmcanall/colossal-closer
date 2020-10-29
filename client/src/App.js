@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import AddCustomer from './pages/AddCustomer';
 import AllCustomers from './pages/AllCustomers';
 import SingleCustomer from './pages/SingleCustomer';
 import NoMatch from './pages/NoMatch';
@@ -47,6 +48,7 @@ function App() {
                             <Route exact path = '/' component = {Login}/>
                             <Route exact path = '/signup' component = {Signup}/>
                             <Route exact path = '/dashboard' component = {Dashboard}/>
+                            <Route exact path = '/addcustomer' component = {AddCustomer}/>
                             {/* <Route exact path = '/customers/:id' component = {AllCustomers}/> */}
                             {/* <Route exact path = '/:id/:customerid' component = {SingleCustomer}/> */}
 
