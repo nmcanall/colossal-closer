@@ -18,21 +18,49 @@ import Auth from '../../utils/auth';
 
 
 const Dashboard = () => {
+
+    let thisMonth = moment().format("MMM");
+    let thisYear = moment().format("YYYY")
+    console.log('now', thisMonth, thisYear)
     
     const _id = Auth.getProfile().data._id
 
     const { loading, data} = useQuery(QUERY_EMPLOYEE, {variables: {_id}})
     const  employee  = data ? data.employee : {}
 
-    console.log(employee)
+    let transArr= []
 
     const totalSales = Math.round(employee.dollarsSold)
 
+    let units = 0
     let numCustomers 
-    if(data){
+    let mtdUnits = 0
+    if(data ){
+        console.log('jfkdjflkaj',employee)
         const customers = employee.customers
-        console.log('customers', customers.length)
-        numCustomers = customers.length
+        console.log('customers', customers)
+        // const numCustomers = customers.length
+        // const statuses = customers.status
+
+
+        const showStatus = (customers) =>{
+            const allTrans =customers.transactions
+
+            transArr.push(allTrans)
+
+            console.log('alltrans', allTrans)
+            
+            const showUnits=(allTrans)=>{
+                units= units + allTrans.units
+            }
+            allTrans.forEach(showUnits)
+            
+            
+        }
+
+        customers.forEach(showStatus)
+        console.log('did it work????', units)
+    
         
     }
     
@@ -60,7 +88,7 @@ const Dashboard = () => {
                         <div className="card-panel hoverable">
                         <h5 className="center">Total Sales</h5>
                             <h3 className=" center">
-                                ${totalSales}
+                                {totalSales}
                             </h3>
                         </div>
                     </div>
@@ -75,9 +103,9 @@ const Dashboard = () => {
                     </div>
                     <div className="col s12 m5 l3">
                         <div className="card-panel hoverable">
-                        <h5 className="center">YTD Units</h5>
+                        <h5 className="center">Total Units</h5>
                             <h3 className=" center">
-                                9,865
+                                {units}
                             </h3>
                         </div>
                     </div>
