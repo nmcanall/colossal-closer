@@ -34,9 +34,9 @@ mutation addTransaction($customerId: ID!, $product: String!, $dollars: Float!, $
 `
 export const ADD_CUSTOMER = gql`
   mutation addCustomer($businessName: String!, $contactName: String!, $phone: String!, $email: String!, $status: String!) {
-      addCustomer(bussinessName: $businessName, constactName: $contactName, phone: $phone, email: $email, status: $status) {
+      addCustomer(businessName: $businessName, contactName: $contactName, phone: $phone, email: $email, status: $status) {
           _id
-          bussinessName
+          businessName
           contactName
           phone
           email

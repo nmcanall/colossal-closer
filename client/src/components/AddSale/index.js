@@ -64,17 +64,19 @@ const AddSale = () => {
                                                 />
                                                 <label htmlFor="product">Product Name</label>
                                             </div>
-                                            <div className="input-field col s12">
-                                                <input 
-                                                id="dollars" 
-                                                type="float" 
-                                                name="dollars"
-                                                value= {formState.dollars}
-                                                onChange={handleChange}
-                                                />
-                                                <label htmlFor="dollars">Dollar amount:</label>
-                                            </div>
                                         </div>
+                                            <div className="row">
+                                                <div className="input-field col s12">
+                                                  <input 
+                                                     id="dollars" 
+                                                    type="float" 
+                                                    name="dollars"
+                                                    value= {formState.dollars}
+                                                    onChange={handleChange}
+                                                    />
+                                                    <label htmlFor="dollars">Dollar amount:</label>
+                                                </div>
+                                            </div>
                                         <div className="row">
                                             <div className="input-field col s12">
                                                 <input
@@ -87,7 +89,6 @@ const AddSale = () => {
                                                 <label htmlFor="units"># of units</label>
                                             </div>
                                         </div>
-
 
                                         <button className="blue lighten-3 waves-effect waves-light btn" type="submit" >Add Sale</button>
                                     </form>
