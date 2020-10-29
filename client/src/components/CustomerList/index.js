@@ -18,7 +18,7 @@ const CustomerList = ({ _id }) => {
         )
     }
     return (
-        <div>
+        <div className="container">
             <table>
                 <thead>
                     <tr>

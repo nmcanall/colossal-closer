@@ -2,20 +2,27 @@ import React, {useState} from 'react'
 import {useMutation} from '@apollo/react-hooks';
 import {ADD_CUSTOMER} from '../../utils/mutations';
 import Auth from '../../utils/auth';
+import { QUERY_CUSTOMERS } from '../../utils/queries';
 
 const AddCustomer = () => {
-    const profile = Auth.getProfile().data.email
-
-    
-    const headers = Auth.getToken();
-
-
-
-
     
     const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: ''})
 
-    const [addCustomer, { error }] = useMutation(ADD_CUSTOMER);
+    const [addCustomer, { error }] = useMutation(ADD_CUSTOMER, {
+        update(cache, {data: {addCustomer} } ){
+            try{
+                const { customers } = cache.readQuery({ query: QUERY_CUSTOMERS});
+
+                cache.writeQuery({
+                    query: QUERY_CUSTOMERS,
+                    data: { customers: [addCustomer, ...customers]}
+                });
+            }catch(e){
+                console.error(e)
+            }
+        }
+    });
+
 
     const handleChange = (event) =>{
         const {name,value} = event.target
@@ -49,15 +56,24 @@ const AddCustomer = () => {
             status: ''
             
         })
+
+        
         
     }
+    const unhideForm=()=>{
+        console.log('buttonworks')
+    }
     return (
-        <section id="login-page">
             <div className="container center ">
-                
+                <button 
+                className="newCustomer btn right blue lighten-3 waves-effect waves-light"
+                onClick={unhideForm}
+                >
+                Add New Customer
+                </button>
                 <div className="row" id="form-wrapper">
 
-                    <div className="col s12 m7 ">
+                    <div className="col s12">
                         <div className="card" id="signup-card">
 
                             <div className="card-content">
@@ -134,7 +150,6 @@ const AddCustomer = () => {
                     </div>
                 </div>
             </div>
-        </section>
     )
 }
 
