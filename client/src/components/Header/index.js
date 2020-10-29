@@ -22,7 +22,7 @@ function Header() {
                 </Link>
                 {/* <img src={profileImage} className="my-2" style={{ maxWidth: "8%", width: "40%" }} alt="Colossal Closer" /> */}
 
-                <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
+                <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons"></i></a>
                 <ul id="nav-mobile" className="right ">
                     {loggedIn ? (
                         <>
@@ -59,16 +59,7 @@ function Header() {
                                 Sales
                             </Link>
                         </li>
-                        <li className="mx-2">
-                            <Link to="/customer-graphs" data-testid="customerGraphs" onClick={() => setPageSelected("customerGraphs")}>
-                                Customers Graph
-                            </Link>
-                        </li>
-                        <li className="mx-2">
-                            <Link to="sales-graph" data-testid="salesGraph" onClick={() => setPageSelected("salesGraph")}>
-                                Sales Graph
-                            </Link>
-                        </li>
+                        
                     </ul>
                 </ul>
             </div>

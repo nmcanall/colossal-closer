@@ -67,6 +67,8 @@ export const QUERY_CUSTOMERS = gql`
             }
             transactions{
                 product
+                units
+                
             }
         }
     }

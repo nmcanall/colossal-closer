@@ -10,6 +10,7 @@ const CustomerList = ({ _id }) => {
 
     const  customers  = data ? data.customers : {}
     console.log('dollar dolla billz', customers.dollarsSold)
+
     
 
     if (loading) {
@@ -18,23 +19,23 @@ const CustomerList = ({ _id }) => {
         )
     }
     return (
-        <div className="container">
+        <div className="">
             <table>
                 <thead>
                     <tr>
                         <th>Company</th>
-                        <th>Phone</th>
+                        <th>Status</th>
                         <th>Sales</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {customers.map((customer, i) => (
-                        
                         <tr key={i}>
+                            
                             <td>{customer.businessName}</td>
                             <td>{customer.phone}</td>
-                            <td>${customer.dollarsSold}</td>
+                            <td>${Math.round(customer.dollarsSold)}</td>
                         </tr>
                     ))}
                     

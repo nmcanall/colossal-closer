@@ -4,7 +4,7 @@ import {ADD_CUSTOMER} from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import { QUERY_CUSTOMERS } from '../../utils/queries';
 
-const AddCustomer = () => {
+function AddCustomer(){
     
     const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: ''})
 
@@ -60,96 +60,94 @@ const AddCustomer = () => {
         
         
     }
-    const unhideForm=()=>{
-        console.log('buttonworks')
-    }
     return (
-            <div className="container center ">
-                <button 
-                className="newCustomer btn right blue lighten-3 waves-effect waves-light"
-                onClick={unhideForm}
-                >
-                Add New Customer
-                </button>
-                <div className="row" id="form-wrapper">
+        <div className="container center ">
+            <div className="row">
+            <button 
+            className=" btn right blue lighten-3 waves-effect waves-lightn new-customer modal-trigger" 
+            data-target="form-modal"
+            >
+            Add New Customer
+            </button>
+            </div>
 
-                    <div className="col s12">
-                        <div className="card" id="signup-card">
-
-                            <div className="card-content">
-                                <div className="row">
-                                    <form className="col s12" id="signup-form"  onSubmit={handleSignup}>
-                                        <div className="row">
-                                            <div className="input-field col s12">
-                                                <input 
-                                                id="businessName" 
-                                                type="text" 
-                                                name="businessName"
-                                                value= {formState.businessName}
-                                                onChange={handleChange}
-                                                />
-                                                <label htmlFor="businessName">Business Name</label>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="input-field col s12">
-                                                <input 
-                                                id="contactName" 
-                                                type="text" 
-                                                name="contactName"
-                                                value= {formState.contactName}
-                                                onChange={handleChange}
-                                                />
-                                                <label htmlFor="contactName">Contact Name</label>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="input-field col s12">
-                                                <input
-                                                    id="email" 
-                                                    type="email"
-                                                    name="email"
-                                                    value= {formState.email}
-                                                    onChange={handleChange}
-                                                />
-                                                <label htmlFor="email">Email</label>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="input-field col s12">
-                                                <input
-                                                    id="phone" 
-                                                    type="text"
-                                                    name="phone"
-                                                    value= {formState.phone}
-                                                    onChange={handleChange}
-                                                />
-                                                <label htmlFor="phone">Phone #</label>
-                                            </div>
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="input-field col s12">
-                                            
-                                                <input
-                                                    id="status" 
-                                                    type="text"
-                                                    name="status"
-                                                    value= {formState.status}
-                                                    onChange={handleChange}
-                                                />
-                                                <label htmlFor="status">Status</label>
-                                            </div>
-                                        </div>
-
-                                        <button className="blue lighten-3 waves-effect waves-light btn" type="submit" >Add Customer</button>
-                                    </form>
-                                </div>
+            <div id="form-modal" class="modal">
+                <div class="modal-content">
+                    <h4>Add New Customer</h4>
+                    <form className="col s12" id="signup-form"  onSubmit={handleSignup}>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input 
+                                id="businessName" 
+                                type="text" 
+                                name="businessName"
+                                value= {formState.businessName}
+                                onChange={handleChange}
+                                />
+                                <label htmlFor="businessName">Business Name</label>
                             </div>
                         </div>
-                    </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input 
+                                id="contactName" 
+                                type="text" 
+                                name="contactName"
+                                value= {formState.contactName}
+                                onChange={handleChange}
+                                />
+                                <label htmlFor="contactName">Contact Name</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input
+                                    id="email" 
+                                    type="email"
+                                    name="email"
+                                    value= {formState.email}
+                                    onChange={handleChange}
+                                />
+                                <label htmlFor="email">Email</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input
+                                    id="phone" 
+                                    type="text"
+                                    name="phone"
+                                    value= {formState.phone}
+                                    onChange={handleChange}
+                                />
+                                <label htmlFor="phone">Phone #</label>
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <div className="input-field col s12">
+                            
+                                <input
+                                    id="status" 
+                                    type="text"
+                                    name="status"
+                                    value= {formState.status}
+                                    onChange={handleChange}
+                                />
+                                <label htmlFor="status">Status</label>
+                            </div>
+                        </div>
+
+                        <button className="blue lighten-3 waves-effect waves-light btn" type="submit" >Add Customer</button>
+                    </form>
                 </div>
+                
             </div>
+
+            
+
+                
+        </div>
     )
 }
 

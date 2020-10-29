@@ -26,7 +26,6 @@ const Dashboard = () => {
 
     const { loading, data} = useQuery(QUERY_EMPLOYEE, {variables: {_id}})
     const  employee  = data ? data.employee : {}
-    let transArr= []
 
     const totalSales = Math.round(employee.dollarsSold)
 
@@ -36,14 +35,18 @@ const Dashboard = () => {
     // console.log('lost', ost)
     const active = employee.customerCount - won - lost;
 
+    let ytdSales = 0
+    let mtdSales= 0
+
     let units = 0
     let mtdUnits = 0
     let recentTransactions = 0
+    let ytdTransactions = 0
 
     if(data ){
         console.log('main data',employee)
         const customers = employee.customers
-        console.log('customers', customers)
+        console.log('employee customers', customers)
         // const numCustomers = customers.length
         // const statuses = customers.status
 
@@ -52,15 +55,22 @@ const Dashboard = () => {
             for(const transaction of customer.transactions){
                 if(moment(transaction.createdAt).isSameOrAfter(thisYear)){
                 units += transaction.units
+                // console.log(transaction.dollars)
+                ytdSales += Math.round(transaction.dollars)
+
+                ytdTransactions++
                 
                 }
                 
                 if(moment(transaction.createdAt).isSameOrAfter(thisMonth)){
                     mtdUnits += transaction.units
+                    mtdSales += Math.round(transaction.dollars)
+                    
                 }
 
                 if(moment(transaction.createdAt).isSameOrAfter(moment().subtract(7, 'days'))){
                     recentTransactions ++
+                    
                 }
 
                 
@@ -68,8 +78,8 @@ const Dashboard = () => {
             }
         }
 
-        console.log('mtdunits',mtdUnits)
-        console.log('did it work????', units)
+        // console.log('mtdunits',mtdUnits)
+        // console.log('did it work????', units)
     
         
     }
@@ -78,8 +88,8 @@ const Dashboard = () => {
 
     if(loading){return(<div>Loading...</div>)}
     return(
-        <section className="container center">
-            <h5 className="center">{employee.firstName}'s Sales Dashboard</h5>
+        <section className="container center grey lighten-3" id="containers">
+            <h2 className="center">{employee.firstName}'s Sales Dashboard</h2>
 
             <div className="sales-data">
 
@@ -87,35 +97,35 @@ const Dashboard = () => {
 
                     <div className="col s12 m5 l3 ">
                         <div className="card-panel hoverable">
-                            <h5 className="center yellow">MTD Sales</h5>
+                            <h6 className="center">YTD Sales</h6>
                             <h3 className=" center">
-                                $8,650
+                                ${ytdSales}
                             </h3>
                         </div>
                     </div>
 
                     <div className="col s12 m5 l3">
                         <div className="card-panel hoverable">
-                        <h5 className="center">Total Sales</h5>
+                        <h6 className="center">MTD Sales</h6>
                             <h3 className=" center">
-                                ${totalSales}
+                                ${mtdSales}
                             </h3>
                         </div>
                     </div>
 
                     <div className="col s12 m5 l3">
                         <div className="card-panel hoverable">
-                        <h5 className="center">MTD Units</h5>
-                            <h3 className=" center">
-                                {mtdUnits}
-                            </h3>
-                        </div>
-                    </div>
-                    <div className="col s12 m5 l3">
-                        <div className="card-panel hoverable">
-                        <h5 className="center">Total Units</h5>
+                        <h6 className="center">YTD Units</h6>
                             <h3 className=" center">
                                 {units}
+                            </h3>
+                        </div>
+                    </div>
+                    <div className="col s12 m5 l3">
+                        <div className="card-panel hoverable">
+                        <h6 className="center">MTD Units</h6>
+                            <h3 className=" center">
+                                {mtdUnits}
                             </h3>
                         </div>
                     </div>
@@ -127,7 +137,7 @@ const Dashboard = () => {
 
                     <div className="col s12 m5 l3">
                         <div className="card-panel hoverable">
-                        <h5 className="center">Total Customers</h5>
+                        <h6 className="center">Total Customers</h6>
                             <h3 className=" center">
                                 {employee.customerCount}
                             </h3>
@@ -136,16 +146,15 @@ const Dashboard = () => {
 
                     <div className="col s12 m5 l3">
                         <div className="card-panel ">
-                        <h5 className="center yellow">Sold Customers</h5>
-                            <h3 className="green-text center">
-                                total transactions
+                        <h6 className="center ">Active Customers</h6>
+                            <h3 className=" center">
+                                {active}
                             </h3>
                         </div>
                     </div>
                     <div className="col s12 m5 l3">
                         <div className="card-panel ">
-                        <h5 className="center">Recent Transactions</h5>
-                        <p>(last 7 Days)</p>
+                        <h6 className="center">Transactions last 7 Days</h6>
                             <h3 className=" center">
                                 {recentTransactions}
                             </h3>
@@ -153,9 +162,9 @@ const Dashboard = () => {
                     </div>
                     <div className="col s12 m5 l3">
                         <div className="card-panel ">
-                        <h5 className="center">Active Customers</h5>
+                        <h6 className="center">YTD Transactions</h6>
                             <h3 className=" center">
-                                {active}
+                                {ytdTransactions}
                             </h3>
                         </div>
                     </div>

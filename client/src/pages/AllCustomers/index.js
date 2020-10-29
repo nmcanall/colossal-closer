@@ -7,7 +7,7 @@ import AddCustomer from '../../components/AddCustomer';
 const AllCustomers = () =>{
     const employee = Auth.getProfile().data
     return (
-        <div>
+        <div className= "container grey lighten-3" id="containers">
                 <AddCustomer></AddCustomer>
             <h4 className="center">
                 {employee.firstName}'s Working List
