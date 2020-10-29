@@ -32,18 +32,18 @@ mutation addTransaction($customerId: ID!, $product: String!, $dollars: Float!, $
   }
 }
 `
-// export const ADD_CUSTOMER = gql`
-//   mutation addCustomer($businessName: String!, $contactName: String!, $phone: String!, $email: String!, $status: String!) {
-//       addCustomer(bussinessName: $businessName, constactName: $contactName, phone: $phone, email: $email, status: $status) {
-//           _id
-//           bussinessName
-//           contactName
-//           phone
-//           email
-//           status
-//       }
-//   }
-// `
+export const ADD_CUSTOMER = gql`
+  mutation addCustomer($businessName: String!, $contactName: String!, $phone: String!, $email: String!, $status: String!) {
+      addCustomer(businessName: $businessName, contactName: $contactName, phone: $phone, email: $email, status: $status) {
+          _id
+          businessName
+          contactName
+          phone
+          email
+          status
+      }
+  }
+`
 
 // export const UPDATE_CUSTOMER = gql`
 //   mutation updateCustomer(_id: ID!, $businessName: String!, $contactName: String!, $phone: String!, $email: String!, $status: String!) {
