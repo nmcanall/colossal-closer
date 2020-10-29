@@ -6,6 +6,7 @@ const CustomerList = ({ _id }) => {
     const { loading, data} = useQuery(QUERY_CUSTOMERS, {variables: {_id}})
     const  customers  = data ? data.customers : {}
     
+    
 
     if (loading) {
         return (
