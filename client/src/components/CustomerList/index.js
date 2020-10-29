@@ -10,7 +10,7 @@ const CustomerList = ({ _id }) => {
 
     const  customers  = data ? data.customers : {}
     console.log('dollar dolla billz', customers.dollarsSold)
-   
+    
 
     if (loading) {
         return (

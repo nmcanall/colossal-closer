@@ -9,8 +9,7 @@ const AddCustomer = () => {
     
     const headers = Auth.getToken();
 
-    const httpHeaders = profile + ' ' + headers
-    console.log(httpHeaders)
+
 
 
     
@@ -41,7 +40,7 @@ const AddCustomer = () => {
         } catch (e){
         console.error(e);
         }
-     
+    
         setFormState({
             businessName : '', 
             contactName: '',

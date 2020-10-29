@@ -7,6 +7,8 @@ import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import AddCustomer from './components/AddCustomer';
+import AddSale from './components/AddSale';
 import AllCustomers from './pages/AllCustomers';
 import SingleCustomer from './pages/SingleCustomer';
 import NoMatch from './pages/NoMatch';
@@ -44,6 +46,8 @@ function App() {
                                 <Route exact path = '/' component = {Dashboard}/>
                                 <Route exact path = '/signup' component = {Signup}/>
                                 <Route exact path = '/customers' component = {AllCustomers}/>
+                                <Route exact path = '/addcustomer' component = {AddCustomer}/>
+                                <Route exact path = '/addsale' component = {AddSale}/>
                                 {/* <Route exact path = '/customers/:customerId' component = {SingleCustomer}/> */}
                                 <Route component ={NoMatch}/>
                                 </Switch>
@@ -55,9 +59,7 @@ function App() {
                             )}
                     </main>
                     <Footer>
-                        
                     </Footer>
-
                 </div>
             </Router>
         </ApolloProvider>
@@ -65,3 +67,50 @@ function App() {
 };
 
 export default App;
+
+// function App() {
+//     const loggedIn = Auth.loggedIn()
+//     return (
+//         <ApolloProvider client={client}>
+//             <Router>
+//                 <div id="html">
+//                     <Header/>
+//                     <main className="">
+//                         <Switch>
+//                             <Route exact path = '/' component = {Login}/>
+//                             <Route exact path = '/signup' component = {Signup}/>
+//                             <Route exact path = '/dashboard' component = {Dashboard}/>
+//                             <Route exact path = '/addcustomer' component = {AddCustomer}/>
+//                             <Route exact path = '/addsale' component = {AddSale}/>
+//                             {/* <Route exact path = '/customers/:id' component = {AllCustomers}/> */}
+//                             {/* <Route exact path = '/:id/:customerid' component = {SingleCustomer}/> */}
+
+
+//                             <Route component ={NoMatch}/>
+//                         </Switch>
+
+//                         {loggedIn ? (
+//                                 <Switch>
+//                                 <Route exact path = '/' component = {Dashboard}/>
+//                                 <Route exact path = '/signup' component = {Signup}/>
+//                                 <Route exact path = '/customers' component = {AllCustomers}/>
+//                                 {/* <Route exact path = '/customers/:customerId' component = {SingleCustomer}/> */}
+//                                 <Route component ={NoMatch}/>
+//                                 </Switch>
+//                             ) : (
+//                                 <Switch>
+//                                 <Route exact path = '/signup' component = {Signup}/>
+//                                 <Route component = {Login} />
+//                                 </Switch>
+//                             )}
+//                     </main>
+//                     <Footer>
+                        
+//                     </Footer>
+
+//                 </div>
+//             </Router>
+//         </ApolloProvider>
+//     );
+// };
+

@@ -99,6 +99,15 @@ const resolvers = {
                 {new: true}
             )
             return customer
+        },
+        addTransaction: async (parent, args) => {
+            const { product, dollars, units } = args 
+            const customer = await Customer.findOneAndUpdate(
+                {_id: args.customerId},
+                {$push: {transactions: {product, dollars, units} }},
+                {new: true}
+            )
+            return customer
         }
     }
 };
