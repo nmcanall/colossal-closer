@@ -29,6 +29,7 @@ const typeDefs = gql`
     type Contact {
         _id: ID
         type: String
+        
         note: String
         createdAt: String
     }

@@ -12,7 +12,8 @@ const ClosingPercent = () =>{
 
     const { loading, data} = useQuery(QUERY_EMPLOYEE, {variables: {_id}})
     const  employee  = data ? data.employee : {}
-    let percentage= (employee.customerCount / employee.wonCustomerCount) * 100
+    let percentage= Math.round((employee.wonCustomerCount/employee.customerCount) * 100)
+    console.log('percent customer', employee.customerCount, employee.wonCustomerCount)
     if(employee.wonCustomerCount == 0){
         percentage=0
     }
