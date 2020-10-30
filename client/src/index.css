@@ -10,6 +10,7 @@ body {
   body, html {
     height: 100%;
     margin: 0;
+    background-image: url(../src/assets/desktop-background.jpg);
 }
   
   code {
@@ -17,8 +18,13 @@ body {
       monospace;
   }
 
+  main{
+    margin-top: 2em;
+    margin-bottom: 2em
+  }
+
   #login-page{
-    background-image: url(../src/assets/mobile-background.jpg);
+    /* background-image: url(../src/assets/mobile-background.jpg); */
     background-Position: center;
     background-Size: cover;
     background-Repeat: no-repeat;

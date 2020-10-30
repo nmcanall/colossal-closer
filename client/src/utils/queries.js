@@ -28,6 +28,20 @@ export const QUERY_EMPLOYEE = gql`
             dollarsSold
             customers {
                 _id
+                
+                businessName
+                createdAt
+                status
+                dollarsSold
+                transactionsWon
+                transactions{
+                    _id
+                    product
+                    dollars
+                    units
+                    createdAt
+
+                }
             }
         }
     }
@@ -51,6 +65,12 @@ export const QUERY_CUSTOMERS = gql`
                 type
                 note
             }
+            transactions{
+                product
+                units
+                dollars
+                
+            }
         }
     }
 `
@@ -71,6 +91,7 @@ export const QUERY_CUSTOMER = gql`
             contacts {
                 type
                 note
+                
             }
         }
     }

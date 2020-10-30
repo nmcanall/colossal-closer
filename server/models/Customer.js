@@ -29,7 +29,7 @@ const transactionSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: timestamp => moment(timestamp).format('MMM Do, YYYY [at] hh:mm a')
+            get: timestamp => moment(timestamp).format('MMM DD, YYYY')
         }
     }
 );
@@ -52,7 +52,7 @@ const contactSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: timestamp => moment(timestamp).format('MMM Do, YYYY [at] hh:mm a')
+            get: timestamp => moment(timestamp).format('MMM DD, YYYY ')
         },
     }
 );
@@ -99,7 +99,7 @@ const customerSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: timestamp => moment(timestamp).format('MMM Do, YYYY [at] hh:mm a')
+            get: timestamp => moment(timestamp).format('MMM DD, YYYY ')
         },
 
         // Customer status must be active, won, or lost
