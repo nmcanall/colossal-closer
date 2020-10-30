@@ -1,15 +1,16 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks'
 import { QUERY_CUSTOMERS } from '../../utils/queries'
+import {Link} from 'react-router-dom';
 
 const CustomerList = ({ _id }) => {
-    console.log('id please',_id)
+    // console.log('id please',_id)
 
     const { loading, data} = useQuery(QUERY_CUSTOMERS, {variables: {_id}})
     
 
     const  customers  = data ? data.customers : {}
-    console.log('dollar dolla billz', customers.dollarsSold)
+    // console.log('dollar dolla billz', customers.dollarsSold)
 
     
 
@@ -19,24 +20,34 @@ const CustomerList = ({ _id }) => {
         )
     }
     return (
-        <div className="">
+        <div className="container">
             <table>
                 <thead>
                     <tr>
                         <th>Company</th>
-                        <th>Status</th>
+                        <th>Phone</th>
                         <th>Sales</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {customers.map((customer, i) => (
+                        
                         <tr key={i}>
                             
-                            <td>{customer.businessName}</td>
-                            <td>{customer.phone}</td>
+                            
+                                
+                                <td>
+                                <Link to = {`/customers/${customer._id}`}>
+                                    {customer.businessName}
+                                </Link>
+                                </td>
+                                
+                                
+                            <td><a href={`tel:${customer.phone}`} >{customer.phone}</a></td>
                             <td>${Math.round(customer.dollarsSold)}</td>
                         </tr>
+                        
                     ))}
                     
                 </tbody>

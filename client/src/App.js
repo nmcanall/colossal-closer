@@ -11,6 +11,7 @@ import AllCustomers from './pages/AllCustomers';
 import NoMatch from './pages/NoMatch';
 import Auth from '../src/utils/auth';
 import AllTransactions from './pages/AllTransactions';
+import SingleCustomer from './pages/SingleCustomer';
 
 
 
@@ -46,7 +47,7 @@ function App() {
                                 <Route exact path = '/signup' component = {Signup}/>
                                 <Route exact path = '/customers' component = {AllCustomers}/>
                                 <Route exact path = '/sales' component = {AllTransactions}/>
-                                {/* <Route exact path = '/customers/:customerId' component = {SingleCustomer}/> */}
+                                <Route exact path = '/customers/:customerId' component = {SingleCustomer}/>
                                 <Route component ={NoMatch}/>
                                 </Switch>
                             ) : (
@@ -56,8 +57,8 @@ function App() {
                                 </Switch>
                             )}
                     </main>
-                    <Footer>
-                    </Footer>
+                        <Footer>
+                        </Footer>
                 </div>
             </Router>
         </ApolloProvider>

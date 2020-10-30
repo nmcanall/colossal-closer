@@ -24,8 +24,8 @@ const SalesList = ({_id}) =>{
     console.log('dat arrr doe', transactionsArr)
 
     return(
-        <div className="">
-            hello world
+        <div className=" container">
+            
             <table>
                 <thead>
                     <tr>
