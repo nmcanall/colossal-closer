@@ -60,7 +60,8 @@ db.once('open', async () => {
         const numTransactions = Math.floor(Math.random() * 6); // allow up to three transactions
         for(let j = 0; j < numTransactions; j++) {
             // Create transaction data
-            const product = faker.lorem.word();
+            const randomProduct = Math.floor(Math.random() * 3);
+            const product = ['print', 'card', 'glossy'][randomProduct]
             const dollars = faker.random.number(1000) + faker.random.number(100)/100;
             const units = faker.random.number(250);
             // Update the customer model

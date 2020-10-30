@@ -26,29 +26,15 @@ function Header() {
                 <ul id="nav-mobile" className="right ">
                     {loggedIn ? (
                         <>
-                            <li><a href="" onClick={logout}>Logout</a></li>
-                            {/* <li>
-                            <Link to ="/AddCustomer"
-                            href="/AddCustomer">Customer +
-                            </Link>
-                            
-                        </li> */}
-                        {/* <li>
-                            <Link to ="/AddSale"
-                            href="/AddSale">Sale +
-                            </Link>
-                            
-                        </li> */}
+                        <li><a href="" onClick={logout}>Logout</a></li>
                         </>
                     ):(
                          // <li><a href="sign.html">Login</a></li>
-                        <li>
-                            <Link to ="/signup"
-                            href="/signup">sign up
-                            </Link>
-                        
-                        </li>
-                    
+                    <li>
+                        <Link to ="/signup"
+                            href="/signup">Signup
+                        </Link>
+                    </li>
                     )
                     }
                 
@@ -64,25 +50,16 @@ function Header() {
                             </Link>
                         </li>
                         <li className={`mx-2 ${(pageSelected === "customers") && 'active'}`}>
-                            <Link to="/AddCustomer" data-testid="customers" onClick={() => setPageSelected("customers")}>
+                            <Link to="/customers" data-testid="customers" onClick={() => setPageSelected("customers")}>
                                 Customers
                             </Link>
                         </li>
                         <li className={`mx-2 ${(pageSelected === "sales") && 'active'}`}>
-                            <Link to="/AddSale" data-testid="sales" onClick={() => setPageSelected("sales")}>
+                            <Link to="/sales" data-testid="sales" onClick={() => setPageSelected("sales")}>
                                 Sales
                             </Link>
                         </li>
-                        {/* <li className="mx-2">
-                            <Link to="/customer-graphs" data-testid="customerGraphs" onClick={() => setPageSelected("customerGraphs")}>
-                                Customers Graph
-                            </Link>
-                        </li>
-                        <li className="mx-2">
-                            <Link to="sales-graph" data-testid="salesGraph" onClick={() => setPageSelected("salesGraph")}>
-                                Sales Graph
-                            </Link>
-                        </li> */}
+                        
                     </ul>
                 </ul>
             </div>

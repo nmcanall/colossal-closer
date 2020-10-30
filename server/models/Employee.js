@@ -35,7 +35,7 @@ const employeeSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: timestamp => moment(timestamp).format('MMM Do, YYYY [at] hh:mm a')
+      get: timestamp => moment(timestamp).format('MMM DD, YYYY')
     },
 
     // Array of all customers defined in the Customer model

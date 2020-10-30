@@ -1,44 +1,95 @@
 import React from 'react';
+import {Link } from 'react-router-dom';
+
+import moment from 'moment'
+
+import {QUERY_EMPLOYEE} from '../../utils/queries'
+
+import {useQuery} from '@apollo/react-hooks'
 
 import ClosingPercent from '../../components/ClosingPercent';
 import CustomerStatusGraph from '../../components/CustomerStatusGraph';
 import SaleByTypeGraph from '../../components/SaleByTypeGraph';
+
+import Auth from '../../utils/auth';
 
 
 //import sample data
 
 
 const Dashboard = () => {
-    const customers = {
-        0: {
-            businessName: "Print Max",
-            contactName: "Bob Warner",
-            status: "active",
-            salesman: "Dwight Schrute",
-            createdAt: "01/22/2020", /*dont care about date format */
-            phone: "925-518-1195",
-            email: "bob@printmax.com",
-            sales: [
-                {
-                    product: "Glossy",
-                    dollars: 2500,
-                    units: 400
-                },
-                {
-                    product: "cardstock",
-                    dollars: 3200,
-                    units: 250
-                },
-            ]
+
+    let thisMonth = moment().startOf('month');
+    let thisYear = moment().startOf("year");
+    
+    const _id = Auth.getProfile().data._id
+
+    const { loading, data} = useQuery(QUERY_EMPLOYEE, {variables: {_id}})
+    const  employee  = data ? data.employee : {}
+
+    const totalSales = Math.round(employee.dollarsSold)
+
+    const won = employee.wonCustomerCount
+    // console.log('wonnnnn', won)
+    const lost = employee.lostCustomerCount
+    // console.log('lost', ost)
+    const active = employee.customerCount - won - lost;
+
+    let ytdSales = 0
+    let mtdSales= 0
+
+    let units = 0
+    let mtdUnits = 0
+    let recentTransactions = 0
+    let ytdTransactions = 0
+
+    if(data ){
+        console.log('main data',employee)
+        const customers = employee.customers
+        console.log('employee customers', customers)
+        // const numCustomers = customers.length
+        // const statuses = customers.status
+
+
+        for(const customer of customers){
+            for(const transaction of customer.transactions){
+                if(moment(transaction.createdAt).isSameOrAfter(thisYear)){
+                units += transaction.units
+                // console.log(transaction.dollars)
+                ytdSales += Math.round(transaction.dollars)
+
+                ytdTransactions++
+                
+                }
+                
+                if(moment(transaction.createdAt).isSameOrAfter(thisMonth)){
+                    mtdUnits += transaction.units
+                    mtdSales += Math.round(transaction.dollars)
+                    
+                }
+
+                if(moment(transaction.createdAt).isSameOrAfter(moment().subtract(7, 'days'))){
+                    recentTransactions ++
+                    
+                }
+
+                
+                
+            }
         }
+
+        // console.log('mtdunits',mtdUnits)
+        // console.log('did it work????', units)
+    
+        
     }
-    console.log(customers)
+    
 
 
-
+    if(loading){return(<div>Loading...</div>)}
     return(
-        <section className="container center">
-            <h5 className="center">Dwights Sales Dashboard</h5>
+        <section className="container center grey lighten-3" id="containers">
+            <h2 className="center">{employee.firstName}'s Sales Dashboard</h2>
 
             <div className="sales-data">
 
@@ -46,35 +97,35 @@ const Dashboard = () => {
 
                     <div className="col s12 m5 l3 ">
                         <div className="card-panel hoverable">
-                            <h5 className="center">MTD Sales</h5>
+                            <h6 className="center">YTD Sales</h6>
                             <h3 className=" center">
-                                $8,650
+                                ${ytdSales}
                             </h3>
                         </div>
                     </div>
 
                     <div className="col s12 m5 l3">
                         <div className="card-panel hoverable">
-                        <h5 className="center">YTD Sales</h5>
+                        <h6 className="center">MTD Sales</h6>
                             <h3 className=" center">
-                                $185,075
+                                ${mtdSales}
                             </h3>
                         </div>
                     </div>
 
                     <div className="col s12 m5 l3">
                         <div className="card-panel hoverable">
-                        <h5 className="center">MTD Units</h5>
+                        <h6 className="center">YTD Units</h6>
                             <h3 className=" center">
-                                485
+                                {units}
                             </h3>
                         </div>
                     </div>
                     <div className="col s12 m5 l3">
                         <div className="card-panel hoverable">
-                        <h5 className="center">YTD Units</h5>
+                        <h6 className="center">MTD Units</h6>
                             <h3 className=" center">
-                                9,865
+                                {mtdUnits}
                             </h3>
                         </div>
                     </div>
@@ -83,36 +134,37 @@ const Dashboard = () => {
                 <div className="row">
                     
 
+
                     <div className="col s12 m5 l3">
                         <div className="card-panel hoverable">
-                        <h5 className="center">Daily Actions</h5>
+                        <h6 className="center">Total Customers</h6>
                             <h3 className=" center">
-                                25
+                                {employee.customerCount}
                             </h3>
                         </div>
                     </div>
 
                     <div className="col s12 m5 l3">
                         <div className="card-panel ">
-                        <h5 className="center">Total Customers</h5>
+                        <h6 className="center ">Active Customers</h6>
                             <h3 className=" center">
-                                52
+                                {active}
                             </h3>
                         </div>
                     </div>
                     <div className="col s12 m5 l3">
                         <div className="card-panel ">
-                        <h5 className="center">Avtive Customers</h5>
+                        <h6 className="center">Transactions last 7 Days</h6>
                             <h3 className=" center">
-                                25
+                                {recentTransactions}
                             </h3>
                         </div>
                     </div>
                     <div className="col s12 m5 l3">
                         <div className="card-panel ">
-                        <h5 className="center">New Transactions</h5>
+                        <h6 className="center">YTD Transactions</h6>
                             <h3 className=" center">
-                                2
+                                {ytdTransactions}
                             </h3>
                         </div>
                     </div>
@@ -143,4 +195,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default Dashboard;
