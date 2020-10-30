@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-
+import { StoreProvider } from './utils/GlobalState'
 //pages and components
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -38,28 +38,29 @@ function App() {
     return (
         <ApolloProvider client={client}>
             <Router>
-                <div id="html">
-                    <Header/>
-                    <main className="">
-                        {loggedIn ? (
-                                <Switch>
-                                <Route exact path = '/' component = {Dashboard}/>
-                                <Route exact path = '/signup' component = {Signup}/>
-                                <Route exact path = '/customers' component = {AllCustomers}/>
-                                <Route exact path = '/sales' component = {AllTransactions}/>
-                                <Route exact path = '/customers/:customerId' component = {SingleCustomer}/>
-                                <Route component ={NoMatch}/>
-                                </Switch>
-                            ) : (
-                                <Switch>
-                                <Route exact path = '/signup' component = {Signup}/>
-                                <Route component = {Login} />
-                                </Switch>
-                            )}
-                    </main>
+                <StoreProvider>
+                    <div id="html">
+                        <Header/>
+                        <main className="">
+                            {loggedIn ? (
+                                    <Switch>
+                                    <Route exact path = '/' component = {Dashboard}/>
+                                    <Route exact path = '/signup' component = {Signup}/>
+                                    <Route exact path = '/customers' component = {AllCustomers}/>
+                                    {/* <Route exact path = '/customers/:customerId' component = {SingleCustomer}/> */}
+                                    <Route component ={NoMatch}/>
+                                    </Switch>
+                                ) : (
+                                    <Switch>
+                                    <Route exact path = '/signup' component = {Signup}/>
+                                    <Route component = {Login} />
+                                    </Switch>
+                                )}
+                        </main>
                         <Footer>
                         </Footer>
-                </div>
+                    </div>
+                </StoreProvider>
             </Router>
         </ApolloProvider>
     );

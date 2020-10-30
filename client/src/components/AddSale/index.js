@@ -9,9 +9,7 @@ const AddSale = (_id) => {
     const handleToggle = () => setShow(!show);
 
     const [formState, setFormState] = useState({ product: '', dollars: '', units: ''})
-
     const [addSale, { error }] = useMutation(ADD_TRANSACTION);
-
     const handleChange = (event) =>{
         const {name,value} = event.target
 

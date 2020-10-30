@@ -2,10 +2,11 @@ import React, {useState} from 'react'
 import {useMutation} from '@apollo/react-hooks';
 import {ADD_CUSTOMER} from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import { QUERY_CUSTOMERS } from '../../utils/queries';
 import {Box, Collapse} from '@chakra-ui/core'
+import { useStoreContext, ADD_STATE_CUSTOMERS } from '../../utils/GlobalState';
 
 function AddCustomer(){
+    const [state, dispatch] = useStoreContext()
     const [show, setShow] = React.useState(false)
     const handleToggle = () => setShow(!show)
 
@@ -13,19 +14,14 @@ function AddCustomer(){
 
     const [addCustomer, { error }] = useMutation(ADD_CUSTOMER, {
         update(cache, {data: {addCustomer} } ){
-            try{
-                const { customers } = cache.readQuery({ query: QUERY_CUSTOMERS});
-
-                cache.writeQuery({
-                    query: QUERY_CUSTOMERS,
-                    data: { customers: [addCustomer, ...customers]}
-                });
-            }catch(e){
-                console.error(e)
-            }
+            // We're not actually updating the cache because that kept breaking,
+            // we're just using the update callback to dispatch the info to our local state
+            dispatch({
+                type: ADD_STATE_CUSTOMERS,
+                customers: [{...addCustomer}]
+            })
         }
     });
-
 
     const handleChange = (event) =>{
         const {name,value} = event.target
@@ -38,7 +34,6 @@ function AddCustomer(){
 
     const handleAddCustomer = async (event) =>{
         event.preventDefault();
-        console.log('button clicked', formState)
         
         // use try/catch instead of promises to handle errors
         try{
@@ -46,11 +41,9 @@ function AddCustomer(){
         const { data } = await addCustomer({
             variables: { ...formState, },
         });
-        // Auth.getToken(data.addCustomer.token);
         } catch (e){
         console.error(e);
         }
-    
         setFormState({
             businessName : '', 
             contactName: '',
@@ -59,9 +52,6 @@ function AddCustomer(){
             status: ''
             
         })
-
-        
-        
     }
         
     
@@ -75,13 +65,12 @@ function AddCustomer(){
             </button>
             <div className="row" id="form-wrapper">
                 <Collapse mt={4} isOpen={show}>
-
                     <div className="col s12">
                         <div className="card " id="newCustomer">
 
                             <div className="card-content">
                                 <div className="row">
-                                    <form className="col s12" id="signup-form"  onSubmit={handleAddCustomer}>
+                                    <form className="col s12" id="add-customer-form"  onSubmit={handleAddCustomer}>
                                         <div className="row">
                                             <div className="input-field col s12">
                                                 <input 
