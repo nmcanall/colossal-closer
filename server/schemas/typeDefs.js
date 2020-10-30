@@ -64,7 +64,7 @@ const typeDefs = gql`
         ): Auth
 
         addCustomer(
-            businessName: String!
+            businessName: String
             contactName: String
             phone: String
             email: String
