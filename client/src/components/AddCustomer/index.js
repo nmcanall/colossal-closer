@@ -3,19 +3,14 @@ import {useMutation} from '@apollo/react-hooks';
 import {ADD_CUSTOMER} from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import {Box, Collapse} from '@chakra-ui/core'
-import { ADD_STATE_CUSTOMERS, useStoreContext } from '../../utils/GlobalState';
-    
+import { useStoreContext, ADD_STATE_CUSTOMERS } from '../../utils/GlobalState';
 
-const AddCustomer = () => {
+function AddCustomer(){
     const [state, dispatch] = useStoreContext()
-    const profile = Auth.getProfile().data.email
-    const headers = Auth.getToken();
-    const httpHeaders = profile + ' ' + headers
-    const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: ''})
-    const employeeId = Auth.getProfile._id
-    //to hide and unhide form
     const [show, setShow] = React.useState(false)
     const handleToggle = () => setShow(!show)
+
+    const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: ''})
 
     const [addCustomer, { error }] = useMutation(ADD_CUSTOMER, {
         update(cache, {data: {addCustomer} } ){

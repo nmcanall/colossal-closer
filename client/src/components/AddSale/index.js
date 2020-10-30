@@ -4,12 +4,7 @@ import {ADD_TRANSACTION} from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
 
-const AddSale = () => {
-    const profile = Auth.getProfile().data.email
-    const headers = Auth.getToken();
-    const httpHeaders = profile + ' ' + headers
-    console.log(httpHeaders)
-
+const AddSale = (_id) => {
     const [formState, setFormState] = useState({ product: '', dollars: '', units: ''})
     const [addSale, { error }] = useMutation(ADD_TRANSACTION);
     const handleChange = (event) =>{
@@ -31,11 +26,11 @@ const AddSale = () => {
         const { data } = await addSale({
             variables: { ...formState }
         });
-        Auth.login(data.addSale.token);
+        Auth.getToken(data.addSale.token);
         } catch (e){
         console.error(e);
         }
-        
+     
         setFormState({
             product : '', 
             dollars: '',
@@ -45,10 +40,8 @@ const AddSale = () => {
         
     }
     return (
-        <section id="login-page">
-            <div className="container center ">
                 
-                <div className="row" id="form-wrapper">
+                <div className="row center" id="form-wrapper">
 
                     <div className="col s12 m7 ">
                         <div className="card" id="signup-card">
@@ -67,10 +60,12 @@ const AddSale = () => {
                                                 />
                                                 <label htmlFor="product">Product Name</label>
                                             </div>
+                                        </div>
+                                        <div className="row">
                                             <div className="input-field col s12">
                                                 <input 
                                                 id="dollars" 
-                                                type="float" 
+                                                type="text" 
                                                 name="dollars"
                                                 value= {formState.dollars}
                                                 onChange={handleChange}
@@ -82,7 +77,7 @@ const AddSale = () => {
                                             <div className="input-field col s12">
                                                 <input
                                                     id="units" 
-                                                    type="int"
+                                                    type="text"
                                                     name="units"
                                                     value= {formState.units}
                                                     onChange={handleChange}
@@ -99,8 +94,6 @@ const AddSale = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
     )
 }
 

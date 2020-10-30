@@ -68,6 +68,7 @@ export const QUERY_CUSTOMERS = gql`
             transactions{
                 product
                 units
+                dollars
                 
             }
         }
@@ -90,6 +91,7 @@ export const QUERY_CUSTOMER = gql`
             contacts {
                 type
                 note
+                
             }
         }
     }
