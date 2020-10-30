@@ -6,12 +6,10 @@ import { QUERY_CUSTOMERS } from '../../utils/queries';
 import {Box, Collapse} from '@chakra-ui/core'
 
 function AddCustomer(){
-    
-    const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: ''})
-
-    //to hide and unhide form
     const [show, setShow] = React.useState(false)
     const handleToggle = () => setShow(!show)
+
+    const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: ''})
 
     const [addCustomer, { error }] = useMutation(ADD_CUSTOMER, {
         update(cache, {data: {addCustomer} } ){
@@ -38,7 +36,7 @@ function AddCustomer(){
         });
     };
 
-    const handleSignup = async (event) =>{
+    const handleAddCustomer = async (event) =>{
         event.preventDefault();
         console.log('button clicked', formState)
         
@@ -48,7 +46,7 @@ function AddCustomer(){
         const { data } = await addCustomer({
             variables: { ...formState, },
         });
-        Auth.getToken(data.addCustomer.token);
+        // Auth.getToken(data.addCustomer.token);
         } catch (e){
         console.error(e);
         }
@@ -83,7 +81,7 @@ function AddCustomer(){
 
                             <div className="card-content">
                                 <div className="row">
-                                    <form className="col s12" id="signup-form"  onSubmit={handleSignup}>
+                                    <form className="col s12" id="signup-form"  onSubmit={handleAddCustomer}>
                                         <div className="row">
                                             <div className="input-field col s12">
                                                 <input 

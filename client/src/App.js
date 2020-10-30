@@ -9,7 +9,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AllCustomers from './pages/AllCustomers';
 import NoMatch from './pages/NoMatch';
-import Auth from '../src/utils/auth'
+import Auth from '../src/utils/auth';
+import AllTransactions from './pages/AllTransactions';
 
 
 
@@ -17,6 +18,7 @@ import Auth from '../src/utils/auth'
 // import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
+
 
 const client = new ApolloClient({
     request: (operation) => {
@@ -43,6 +45,7 @@ function App() {
                                 <Route exact path = '/' component = {Dashboard}/>
                                 <Route exact path = '/signup' component = {Signup}/>
                                 <Route exact path = '/customers' component = {AllCustomers}/>
+                                <Route exact path = '/sales' component = {AllTransactions}/>
                                 {/* <Route exact path = '/customers/:customerId' component = {SingleCustomer}/> */}
                                 <Route component ={NoMatch}/>
                                 </Switch>
