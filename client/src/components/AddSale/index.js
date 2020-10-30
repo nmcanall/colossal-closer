@@ -32,7 +32,7 @@ const AddSale = () => {
         } catch (e){
         console.error(e);
         }
-        
+     
         setFormState({
             product : '', 
             dollars: '',

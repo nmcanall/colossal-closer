@@ -6,12 +6,10 @@ import { QUERY_CUSTOMERS } from '../../utils/queries';
 import {Box, Collapse} from '@chakra-ui/core'
 
 function AddCustomer(){
-    
-    const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: ''})
-
-    //to hide and unhide form
     const [show, setShow] = React.useState(false)
     const handleToggle = () => setShow(!show)
+
+    const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: ''})
 
     const [addCustomer, { error }] = useMutation(ADD_CUSTOMER, {
         update(cache, {data: {addCustomer} } ){
