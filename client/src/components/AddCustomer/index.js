@@ -2,29 +2,27 @@ import React, {useState} from 'react'
 import {useMutation} from '@apollo/react-hooks';
 import {ADD_CUSTOMER} from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import { QUERY_CUSTOMERS } from '../../utils/queries';
 import {Box, Collapse} from '@chakra-ui/core'
-
-function AddCustomer(){
+import { ADD_STATE_CUSTOMERS, useStoreContext } from '../../utils/GlobalState';
     
-    const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: ''})
 
+const AddCustomer = () => {
+    const [state, dispatch] = useStoreContext()
+    const profile = Auth.getProfile().data.email
+    const headers = Auth.getToken();
+    const httpHeaders = profile + ' ' + headers
+    const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: ''})
+    const employeeId = Auth.getProfile._id
     //to hide and unhide form
     const [show, setShow] = React.useState(false)
     const handleToggle = () => setShow(!show)
 
     const [addCustomer, { error }] = useMutation(ADD_CUSTOMER, {
         update(cache, {data: {addCustomer} } ){
-            try{
-                const { customers } = cache.readQuery({ query: QUERY_CUSTOMERS});
-
-                cache.writeQuery({
-                    query: QUERY_CUSTOMERS,
-                    data: { customers: [addCustomer, ...customers]}
-                });
-            }catch(e){
-                console.error(e)
-            }
+            dispatch({
+                type: ADD_STATE_CUSTOMERS,
+                customers: [{...addCustomer}]
+            })
         }
     });
 
@@ -38,9 +36,8 @@ function AddCustomer(){
         });
     };
 
-    const handleSignup = async (event) =>{
+    const handleAddCustomer = async (event) =>{
         event.preventDefault();
-        console.log('button clicked', formState)
         
         // use try/catch instead of promises to handle errors
         try{
@@ -48,7 +45,6 @@ function AddCustomer(){
         const { data } = await addCustomer({
             variables: { ...formState, },
         });
-        Auth.getToken(data.addCustomer.token);
         } catch (e){
         console.error(e);
         }
@@ -83,7 +79,7 @@ function AddCustomer(){
 
                             <div className="card-content">
                                 <div className="row">
-                                    <form className="col s12" id="signup-form"  onSubmit={handleSignup}>
+                                    <form className="col s12" id="add-customer-form"  onSubmit={handleAddCustomer}>
                                         <div className="row">
                                             <div className="input-field col s12">
                                                 <input 

@@ -5,10 +5,13 @@ import Auth from '../../utils/auth';
 
 
 const AddSale = () => {
+    const profile = Auth.getProfile().data.email
+    const headers = Auth.getToken();
+    const httpHeaders = profile + ' ' + headers
+    console.log(httpHeaders)
+
     const [formState, setFormState] = useState({ product: '', dollars: '', units: ''})
-
     const [addSale, { error }] = useMutation(ADD_TRANSACTION);
-
     const handleChange = (event) =>{
         const {name,value} = event.target
 

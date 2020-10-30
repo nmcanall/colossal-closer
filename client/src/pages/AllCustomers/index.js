@@ -12,7 +12,7 @@ const AllCustomers = () =>{
             <h4 className="center">
                 {employee.firstName}'s Working List
             </h4>
-            <CustomerList _id={employee._id}></CustomerList>
+            <CustomerList _id={employee._id} ></CustomerList>
         </div>
     )
 }
