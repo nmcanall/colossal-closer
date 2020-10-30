@@ -14,13 +14,14 @@ function AddCustomer(){
 
     const [addCustomer, { error }] = useMutation(ADD_CUSTOMER, {
         update(cache, {data: {addCustomer} } ){
+            // We're not actually updating the cache because that kept breaking,
+            // we're just using the update callback to dispatch the info to our local state
             dispatch({
                 type: ADD_STATE_CUSTOMERS,
                 customers: [{...addCustomer}]
             })
         }
     });
-
 
     const handleChange = (event) =>{
         const {name,value} = event.target
@@ -43,7 +44,6 @@ function AddCustomer(){
         } catch (e){
         console.error(e);
         }
-    
         setFormState({
             businessName : '', 
             contactName: '',
@@ -52,9 +52,6 @@ function AddCustomer(){
             status: ''
             
         })
-
-        
-        
     }
         
     
@@ -68,7 +65,6 @@ function AddCustomer(){
             </button>
             <div className="row" id="form-wrapper">
                 <Collapse mt={4} isOpen={show}>
-
                     <div className="col s12">
                         <div className="card " id="newCustomer">
 
