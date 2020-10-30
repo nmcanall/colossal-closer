@@ -10,7 +10,7 @@ const AllTransactions = () =>{
     
     return (
         <div className= "container grey lighten-3" id="containers">
-                {/* <AddSale></AddSale> */}
+                <AddSale _id={employee._id}></AddSale>
             <h4 className="center">
                 {employee.firstName}'s Lifetime Sales
             </h4>

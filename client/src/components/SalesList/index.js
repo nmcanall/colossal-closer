@@ -13,7 +13,9 @@ const SalesList = ({_id}) =>{
         
     //     const transactions = customers.transaction
         for(const customer of customers){
+            const bizName = customer.businessName
             for(const transaction of customer.transactions){
+                transaction.businessName=bizName
                 transactionsArr.push(transaction)
                 
             }
