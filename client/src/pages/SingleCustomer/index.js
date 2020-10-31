@@ -3,50 +3,55 @@ import {useParams} from 'react-router-dom'
 import AddSale from '../../components/AddSale'
 import {useQuery} from '@apollo/react-hooks';
 import {QUERY_CUSTOMER} from '../../utils/queries'
+import moment from 'moment'
 
 const SingleCustomer = () =>{
     const {id} = useParams();
     const _id = id.trim()
 
-    console.log('singleid', _id)
+    // console.log('singleid', _id)
     const { loading, data} = useQuery(QUERY_CUSTOMER, {variables: {_id}})
     
     const  customer  = data ? data.customer : {}
     console.log('thisworks', customer)
     
     let transArr =[]
+    
     if(data){
         for(const transaction of customer.transactions){
-            console.log(transaction)
+            
             transArr.push(transaction)
         }
     }
-    
 
 
     return(
         <div className="container">
             
             <AddSale _id={id}></AddSale>
-            <div className="row center grey lighten-3">
-                <h2>{customer.businessName}</h2>
+            <div className="row center valign-wrapper">
+                <div className="card-panel col s8 offset-s2 center grey lighten-3 z-depth-3">
+                    <h2>{customer.businessName}</h2>
+                </div>
             </div>
-            <div class="row">
-                <div class="col s12 m5">
-                    <div class="card-panel grey lighten-3">
+            <div className="row  valign-wrapper center">
+                <div className="col s12 m5 cust-info card-panel grey lighten-3 z-depth-3">
+                    <div className=" grey lighten-3 ">
                         <h4>
                             Customer Info
                         </h4>
+                        <div className="">
                         <p><strong className="blue-text text-darken-2">Company Name:</strong> {`  ${customer.businessName}` }</p>
                         <p><strong className="blue-text text-darken-2">Contact Name:</strong>{`  ${customer.contactName}` }</p>
                         <p><strong className="blue-text text-darken-2">Phone:</strong><a href={`tel:${customer.phone}`}>{`  ${customer.phone}` }</a></p>
                         <p><strong className="blue-text text-darken-2">Email:</strong> <a href={`mailto:${customer.email}`}>{`  ${customer.email}` }</a></p>
-
+                        </div>
                     </div>
                 </div>
-                <div class="col s12 m7">
-                    <div class="card-panel grey lighten-3">
-                        <h4>Last 5 Transactions</h4>
+                <div className="col s12 m6 card-panel grey lighten-3 z-depth-3">
+                    <div className=" grey lighten-3 ">
+                            <h4>Last 5 Transactions</h4>
+                        
                         <table>
                             <thead>
                                 <tr>
@@ -70,6 +75,7 @@ const SingleCustomer = () =>{
                                 
                             </tbody>
                         </table>
+                        
                 
                     </div>
                 </div>

@@ -31,10 +31,7 @@ function AddCustomer(){
             [name]: value
         });
     };
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('select');
-        // var instances = M.FormSelect.init(elems, options);
-      });
+    
 
     const handleAddCustomer = async (event) =>{
         event.preventDefault();
@@ -136,7 +133,7 @@ function AddCustomer(){
                                                 <label htmlFor="status">Status</label>
                                             </div>
                                         </div>
-                                        <button className="blue lighten-3 waves-effect waves-light btn" type="submit" >Add Customer</button>
+                                        <button className="blue lighten-3 waves-effect waves-light btn" type="submit" onClick={handleToggle}>Add Customer</button>
                                     </form>
                                 </div>
                             </div>

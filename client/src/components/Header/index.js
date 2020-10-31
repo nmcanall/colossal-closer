@@ -31,8 +31,8 @@ function Header() {
                     ):(
                          // <li><a href="sign.html">Login</a></li>
                     <li>
-                        <Link to ="/signup"
-                            href="/signup">Signup
+                        <Link to ="/signup">
+                            Signup
                         </Link>
                     </li>
                     )
