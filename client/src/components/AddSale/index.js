@@ -19,7 +19,7 @@ const AddSale = (_id) => {
         });
     };
 
-    const handleSignup = async (event) =>{
+    const handleAddSale = async (event) =>{
         event.preventDefault();
         console.log('button clicked', formState)
         
@@ -57,7 +57,7 @@ const AddSale = (_id) => {
 
                                 <div className="card-content">
                                     <div className="row">
-                                        <form className="col s12" id="signup-form"  onSubmit={handleSignup}>
+                                        <form className="col s12" id="signup-form"  onSubmit={handleAddSale}>
                                             <div className="row">
                                                 <div className="input-field col s12">
                                                     <input 
