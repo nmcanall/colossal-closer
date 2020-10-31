@@ -31,6 +31,10 @@ function AddCustomer(){
             [name]: value
         });
     };
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        // var instances = M.FormSelect.init(elems, options);
+      });
 
     const handleAddCustomer = async (event) =>{
         event.preventDefault();
@@ -119,7 +123,6 @@ function AddCustomer(){
                                                 <label htmlFor="phone">Phone #</label>
                                             </div>
                                         </div>
-
                                         <div className="row">
                                             <div className="input-field col s12">
                                             
@@ -133,7 +136,6 @@ function AddCustomer(){
                                                 <label htmlFor="status">Status</label>
                                             </div>
                                         </div>
-
                                         <button className="blue lighten-3 waves-effect waves-light btn" type="submit" >Add Customer</button>
                                     </form>
                                 </div>

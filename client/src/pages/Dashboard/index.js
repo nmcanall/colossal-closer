@@ -23,8 +23,10 @@ const Dashboard = () => {
     let thisYear = moment().startOf("year");
     
     const _id = Auth.getProfile().data._id
+    
 
     const { loading, data} = useQuery(QUERY_EMPLOYEE, {variables: {_id}})
+    console.log('thisworks', data)
     const  employee  = data ? data.employee : {}
 
     const totalSales = Math.round(employee.dollarsSold)

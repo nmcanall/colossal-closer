@@ -17,34 +17,35 @@ export const QUERY_EMPLOYEES = gql`
     }
 `
 export const QUERY_EMPLOYEE = gql`
-    query getEmployee($_id: ID!) {
-        employee(_id: $_id) {
-            firstName
-            lastName
-            customerCount
-            activeCustomerCount
-            wonCustomerCount
-            lostCustomerCount
+query getEmployee($_id: ID!) {
+    employee(_id: $_id) {
+        firstName
+        lastName
+        customerCount
+        activeCustomerCount
+        wonCustomerCount
+        lostCustomerCount
+        dollarsSold
+        customers {
+            _id
+            businessName
+            createdAt
+            email
+            phone
+            status
             dollarsSold
-            customers {
+            transactionsWon
+            transactions{
                 _id
-                
-                businessName
+                product
+                dollars
+                units
                 createdAt
-                status
-                dollarsSold
-                transactionsWon
-                transactions{
-                    _id
-                    product
-                    dollars
-                    units
-                    createdAt
 
-                }
             }
         }
     }
+}
 `
 export const QUERY_CUSTOMERS = gql`
     query getCustomers($_id: ID) {
@@ -75,8 +76,8 @@ export const QUERY_CUSTOMERS = gql`
     }
 `
 export const QUERY_CUSTOMER = gql`
-    query getCustomer($_id: ID) {
-        customers(_id: $_id ) {
+    query getCustomer($_id: ID!) {
+        customer(_id: $_id ) {
             businessName
             contactName
             phone
@@ -92,6 +93,11 @@ export const QUERY_CUSTOMER = gql`
                 type
                 note
                 
+            }
+            transactions{
+                product
+                dollars
+                createdAt
             }
         }
     }
