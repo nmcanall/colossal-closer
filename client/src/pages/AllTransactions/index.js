@@ -9,13 +9,15 @@ const AllTransactions = () =>{
     const employee = Auth.getProfile().data
     
     return (
-        <div className= "container grey lighten-3" id="containers">
-                
-            <h4 className="center">
-                {employee.firstName}'s Lifetime Sales
-            </h4>
-            <SalesList _id={employee._id}></SalesList>
-        </div>
+        <section className="main-container">
+            <div className= "container grey lighten-3" id="content-wrap">
+                    
+                <h4 className="center">
+                    {employee.firstName}'s Lifetime Sales
+                </h4>
+                <SalesList _id={employee._id}></SalesList>
+            </div>
+        </section>
     )
 
 }
