@@ -31,7 +31,8 @@ const resolvers = {
         customer: async (parent, {_id}) => {
             return Customer.findOne({_id})
                 .select("-__v -password")
-                .populate("salesman");
+                .populate("salesman")
+                .sort({"transactions.dollars": -1});
         }
     },
     Mutation: {
