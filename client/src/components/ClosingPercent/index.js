@@ -18,7 +18,7 @@ const ClosingPercent = () =>{
         percentage=0
     }
     
-
+    if(loading){return(<div>Loading...</div>)}
     return(
         <div>
             <h3>Closing Percentage</h3>

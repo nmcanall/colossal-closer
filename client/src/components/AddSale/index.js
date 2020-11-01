@@ -3,15 +3,28 @@ import {useMutation} from '@apollo/react-hooks';
 import {ADD_TRANSACTION} from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import {Box, Collapse, Select} from '@chakra-ui/core'
+import { useStoreContext, ADD_STATE_TRANSACTIONS } from '../../utils/GlobalState';
+
 
 const AddSale = (id) => {
-    console.log('top of form', id)
+    // console.log('top of form', id)
+    const [state, dispatch] = useStoreContext();
 
     const [show, setShow] = React.useState(false);
     const handleToggle = () => setShow(!show);
     const [formState, setFormState] = useState({ product: '', dollars: 0, units: 0})
 
-    const [addSale, { error }] = useMutation(ADD_TRANSACTION);
+    const [addSale, { error }] = useMutation(ADD_TRANSACTION, {
+        update(cache, {data: {addSale} } ){
+            console.log('addddddd sale', addSale)
+            // dispatch({
+            //     type: ADD_STATE_TRANSACTIONS,
+            //     transactions: [{...addSale}]
+            // })
+        }
+    });
+    
+    
     const handleChange = (event) =>{
         const {name,value} = event.target
 
@@ -35,8 +48,16 @@ const AddSale = (id) => {
         try{
         //execute addUser mutation and pass in variable data from form
         const { data } = await addSale({
+            
             variables: { product, dollars, units, customerId:_id}
         });
+        console.log('fulldata',data)
+        const newTransData = data.addTransaction.transactions[0]
+        dispatch({
+            type: ADD_STATE_TRANSACTIONS,
+            transactions: [{...newTransData}]
+        })
+        
         
         } catch (e){
         console.error(e);
@@ -45,8 +66,8 @@ const AddSale = (id) => {
     
         setFormState({
             product : '', 
-            dollars: '',
-            units: ''
+            dollars: 0,
+            units: 0
             
         })
         
@@ -85,7 +106,7 @@ const AddSale = (id) => {
                                                     id="dollars" 
                                                     type="number" 
                                                     name="dollars"
-                                                    value= {parseFloat(formState.dollars)}
+                                                    value= {formState.dollars}
                                                     onChange={handleChange}
                                                     />
                                                     <label htmlFor="dollars">Dollar amount:</label>
@@ -97,7 +118,7 @@ const AddSale = (id) => {
                                                         id="units" 
                                                         type="number"
                                                         name="units"
-                                                        value= {parseFloat(formState.units)}
+                                                        value= {formState.units}
                                                         onChange={handleChange}
                                                     />
                                                     <label htmlFor="units"># of units</label>

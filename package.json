@@ -14,8 +14,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.12",
     "dotenv": "^8.2.0",
     "if-env": "^1.0.4",
+    "materialize-css": "^1.0.0-rc.2",
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
