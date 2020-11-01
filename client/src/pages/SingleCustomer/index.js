@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom'
 import AddSale from '../../components/AddSale'
 import {useQuery} from '@apollo/react-hooks';
@@ -11,45 +11,38 @@ import CustomerSaleByTypeGraph from '../../components/CustomerSaleByType';
 
 const SingleCustomer = () =>{
     const {id} = useParams();
+    const thisMonth = moment().startOf('month');
     const _id = id.trim()
     // console.log('neds',_id)
     const [state, dispatch] = useStoreContext()
+    const [totalSales, setTotalSales] = useState(0)
+    const [mtdSales, setMtdSales] = useState(0)
 
-    let thisMonth = moment().startOf('month');
-
-    console.log('singleid', _id)
     const { loading, data} = useQuery(QUERY_CUSTOMER, {variables: {_id}})
-    
-    const  customer  = data ? data.customer : []
-    const customerTransactions = data ? data.customer.transactions : []
-    // console.log('thisworks', customer)
-    
-    let transArr =[]
-    let mtdSales=0
-    
+    const  customer  = data ? data.customer : {}
+    const transactions = state.transactions[id] || []
 
-        const { transactions } = state
-        useEffect(() => {
-            if (customerTransactions && !transactions.length) {
-                dispatch({
-                    type: ADD_STATE_TRANSACTIONS,
-                    transactions: customerTransactions
-                    
-                })
+    useEffect(() => {
+        if (data && !state.transactions[id]) {
+            dispatch({
+                type: ADD_STATE_TRANSACTIONS,
+                transactions: {[id]: data.customer.transactions}
+            })
+        }
+        let totalDollars = 0
+        let monthDollars = 0
+        console.log(transactions)
+        for (const transaction of transactions) {
+            totalDollars += Math.round(transaction.dollars)
+            if(moment(transaction.createdAt).isSameOrAfter(thisMonth)){
+                monthDollars += Math.round(transaction.dollars)
             }
-            console.log('fromstatefkjkf',transactions)
-        }, [data, dispatch, transactions, customerTransactions, ADD_STATE_TRANSACTIONS])
+            setMtdSales(monthDollars)
+            setTotalSales(totalDollars)
+        }
+    }, [data, state.transactions, dispatch, transactions])
                 
-            console.log('thigkang', customerTransactions)
-            for(const transaction of customerTransactions){
-                // const dollars = Number(transaction.dollars);
-                
-                transArr.push(transaction)
-                if(moment(transaction.createdAt).isSameOrAfter(thisMonth)){
-                    
-                    mtdSales += Math.round(transaction.dollars)
-                }
-            }
+
         
 
 
@@ -57,7 +50,7 @@ const SingleCustomer = () =>{
         <div className="container">
             <div className="card-panel center grey lighten-3 center col s12">
                 
-                <AddSale _id={id}></AddSale>
+                <AddSale customerId={id}></AddSale>
                 <div className="row center valign-wrapper">
                     <div className=" col s7 offset-s2 center ">
                         <h2 className="">{customer.businessName}</h2>
@@ -91,17 +84,13 @@ const SingleCustomer = () =>{
                                 </thead>
 
                                 <tbody>
-                                    {transArr.slice(0,5).map((transaction, i) => (
-                                        
+                                    {transactions.slice(Math.max(transactions.length - 5, 0)).map((transaction, i) => (
                                         <tr key={i}>
-                                            
                                             <td>{transaction.createdAt}</td>
                                             <td>{transaction.product}</td>
                                             <td>${Math.round(transaction.dollars)}</td>
                                         </tr>
-                                        
                                     ))}
-                                    
                                 </tbody>
                             </table>
                             
@@ -115,7 +104,7 @@ const SingleCustomer = () =>{
                             <div className="card-panel hoverable">
                                 <h6 className="center">All Time Sales</h6>
                                 <h3 className=" center">
-                                    ${customer.dollarsSold}
+                                    ${totalSales}
                                 </h3>
                             </div>
                         </div>

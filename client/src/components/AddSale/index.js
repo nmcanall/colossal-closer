@@ -6,7 +6,7 @@ import {Box, Collapse, Select} from '@chakra-ui/core'
 import { useStoreContext, ADD_STATE_TRANSACTIONS } from '../../utils/GlobalState';
 
 
-const AddSale = (id) => {
+const AddSale = ({ customerId }) => {
     // console.log('top of form', id)
     const [state, dispatch] = useStoreContext();
 
@@ -14,15 +14,7 @@ const AddSale = (id) => {
     const handleToggle = () => setShow(!show);
     const [formState, setFormState] = useState({ product: '', dollars: 0, units: 0})
 
-    const [addSale, { error }] = useMutation(ADD_TRANSACTION, {
-        update(cache, {data: {addSale} } ){
-            console.log('addddddd sale', addSale)
-            // dispatch({
-            //     type: ADD_STATE_TRANSACTIONS,
-            //     transactions: [{...addSale}]
-            // })
-        }
-    });
+    const [addSale, { error }] = useMutation(ADD_TRANSACTION);
     
     
     const handleChange = (event) =>{
@@ -41,23 +33,23 @@ const AddSale = (id) => {
         const units = Number(formState.units);
         const product = formState.product;
 
-        const { _id } = id
-        console.log('button clicked', formState, _id)
+        
+        // console.log('button clicked', formState, customerId)
         // use try/catch instead of promises to handle errors
 
         try{
         //execute addUser mutation and pass in variable data from form
         const { data } = await addSale({
             
-            variables: { product, dollars, units, customerId:_id}
+            variables: { product, dollars, units, customerId}
         });
         console.log('fulldata',data)
-        const newTransData = data.addTransaction.transactions[0]
+        const newTransData = data.addTransaction.transactions.pop()
         dispatch({
             type: ADD_STATE_TRANSACTIONS,
-            transactions: [{...newTransData}]
+            transactions: { [customerId]: [...state.transactions[customerId], newTransData]}
         })
-        
+        console.log("state after add", state.transactions[customerId])
         
         } catch (e){
         console.error(e);
@@ -87,7 +79,7 @@ const AddSale = (id) => {
 
                                 <div className="card-content">
                                     <div className="row">
-                                        <form className="col s12" id="signup-form"  onSubmit={handleAddSale}>
+                                        <form className="col s12" id="add-sale"  onSubmit={handleAddSale}>
                                             <div className="row">
                                                 <div className="input-field col s12">
                                                     <input 

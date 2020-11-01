@@ -9,28 +9,18 @@ function reducer(state, action) {
         case ADD_STATE_CUSTOMERS:
             return {...state, customers: [...state.customers, ...action.customers]}
         case ADD_STATE_TRANSACTIONS:
-            return {...state, transactions: [...state.transactions, ...action.transactions]}
+            return {...state, transactions: {...state.transactions, ...action.transactions}}
         default:
             return state
     }
 }
 
-// const ADD_STATE_TRANSACTIONS = "ADD_STATE_TRANSACTIONS"
-// // reducers
-// function reducer(state, action) {
-//     switch(action.type) {
-//         case ADD_STATE_TRANSACTIONS:
-//             return {...state, transactions: [...state.transactions, ...action.transactions]}
-//         default:
-//             return state
-//     }
-// }
-// context
+
 const StoreContext = createContext()
 const { Provider } = StoreContext
 
 function StoreProvider({value=[], ...props}) {
-    const [state, dispatch] = useReducer(reducer, {customers: [], transactions:[]})
+    const [state, dispatch] = useReducer(reducer, {customers: [], transactions:{}})
     return <Provider value={[state, dispatch]} {...props} />
 }
 const useStoreContext = () => useContext(StoreContext)
