@@ -41,7 +41,7 @@ function App() {
                 <StoreProvider>
                     <div id="html">
                         <Header/>
-                        <main className="">
+                        <main className="" id="content-wrap">
                             {loggedIn ? (
                                     <Switch>
                                     <Route exact path = '/' component = {Dashboard}/>
@@ -58,7 +58,7 @@ function App() {
                                     </Switch>
                                 )}
                         </main>
-                        <Footer>
+                        <Footer id="footer">
                         </Footer>
                     </div>
                 </StoreProvider>
