@@ -33,7 +33,10 @@ const Login = (props) => {
                 variables: {...formState}
             });
             Auth.login(data.login.token)
-        }catch (e){
+        }catch (e) {
+            if(e.message.includes("Incorrect credentials")) {
+                window.alert("Email or password is incorrect.");
+            }
             console.error(e)
         }
 
