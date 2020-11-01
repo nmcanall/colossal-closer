@@ -23,7 +23,7 @@ const ClosingPercent = () =>{
         <div>
             <h3>Closing Percentage</h3>
             <CircularProgress 
-                value={45} 
+                value={percentage} 
                 color="green"
                 size= "17em"
                 thickness={0.4}

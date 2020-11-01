@@ -31,6 +31,7 @@ function AddCustomer(){
             [name]: value
         });
     };
+    
 
     const handleAddCustomer = async (event) =>{
         event.preventDefault();
@@ -56,7 +57,7 @@ function AddCustomer(){
         
     
     return (
-        <div className="container center ">
+        <div className="row center ">
             <button 
             className=" btn right blue lighten-3 waves-effect waves-lightn new-customer " id=""
             onClick={handleToggle}
@@ -119,7 +120,6 @@ function AddCustomer(){
                                                 <label htmlFor="phone">Phone #</label>
                                             </div>
                                         </div>
-
                                         <div className="row">
                                             <div className="input-field col s12">
                                             
@@ -133,8 +133,7 @@ function AddCustomer(){
                                                 <label htmlFor="status">Status</label>
                                             </div>
                                         </div>
-
-                                        <button className="blue lighten-3 waves-effect waves-light btn" type="submit" >Add Customer</button>
+                                        <button className="blue lighten-3 waves-effect waves-light btn" type="submit" onClick={handleToggle}>Add Customer</button>
                                     </form>
                                 </div>
                             </div>

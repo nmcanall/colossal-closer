@@ -24,7 +24,6 @@ body {
   }
 
   #login-page{
-    /* background-image: url(../src/assets/mobile-background.jpg); */
     background-Position: center;
     background-Size: cover;
     background-Repeat: no-repeat;
@@ -49,4 +48,5 @@ body {
   padding: 0;
   
 }
+
 

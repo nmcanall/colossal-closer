@@ -20,24 +20,26 @@ const CustomerList = ({ _id }) => {
         return <div>Loading...</div>
     }
     return (
-        <div className="">
+        <div className="container">
             <table>
                 <thead>
                     <tr>
                         <th>Company</th>
-                        <th>Status</th>
+                        <th>Phone</th>
                         <th>Sales</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {customers.map((customer, i) => (
+                        
                         <tr key={i}>
                             
                             <td><Link to={`/customers/${customer._id}`}>{customer.businessName}</Link></td>
                             <td>{customer.phone}</td>
                             <td>${Math.round(customer.dollarsSold)}</td>
                         </tr>
+                        
                     ))}
                     
                 </tbody>

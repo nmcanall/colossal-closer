@@ -2,6 +2,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_CUSTOMERS } from '../../utils/queries';
+import {Link} from 'react-router-dom';
 
 const SalesList = ({_id}) =>{
     console.log('dat id doe', _id)
@@ -14,7 +15,9 @@ const SalesList = ({_id}) =>{
     //     const transactions = customers.transaction
         for(const customer of customers){
             const bizName = customer.businessName
+            const customerId = customer._id
             for(const transaction of customer.transactions){
+                transaction.customerId=customerId
                 transaction.businessName=bizName
                 transactionsArr.push(transaction)
                 
@@ -24,8 +27,8 @@ const SalesList = ({_id}) =>{
     console.log('dat arrr doe', transactionsArr)
 
     return(
-        <div className="">
-            hello world
+        <div className=" container">
+            
             <table>
                 <thead>
                     <tr>
@@ -39,7 +42,7 @@ const SalesList = ({_id}) =>{
                     {transactionsArr.map((transaction, i) => (
                         <tr key={i}>
                             
-                            <td>{transaction.businessName}</td>
+                            <td><Link to={`/customers/${transaction.customerId}`}>{transaction.businessName}</Link></td>
                             <td>{transaction.product}</td>
                             <td>${Math.round(transaction.dollars)}</td>
                         </tr>
