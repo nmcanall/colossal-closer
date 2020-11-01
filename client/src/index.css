@@ -23,6 +23,10 @@ body {
     margin-bottom: 2em
   }
 
+  select {
+    display: inline-block;
+  }
+
   #login-page{
     background-Position: center;
     background-Size: cover;

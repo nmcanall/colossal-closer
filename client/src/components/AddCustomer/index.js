@@ -32,18 +32,35 @@ function AddCustomer(){
         });
     };
     
+    // Remove empty properties of formState
+    const clean = function(form) {
+        for(let propName in form) {
+            if(!form[propName]) {
+                delete form[propName];
+            }
+        }
+        return form;
+    }
 
     const handleAddCustomer = async (event) =>{
         event.preventDefault();
         
         // use try/catch instead of promises to handle errors
         try{
-        //execute addUser mutation and pass in variable data from form
-        const { data } = await addCustomer({
-            variables: { ...formState, },
-        });
+            //execute addUser mutation and pass in variable data from form
+            const cleanForm = clean(formState);
+            console.log(cleanForm);
+            const { data } = await addCustomer({
+                variables: { ...formState, },
+            });
         } catch (e){
-        console.error(e);
+            if(e.message.includes("`businessName` is required")) {
+                window.alert("You must input a business name");
+            }
+            else if(e.message.contains("")) {
+
+            }
+            console.error(e);
         }
         setFormState({
             businessName : '', 
@@ -81,7 +98,7 @@ function AddCustomer(){
                                                 value= {formState.businessName}
                                                 onChange={handleChange}
                                                 />
-                                                <label htmlFor="businessName">Business Name</label>
+                                                <label htmlFor="businessName">Business Name (required)</label>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -121,16 +138,18 @@ function AddCustomer(){
                                             </div>
                                         </div>
                                         <div className="row">
-                                            <div className="input-field col s12">
-                                            
-                                                <input
+                                            <div className="input-field col s4">
+                                                <select
                                                     id="status" 
-                                                    type="text"
                                                     name="status"
-                                                    value= {formState.status}
+                                                    value={formState.status}
                                                     onChange={handleChange}
-                                                />
-                                                <label htmlFor="status">Status</label>
+                                                >
+                                                    <option value="" disabled hidden>Select a status</option>
+                                                    <option value="active">Active</option>
+                                                    <option value="won">Won</option>
+                                                    <option value="lost">Lost</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <button className="blue lighten-3 waves-effect waves-light btn" type="submit" onClick={handleToggle}>Add Customer</button>
