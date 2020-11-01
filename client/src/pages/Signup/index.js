@@ -46,6 +46,15 @@ const Signup = () => {
                 password: ''
             });
         } catch (e){
+            // Ensure user input all fields
+            if(e.message.includes("is required")) {
+                window.alert("You must complete all fields.");
+                setFormState({
+                    password: ''
+                });
+            }
+            
+            // Ensure user used a @colossalcloser email
             if(e.message.includes("valid Colossal Closer email")) {
                 window.alert("You must use a valid Colossal Closer email address.");
                 setFormState({
