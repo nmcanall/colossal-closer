@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import M from 'materialize-css/dist/js/materialize.min.js'
 import {useMutation} from '@apollo/react-hooks';
-import {ADD_CUSTOMER} from '../../utils/mutations';
+import {ADD_CUSTOMER,} from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import {Box, Collapse} from '@chakra-ui/core'
 import { useStoreContext, ADD_STATE_CUSTOMERS } from '../../utils/GlobalState';
@@ -15,18 +15,9 @@ function AddCustomer(){
     const [show, setShow] = React.useState(false)
     const handleToggle = () => setShow(!show)
 
-    const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: ''})
+    const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: 'active'})
 
-    const [addCustomer, { error }] = useMutation(ADD_CUSTOMER, {
-        update(cache, {data: {addCustomer} } ){
-            // We're not actually updating the cache because that kept breaking,
-            // we're just using the update callback to dispatch the info to our local state
-            dispatch({
-                type: ADD_STATE_CUSTOMERS,
-                customers: [{...addCustomer}]
-            })
-        }
-    });
+    const [addCustomer, { error }] = useMutation(ADD_CUSTOMER);
 
     const handleChange = (event) =>{
         const {name,value} = event.target
@@ -44,9 +35,11 @@ function AddCustomer(){
         // use try/catch instead of promises to handle errors
         try{
         //execute addUser mutation and pass in variable data from form
-        const { data } = await addCustomer({
-            variables: { ...formState, },
-        });
+        const { data } = await addCustomer({ variables: { ...formState, } });
+        dispatch({
+            type: ADD_STATE_CUSTOMERS,
+            customers: [{...data.addCustomer}]
+        })
         } catch (e){
         console.error(e);
         }
@@ -55,7 +48,7 @@ function AddCustomer(){
             contactName: '',
             phone: '',
             email: '',
-            status: ''
+            status: 'active'
             
         })
     }
@@ -134,9 +127,9 @@ function AddCustomer(){
                                                     value= {formState.status}
                                                     onChange={handleChange}
                                                 >
-                                                    <option value="active">active</option>
-                                                    <option value="won">won</option>
-                                                    <option value="lost">lost</option>
+                                                    <option name="status" value="active">active</option>
+                                                    <option name="status" value="won">won</option>
+                                                    <option name="status" value="lost">lost</option>
                                                 </select>
                                                 <label htmlFor="status">Status</label>
                                             </div>

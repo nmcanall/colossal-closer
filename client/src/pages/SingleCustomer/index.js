@@ -4,7 +4,7 @@ import AddSale from '../../components/AddSale'
 import {useQuery} from '@apollo/react-hooks';
 import {QUERY_CUSTOMER} from '../../utils/queries'
 import moment from 'moment'
-import { useStoreContext, ADD_STATE_TRANSACTIONS } from '../../utils/GlobalState';
+import { useStoreContext, ADD_STATE_TRANSACTIONS, UPDATE_STATE_CUSTOMER } from '../../utils/GlobalState';
 
 
 import CustomerSaleByTypeGraph from '../../components/CustomerSaleByType';
@@ -39,6 +39,13 @@ const SingleCustomer = () =>{
             }
             setMtdSales(monthDollars)
             setTotalSales(totalDollars)
+        }
+        // update the $ figure on the /customers page
+        if (data && data.customer.dollarsSold !== totalDollars) {
+            dispatch({
+                type: UPDATE_STATE_CUSTOMER,
+                customer: {_id, dollarsSold: totalDollars}
+            })
         }
     }, [data, state.transactions, dispatch, transactions])
                 
