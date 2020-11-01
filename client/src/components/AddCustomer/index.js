@@ -57,8 +57,8 @@ function AddCustomer(){
             if(e.message.includes("`businessName` is required")) {
                 window.alert("You must input a business name");
             }
-            else if(e.message.contains("")) {
-
+            else if(e.message.includes("Phone number must be in format")) {
+                window.alert("Input phone number in format 123-456-7890");
             }
             console.error(e);
         }
