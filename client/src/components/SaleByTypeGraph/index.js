@@ -8,6 +8,8 @@ import Auth from '../../utils/auth'
 const SaleByTypeGraph = () => {
 
     const _id = Auth.getProfile().data._id
+    
+    console.log('needtoseeformat', _id)
     const { loading, data} = useQuery(QUERY_CUSTOMERS, {variables: {_id}})
     const  customers  = data ? data.customers : {}
     console.log('customers',customers)
@@ -17,11 +19,11 @@ const SaleByTypeGraph = () => {
     let print =0;
 
     if(data){
-        console.log('transactions',customers.transactions)
-    //     const transactions = customers.transaction
+        // console.log('transactions',customers.transactions)
+        // const transactions = customers.transaction
         for(const customer of customers){
             for(const transaction of customer.transactions){
-                console.log('products', transaction.product)
+                // console.log('products', transaction.product)
                 if(transaction.product == 'glossy'){
                     glossy += transaction.units
                 }else if(transaction.product == 'card' ){
@@ -32,7 +34,7 @@ const SaleByTypeGraph = () => {
             }
         }
     }
-    console.log('types', print,glossy,card)
+    // console.log('types', print,glossy,card)
     
     
 
@@ -41,7 +43,7 @@ const SaleByTypeGraph = () => {
         {x: "Glossy", y: glossy},
         {x: "Print", y: print},
     ]
-
+    if(loading){return(<div>Loading...</div>)}
 return (
     <div>
         <h3>Sale by Type</h3>

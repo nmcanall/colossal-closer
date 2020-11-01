@@ -30,7 +30,7 @@ const SalesList = ({_id}) =>{
         }
     }
     console.log('dat arrr doe', transactionsArr)
-
+    if(loading){return(<div>Loading...</div>)}
     return(
         <div className=" container">
             

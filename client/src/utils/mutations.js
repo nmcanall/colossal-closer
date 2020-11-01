@@ -25,6 +25,7 @@ mutation addTransaction($customerId: ID!, $product: String!, $dollars: Float!, $
   addTransaction(customerId: $customerId, product: $product, dollars: $dollars, units: $units) {
     transactions {
       _id
+      createdAt
       product
       dollars
       units
