@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import M from 'materialize-css/dist/js/materialize.min.js'
 import {useMutation} from '@apollo/react-hooks';
 import {ADD_CUSTOMER} from '../../utils/mutations';
 import Auth from '../../utils/auth';
@@ -6,6 +7,10 @@ import {Box, Collapse} from '@chakra-ui/core'
 import { useStoreContext, ADD_STATE_CUSTOMERS } from '../../utils/GlobalState';
 
 function AddCustomer(){
+    useEffect(() => {
+        const selects = document.querySelectorAll('select');
+        M.FormSelect.init(selects, {});
+    }, [])
     const [state, dispatch] = useStoreContext()
     const [show, setShow] = React.useState(false)
     const handleToggle = () => setShow(!show)
@@ -123,13 +128,16 @@ function AddCustomer(){
                                         <div className="row">
                                             <div className="input-field col s12">
                                             
-                                                <input
+                                                <select
                                                     id="status" 
-                                                    type="text"
                                                     name="status"
                                                     value= {formState.status}
                                                     onChange={handleChange}
-                                                />
+                                                >
+                                                    <option value="active">active</option>
+                                                    <option value="won">won</option>
+                                                    <option value="lost">lost</option>
+                                                </select>
                                                 <label htmlFor="status">Status</label>
                                             </div>
                                         </div>
