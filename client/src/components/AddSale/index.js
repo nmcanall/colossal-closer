@@ -1,18 +1,21 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useMutation} from '@apollo/react-hooks';
 import {ADD_TRANSACTION} from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import {Box, Collapse, Select} from '@chakra-ui/core'
 import { useStoreContext, ADD_STATE_TRANSACTIONS } from '../../utils/GlobalState';
-
+import M from 'materialize-css/dist/js/materialize.min.js'
 
 const AddSale = ({ customerId }) => {
-    // console.log('top of form', id)
+    useEffect(() => {
+        const selects = document.querySelectorAll('select');
+        M.FormSelect.init(selects, {});
+    }, [])
     const [state, dispatch] = useStoreContext();
 
     const [show, setShow] = React.useState(false);
     const handleToggle = () => setShow(!show);
-    const [formState, setFormState] = useState({ product: '', dollars: 0, units: 0})
+    const [formState, setFormState] = useState({ product: '', dollars: '', units: ''})
 
     const [addSale, { error }] = useMutation(ADD_TRANSACTION);
     
@@ -82,13 +85,17 @@ const AddSale = ({ customerId }) => {
                                         <form className="col s12" id="add-sale"  onSubmit={handleAddSale}>
                                             <div className="row">
                                                 <div className="input-field col s12">
-                                                    <input 
+                                                    <select
                                                     id="product" 
-                                                    type="text" 
+                                                    // type="text" 
                                                     name="product"
                                                     value= {formState.product}
                                                     onChange={handleChange}
-                                                    />
+                                                    >
+                                                        <option value="print">print</option>
+                                                        <option value="card">card</option>
+                                                        <option value="glossy">glossy</option>
+                                                    </select>
                                                     <label htmlFor="product">Product Name</label>
                                                 </div>
                                             </div>
