@@ -103,11 +103,11 @@ const AddSale = (id) => {
                                                     <label htmlFor="units"># of units</label>
                                                 </div>
                                             </div>
-                                            {/* <Select placeholder="Select option">
+                                            <Select placeholder="Select option">
                                                 <option value="option1">Option 1</option>
                                                 <option value="option2">Option 2</option>
                                                 <option value="option3">Option 3</option>
-                                            </Select> */}
+                                            </Select>
 
 
                                             <button className="blue lighten-3 waves-effect waves-light btn" type="submit" onClick={handleToggle} >Add Sale</button>

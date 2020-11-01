@@ -3,15 +3,20 @@ import React from 'react'
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_CUSTOMERS } from '../../utils/queries';
 import {Link} from 'react-router-dom';
+// import {useStoreContext, ADD_STATE_TRANSACTIONS} from '../../utils/GlobalState';
 
 const SalesList = ({_id}) =>{
-    console.log('dat id doe', _id)
+
     const { loading, data} = useQuery(QUERY_CUSTOMERS, {variables: {_id}})
+
     const  customers  = data ? data.customers : {}
-    console.log('customers',customers)
+    // console.log('customers',customers)
+    
     let transactionsArr = []
+
+//make sure data is coming through
     if(data){
-        
+        //loop through data
     //     const transactions = customers.transaction
         for(const customer of customers){
             const bizName = customer.businessName
