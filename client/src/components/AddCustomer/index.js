@@ -43,21 +43,12 @@ function AddCustomer(){
         
         // use try/catch instead of promises to handle errors
         try{
-<<<<<<< HEAD
-            //execute addUser mutation and pass in variable data from form
-            const cleanForm = clean(formState);
-            console.log(cleanForm);
-            const { data } = await addCustomer({
-                variables: { ...formState, },
-            });
-=======
         //execute addUser mutation and pass in variable data from form
         const { data } = await addCustomer({ variables: { ...formState, } });
         dispatch({
             type: ADD_STATE_CUSTOMERS,
             customers: [{...data.addCustomer}]
         })
->>>>>>> master
         } catch (e){
             if(e.message.includes("`businessName` is required")) {
                 window.alert("You must input a business name");
@@ -143,31 +134,19 @@ function AddCustomer(){
                                             </div>
                                         </div>
                                         <div className="row">
-<<<<<<< HEAD
-                                            <div className="input-field col s4">
-=======
                                             <div className="input-field col s12">
                                             
->>>>>>> master
                                                 <select
                                                     id="status" 
                                                     name="status"
                                                     value={formState.status}
                                                     onChange={handleChange}
                                                 >
-<<<<<<< HEAD
-                                                    <option value="" disabled hidden>Select a status</option>
-                                                    <option value="active">Active</option>
-                                                    <option value="won">Won</option>
-                                                    <option value="lost">Lost</option>
-                                                </select>
-=======
                                                     <option name="status" value="active">active</option>
                                                     <option name="status" value="won">won</option>
                                                     <option name="status" value="lost">lost</option>
                                                 </select>
                                                 <label htmlFor="status">Status</label>
->>>>>>> master
                                             </div>
                                         </div>
                                         <button className="blue lighten-3 waves-effect waves-light btn" type="submit" onClick={handleToggle}>Add Customer</button>
