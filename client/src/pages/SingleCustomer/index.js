@@ -20,7 +20,7 @@ const SingleCustomer = () =>{
     const [mtdSales, setMtdSales] = useState(0)
 
     const { loading, data} = useQuery(QUERY_CUSTOMER, {variables: {_id}})
-    const  customer  = data ? data.customer : {}
+    let  customer  = data ? data.customer : {}
     const transactions = state.transactions[id] || []
 
     const customerStatus= customer.status
@@ -51,7 +51,7 @@ const SingleCustomer = () =>{
             })
         }
     }, [data, state.transactions, dispatch, transactions])
-                
+    
     return(
         <section className="main-container">
             <div className="container" id="content-wrap">
@@ -97,7 +97,7 @@ const SingleCustomer = () =>{
                                     {transactions.slice(Math.max(transactions.length - 5, 0)).map((transaction, i) => (
                                             
                                             <tr key={i}>
-                                                <td>{transaction.createdAt}</td>
+                                                <td>{moment(transaction.createdAt).format("MMM DD, YYYY")}</td>
                                                 <td>{transaction.product}</td>
                                                 <td>${Math.round(transaction.dollars)}</td>
                                             </tr>

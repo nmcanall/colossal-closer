@@ -5,6 +5,7 @@ import {ADD_CUSTOMER,} from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import {Box, Collapse} from '@chakra-ui/core'
 import { useStoreContext, ADD_STATE_CUSTOMERS } from '../../utils/GlobalState';
+import { idbPromise } from '../../utils/idb'
 
 function AddCustomer(){
     useEffect(() => {
@@ -16,8 +17,13 @@ function AddCustomer(){
     const handleToggle = () => setShow(!show)
 
     const [formState, setFormState] = useState({ businessName: '', contactName: '', phone: '', email: '', status: 'active'})
+    const clearFormState = () => setFormState({ businessName: '', contactName: '', phone: '', email: '', status: 'active'})
 
-    const [addCustomer, { error }] = useMutation(ADD_CUSTOMER);
+    const [addCustomer, { error }] = useMutation(ADD_CUSTOMER, {onError: () => {
+        const customer = {...formState, dollarsSold: 0, tempId: `temp:${formState.businessName}`}
+        idbPromise("pendingCustomers", "put", customer)
+        dispatch({type: ADD_STATE_CUSTOMERS, customers: [customer]})
+    }});
 
     const handleChange = (event) =>{
         const {name,value} = event.target
@@ -44,7 +50,8 @@ function AddCustomer(){
         // use try/catch instead of promises to handle errors
         try{
         //execute addUser mutation and pass in variable data from form
-        const { data } = await addCustomer({ variables: { ...formState, } });
+        const cleanForm = clean(formState);
+        const { data } = await addCustomer({ variables: { ...cleanForm, } });
         dispatch({
             type: ADD_STATE_CUSTOMERS,
             customers: [{...data.addCustomer}]
@@ -58,14 +65,7 @@ function AddCustomer(){
             }
             console.error(e);
         }
-        setFormState({
-            businessName : '', 
-            contactName: '',
-            phone: '',
-            email: '',
-            status: 'active'
-            
-        })
+        clearFormState()
     }
         
     
