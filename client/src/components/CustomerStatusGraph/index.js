@@ -16,9 +16,7 @@ const CustomerStatusGraph = () => {
     const  employee  = data ? data.employee : {}
 
     const won = employee.wonCustomerCount
-    // console.log('wonnnnn', won)
     const lost = employee.lostCustomerCount
-    // console.log('lost', ost)
     const active = employee.customerCount - won - lost;
 
 

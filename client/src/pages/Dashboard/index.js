@@ -13,28 +13,20 @@ import SaleByTypeGraph from '../../components/SaleByTypeGraph';
 
 import Auth from '../../utils/auth';
 
-
-//import sample data
-
-
 const Dashboard = () => {
 
     let thisMonth = moment().startOf('month');
     let thisYear = moment().startOf("year");
     
     const _id = Auth.getProfile().data._id
-    
 
     const { loading, data} = useQuery(QUERY_EMPLOYEE, {variables: {_id}})
-    console.log('thisworks', data)
     const  employee  = data ? data.employee : {}
 
     const totalSales = Math.round(employee.dollarsSold)
 
     const won = employee.wonCustomerCount
-    // console.log('wonnnnn', won)
     const lost = employee.lostCustomerCount
-    // console.log('lost', ost)
     const active = employee.customerCount - won - lost;
 
     let ytdSales = 0
@@ -45,49 +37,30 @@ const Dashboard = () => {
     let recentTransactions = 0
     let ytdTransactions = 0
 
-    if(data ){
-        console.log('main data',employee)
+    if(data){
         const customers = employee.customers
-        console.log('employee customers', customers)
-        // const numCustomers = customers.length
-        // const statuses = customers.status
-
 
         for(const customer of customers){
             for(const transaction of customer.transactions){
                 if(moment(transaction.createdAt).isSameOrAfter(thisYear)){
-                units += transaction.units
-                // console.log(transaction.dollars)
-                ytdSales += Math.round(transaction.dollars)
+                    units += transaction.units
+                    ytdSales += Math.round(transaction.dollars)
 
-                ytdTransactions++
-                
+                    ytdTransactions++
                 }
                 
                 if(moment(transaction.createdAt).isSameOrAfter(thisMonth)){
                     mtdUnits += transaction.units
                     mtdSales += Math.round(transaction.dollars)
-                    
                 }
 
                 if(moment(transaction.createdAt).isSameOrAfter(moment().subtract(7, 'days'))){
                     recentTransactions ++
-                    
                 }
-
-                
-                
             }
         }
-
-        // console.log('mtdunits',mtdUnits)
-        // console.log('did it work????', units)
-    
-        
     }
     
-
-
     if(loading){return(<div>Loading...</div>)}
     return(
         <section className="main-container" >
@@ -136,8 +109,6 @@ const Dashboard = () => {
 
                     <div className="row">
                         
-
-
                         <div className="col s12 m5 l3">
                             <div className="card-panel hoverable">
                             <h6 className="center">Total Customers</h6>
