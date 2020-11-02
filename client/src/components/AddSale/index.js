@@ -5,6 +5,8 @@ import Auth from '../../utils/auth';
 import {Box, Collapse, Select} from '@chakra-ui/core'
 import { useStoreContext, ADD_STATE_TRANSACTIONS } from '../../utils/GlobalState';
 import M from 'materialize-css/dist/js/materialize.min.js'
+import { idbPromise } from '../../utils/idb'
+import moment from 'moment'
 
 const AddSale = ({ customerId }) => {
     useEffect(() => {
@@ -16,8 +18,22 @@ const AddSale = ({ customerId }) => {
     const [show, setShow] = React.useState(false);
     const handleToggle = () => setShow(!show);
     const [formState, setFormState] = useState({ product: 'print', dollars: 0, units: 0})
+    const clearFormState = () => {setFormState({ product: 'print', dollars: 0, units: 0})}
 
-    const [addSale, { error }] = useMutation(ADD_TRANSACTION);
+    const [addSale, { error }] = useMutation(ADD_TRANSACTION, {onError: error => {
+        console.log("Could not write to mongo db, writing to indexedDB instead")
+        const createdAt = Date.now()
+        const newTransaction = {...formState, pending: true, createdAt, customerId}
+        idbPromise("pendingTransactions", "put", {...newTransaction}).then(() => {
+            dispatch({
+                type: ADD_STATE_TRANSACTIONS,
+                transactions: { [customerId]: state.transactions[customerId] ? [...state.transactions[customerId], newTransaction] : [newTransaction]}
+            })
+            clearFormState()
+        }).catch(e => console.log(e))
+        
+    }
+    });
     
     
     const handleChange =  (event) =>{
@@ -50,25 +66,16 @@ const AddSale = ({ customerId }) => {
             
             variables: { product, dollars, units, customerId}
         });
-        console.log('fulldata',data)
         const newTransData = data.addTransaction.transactions.pop()
         dispatch({
             type: ADD_STATE_TRANSACTIONS,
-            transactions: { [customerId]: [...state.transactions[customerId], newTransData]}
+            transactions: { [customerId]: state.transactions[customerId] ? [...state.transactions[customerId], newTransData] : [newTransData]}
         })
-        console.log("state after add", state.transactions[customerId])
-        
         } catch (e){
         console.error(e);
 
         }
-        console.log("just wrote to db", formState)
-        setFormState({
-            product : 'print', 
-            dollars: 0,
-            units: 0
-            
-        })
+        clearFormState()
         
     }
     
