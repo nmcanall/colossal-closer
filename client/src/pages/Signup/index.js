@@ -65,13 +65,13 @@ const Signup = () => {
         }
     }
     return (
-        <section id="login-page">
-            <div className="container center ">
+        <section id="signup-page" className="main-container">
+            <div className="container center " id="content-wrap">
                 
-                <div className="row" id="form-wrapper">
+                <div className="row" id="signup-form">
 
                     <div className="col s12 m7 ">
-                        <div className="card" id="signup-card">
+                        <div className="card" id="">
 
                             <div className="card-image">
                                 <img id="colossal-logo" src={logo} />

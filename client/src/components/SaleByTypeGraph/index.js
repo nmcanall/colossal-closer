@@ -18,6 +18,11 @@ const SaleByTypeGraph = () => {
     let card =0;
     let print =0;
 
+    const saleType = [
+        // {x: "card", y: card},
+        // {x: "Glossy", y: glossy},
+        // {x: "Print", y: print},
+    ]
     if(data){
         // console.log('transactions',customers.transactions)
         // const transactions = customers.transaction
@@ -34,15 +39,19 @@ const SaleByTypeGraph = () => {
             }
         }
     }
-    // console.log('types', print,glossy,card)
+    console.log('deeezzztypes', print,glossy,card)
     
-    
+    if(glossy > 0) {
+        saleType.push({x:"glossy", y: glossy})
+    }
+    if(card > 0) {
+        saleType.push({x:"card", y: card})
+    }
+    if(glossy > 0) {
+        saleType.push({x:"print", y: print})
+    }
 
-    const saleType = [
-        {x: "card", y: card},
-        {x: "Glossy", y: glossy},
-        {x: "Print", y: print},
-    ]
+    
     if(loading){return(<div>Loading...</div>)}
 return (
     <div>

@@ -1,39 +1,38 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useMutation} from '@apollo/react-hooks';
 import {ADD_TRANSACTION} from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import {Box, Collapse, Select} from '@chakra-ui/core'
 import { useStoreContext, ADD_STATE_TRANSACTIONS } from '../../utils/GlobalState';
+import M from 'materialize-css/dist/js/materialize.min.js'
 
-
-const AddSale = (id) => {
-    // console.log('top of form', id)
+const AddSale = ({ customerId }) => {
+    useEffect(() => {
+        const selects = document.querySelectorAll('select');
+        M.FormSelect.init(selects, {});
+    }, [])
     const [state, dispatch] = useStoreContext();
 
     const [show, setShow] = React.useState(false);
     const handleToggle = () => setShow(!show);
-    const [formState, setFormState] = useState({ product: '', dollars: 0, units: 0})
+    const [formState, setFormState] = useState({ product: 'print', dollars: 0, units: 0})
 
-    const [addSale, { error }] = useMutation(ADD_TRANSACTION, {
-        update(cache, {data: {addSale} } ){
-            console.log('addddddd sale', addSale)
-            // dispatch({
-            //     type: ADD_STATE_TRANSACTIONS,
-            //     transactions: [{...addSale}]
-            // })
-        }
-    });
+    const [addSale, { error }] = useMutation(ADD_TRANSACTION);
     
     
-    const handleChange = (event) =>{
+    const handleChange =  (event) =>{
         const {name,value} = event.target
-
+        console.log("old", formState)
         setFormState({
             ...formState,
             [name]: value
         });
+        console.log("new",formState)
     };
-
+    function log(event) {
+        event.preventDefault()
+        console.log(formState)
+    }
     const handleAddSale = async (event) =>{
         event.preventDefault();
         
@@ -41,37 +40,38 @@ const AddSale = (id) => {
         const units = Number(formState.units);
         const product = formState.product;
 
-        const { _id } = id
-        console.log('button clicked', formState, _id)
+        
+        // console.log('button clicked', formState, customerId)
         // use try/catch instead of promises to handle errors
 
         try{
         //execute addUser mutation and pass in variable data from form
         const { data } = await addSale({
             
-            variables: { product, dollars, units, customerId:_id}
+            variables: { product, dollars, units, customerId}
         });
         console.log('fulldata',data)
-        const newTransData = data.addTransaction.transactions[0]
+        const newTransData = data.addTransaction.transactions.pop()
         dispatch({
             type: ADD_STATE_TRANSACTIONS,
-            transactions: [{...newTransData}]
+            transactions: { [customerId]: [...state.transactions[customerId], newTransData]}
         })
-        
+        console.log("state after add", state.transactions[customerId])
         
         } catch (e){
         console.error(e);
 
         }
-    
+        console.log("just wrote to db", formState)
         setFormState({
-            product : '', 
+            product : 'print', 
             dollars: 0,
             units: 0
             
         })
         
     }
+    
     return (
                 
                 <div className="row center" id="form-wrapper">
@@ -87,16 +87,22 @@ const AddSale = (id) => {
 
                                 <div className="card-content">
                                     <div className="row">
-                                        <form className="col s12" id="signup-form"  onSubmit={handleAddSale}>
+                                        <form className="col s12" id="add-sale"  onSubmit={handleAddSale}>
                                             <div className="row">
                                                 <div className="input-field col s12">
-                                                    <input 
+                                                    <select
                                                     id="product" 
-                                                    type="text" 
+                                                    // type="text" 
                                                     name="product"
                                                     value= {formState.product}
-                                                    onChange={handleChange}
-                                                    />
+                                                    onChange={event => {
+                                                        setFormState({...formState, product: event.target.value})
+                                                    }}
+                                                    >
+                                                        <option name="product" value="print">print</option>
+                                                        <option name="product" value="card">card</option>
+                                                        <option name="product" value="glossy">glossy</option>
+                                                    </select>
                                                     <label htmlFor="product">Product Name</label>
                                                 </div>
                                             </div>

@@ -98,6 +98,7 @@ export const QUERY_CUSTOMER = gql`
                 product
                 dollars
                 createdAt
+                units
             }
         }
     }
