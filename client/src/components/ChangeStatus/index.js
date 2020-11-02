@@ -4,28 +4,48 @@ import {useMutation} from '@apollo/react-hooks';
 import {UPDATE_CUSTOMER,} from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import {Box, Collapse} from '@chakra-ui/core'
-import {useStoreContext, ADD_STATE_CUSTOMERS } from '../../utils/GlobalState';
+import {useStoreContext, UPDATE_STATE_CUSTOMER } from '../../utils/GlobalState';
 // import { useStoreContext, ADD_STATE_CUSTOMERS } from '../../utils/GlobalState';
-const ChangeStatus = (props) =>{
+
+const ChangeStatus = (props) => {
+    // const token = Auth.getToken()
+    // console.log('tokentoken', token)
+    console.log('propskis', props);
+    const {status , customerId} = props;
+    const [statusState, setStatusState] = useState(status);
+
     
-    const {status , customerId} = props
-    // const _id = props.customerId
-    const currentStatus = props.status
-    // const [state, dispatch] = useStoreContext()
+    const [state, dispatch] = useStoreContext()
+
     useEffect(() => {
         const selects = document.querySelectorAll('select');
         M.FormSelect.init(selects, {});
-    }, [])
-    const [statusState, setStatusState] = useState(currentStatus)
+        console.log(status)
+    }, []);
+    
+
+    
+
     const [updateCustomer, {error}] = useMutation(UPDATE_CUSTOMER);
-   
-const changeStatus =async (event) =>{
-    event.preventDefault()
+
+    const handleChange = (event) =>{
+        const newStatus = event.target.value
+        setStatusState(newStatus)
+        console.log('newform', statusState)
+        changeStatus(newStatus)
+    }
+
+const changeStatus = async (status) =>{
     try{
         const {data}= await updateCustomer({
-            variables: {statusState, _id: customerId}
+            variables: {status, _id: customerId}
         })
-    
+        console.log(data.updateCustomer)
+        dispatch({
+            type: UPDATE_STATE_CUSTOMER,
+            customer: data.updateCustomer
+        })
+        console.log(state.customers)
     } catch(e){
         console.log(e)
     }
@@ -39,15 +59,15 @@ const changeStatus =async (event) =>{
                         id="status" 
                         name="status"
                         value= {statusState}
-                        onChange={event =>{
-                            setStatusState(event.target.value)
-                        }}
+                        onChange={handleChange}
                     >
-                        <option name="status" value="active">active</option>
-                        <option name="status" value="won">won</option>
-                        <option name="status" value="lost">lost</option>
+                        <option value="active">active</option>
+                        <option value="won">won</option>
+                        <option value="lost">lost</option>
+                        
                     </select>
-                    <label htmlFor="status">Current Status: {status}</label>
+                    <label htmlFor="status">Current Status: {statusState}</label>
+                    
                 </div>
             </form>
         </div>

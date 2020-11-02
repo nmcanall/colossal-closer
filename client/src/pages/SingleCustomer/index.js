@@ -4,7 +4,7 @@ import AddSale from '../../components/AddSale'
 import {useQuery} from '@apollo/react-hooks';
 import {QUERY_CUSTOMER} from '../../utils/queries'
 import moment from 'moment'
-import { useStoreContext, ADD_STATE_TRANSACTIONS, UPDATE_STATE_CUSTOMER } from '../../utils/GlobalState';
+import { useStoreContext, ADD_STATE_TRANSACTIONS, UPDATE_STATE_CUSTOMER, SET_CURRENT_CUSTOMER } from '../../utils/GlobalState';
 
 import CustomerSaleByTypeGraph from '../../components/CustomerSaleByType';
 import ChangeStatus from '../../components/ChangeStatus';
@@ -20,9 +20,18 @@ const SingleCustomer = () =>{
     const { loading, data} = useQuery(QUERY_CUSTOMER, {variables: {_id}})
     let  customer  = data ? data.customer : {}
     const transactions = state.transactions[id] || []
-
-    const customerStatus= customer.status
-
+    useEffect(() => {
+        console.log("CHANGEING CURRENT CUSTOMER")
+        for (const stateCustomer of state.customers) {
+            if (stateCustomer._id === id) {
+                dispatch({
+                    type: SET_CURRENT_CUSTOMER,
+                    customer: {...stateCustomer}
+                })
+                break
+            } 
+        }
+    }, [state.customers])
     useEffect(() => {
         if (data && !state.transactions[id]) {
             dispatch({
@@ -48,14 +57,19 @@ const SingleCustomer = () =>{
             })
         }
     }, [data, state.transactions, dispatch, transactions])
-    
+    if (loading) {
+        return <div>Loading...</div>
+    }
+    if (state.currentCustomer) {
+        customer = state.currentCustomer
+    }
     return(
         <section className="main-container">
             <div className="container" id="content-wrap">
                 <div className="card-panel center grey lighten-3 center col s12">
                     
                     <div className="row">
-                        <ChangeStatus customerId={id} status={customerStatus}> </ChangeStatus>
+                        <ChangeStatus customerId={id} status={customer.status}> </ChangeStatus>
                         <AddSale customerId={id}></AddSale>
                     </div>
                     

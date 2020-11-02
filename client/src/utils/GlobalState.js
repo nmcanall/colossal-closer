@@ -4,6 +4,7 @@ import React, { useReducer, useContext, createContext } from 'react'
 const ADD_STATE_CUSTOMERS = "ADD_STATE_CUSTOMERS"
 const ADD_STATE_TRANSACTIONS = "ADD_STATE_TRANSACTIONS"
 const UPDATE_STATE_CUSTOMER = "UPDATE_STATE_CUSTOMER"
+const SET_CURRENT_CUSTOMER = "SET_CURRENT_CUSTOMER"
 
 // reducers
 function reducer(state, action) {
@@ -19,6 +20,8 @@ function reducer(state, action) {
                 }
                 return {...customer}
             })}
+        case SET_CURRENT_CUSTOMER:
+            return {...state, currentCustomer: {...action.customer}}
         default:
             return state
     }
@@ -34,4 +37,4 @@ function StoreProvider({value=[], ...props}) {
 }
 const useStoreContext = () => useContext(StoreContext)
 
-export { StoreProvider, useStoreContext, ADD_STATE_CUSTOMERS, ADD_STATE_TRANSACTIONS, UPDATE_STATE_CUSTOMER}
+export { StoreProvider, useStoreContext, ADD_STATE_CUSTOMERS, ADD_STATE_TRANSACTIONS, UPDATE_STATE_CUSTOMER, SET_CURRENT_CUSTOMER}
