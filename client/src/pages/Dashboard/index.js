@@ -90,107 +90,109 @@ const Dashboard = () => {
 
     if(loading){return(<div>Loading...</div>)}
     return(
-        <section className="container center grey lighten-3" id="containers">
-            <h2 className="center">{employee.firstName}'s Sales Dashboard</h2>
+        <section className="main-container" >
+            <div className="container center grey lighten-3" id="content-wrap">
+                <h2 className="center">{employee.firstName}'s Sales Dashboard</h2>
 
-            <div className="sales-data">
+                <div className="sales-data">
 
-                <div className="row ">
+                    <div className="row ">
 
-                    <div className="col s12 m5 l3 ">
-                        <div className="card-panel hoverable">
-                            <h6 className="center">YTD Sales</h6>
-                            <h3 className=" center">
-                                ${ytdSales}
-                            </h3>
+                        <div className="col s12 m5 l3 ">
+                            <div className="card-panel hoverable">
+                                <h6 className="center">YTD Sales</h6>
+                                <h3 className=" center">
+                                    ${ytdSales}
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div className="col s12 m5 l3">
+                            <div className="card-panel hoverable">
+                            <h6 className="center">MTD Sales</h6>
+                                <h3 className=" center">
+                                    ${mtdSales}
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div className="col s12 m5 l3">
+                            <div className="card-panel hoverable">
+                            <h6 className="center">YTD Units</h6>
+                                <h3 className=" center">
+                                    {units}
+                                </h3>
+                            </div>
+                        </div>
+                        <div className="col s12 m5 l3">
+                            <div className="card-panel hoverable">
+                            <h6 className="center">MTD Units</h6>
+                                <h3 className=" center">
+                                    {mtdUnits}
+                                </h3>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="col s12 m5 l3">
-                        <div className="card-panel hoverable">
-                        <h6 className="center">MTD Sales</h6>
-                            <h3 className=" center">
-                                ${mtdSales}
-                            </h3>
+                    <div className="row">
+                        
+
+
+                        <div className="col s12 m5 l3">
+                            <div className="card-panel hoverable">
+                            <h6 className="center">Total Customers</h6>
+                                <h3 className=" center">
+                                    {employee.customerCount}
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div className="col s12 m5 l3">
+                            <div className="card-panel ">
+                            <h6 className="center ">Active Customers</h6>
+                                <h3 className=" center">
+                                    {active}
+                                </h3>
+                            </div>
+                        </div>
+                        <div className="col s12 m5 l3">
+                            <div className="card-panel ">
+                            <h6 className="center">Transactions last 7 Days</h6>
+                                <h3 className=" center">
+                                    {recentTransactions}
+                                </h3>
+                            </div>
+                        </div>
+                        <div className="col s12 m5 l3">
+                            <div className="card-panel ">
+                            <h6 className="center">YTD Transactions</h6>
+                                <h3 className=" center">
+                                    {ytdTransactions}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col s12 m4">
+                            <div className="card-panel hoverable"  style={{fontFamily:'sans-serif',fontSize:'0.8em'}} >
+                            <CustomerStatusGraph></CustomerStatusGraph>
+                            </div>
+                        </div>
+
+                        <div className="col s12 m4">
+                            <div className="card-panel hoverable">
+                                <SaleByTypeGraph></SaleByTypeGraph>
+                            </div>
+                        </div>
+                        
+                        <div className="col s12 m4">
+                            <div className="card-panel hoverable">
+                                <ClosingPercent></ClosingPercent>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="col s12 m5 l3">
-                        <div className="card-panel hoverable">
-                        <h6 className="center">YTD Units</h6>
-                            <h3 className=" center">
-                                {units}
-                            </h3>
-                        </div>
-                    </div>
-                    <div className="col s12 m5 l3">
-                        <div className="card-panel hoverable">
-                        <h6 className="center">MTD Units</h6>
-                            <h3 className=" center">
-                                {mtdUnits}
-                            </h3>
-                        </div>
-                    </div>
                 </div>
-
-                <div className="row">
-                    
-
-
-                    <div className="col s12 m5 l3">
-                        <div className="card-panel hoverable">
-                        <h6 className="center">Total Customers</h6>
-                            <h3 className=" center">
-                                {employee.customerCount}
-                            </h3>
-                        </div>
-                    </div>
-
-                    <div className="col s12 m5 l3">
-                        <div className="card-panel ">
-                        <h6 className="center ">Active Customers</h6>
-                            <h3 className=" center">
-                                {active}
-                            </h3>
-                        </div>
-                    </div>
-                    <div className="col s12 m5 l3">
-                        <div className="card-panel ">
-                        <h6 className="center">Transactions last 7 Days</h6>
-                            <h3 className=" center">
-                                {recentTransactions}
-                            </h3>
-                        </div>
-                    </div>
-                    <div className="col s12 m5 l3">
-                        <div className="card-panel ">
-                        <h6 className="center">YTD Transactions</h6>
-                            <h3 className=" center">
-                                {ytdTransactions}
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col s12 m4">
-                        <div className="card-panel hoverable"  style={{fontFamily:'sans-serif',fontSize:'0.8em'}} >
-                        <CustomerStatusGraph></CustomerStatusGraph>
-                        </div>
-                    </div>
-
-                    <div className="col s12 m4">
-                        <div className="card-panel hoverable">
-                            <SaleByTypeGraph></SaleByTypeGraph>
-                        </div>
-                    </div>
-                    
-                    <div className="col s12 m4">
-                        <div className="card-panel hoverable">
-                            <ClosingPercent></ClosingPercent>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </section>
 

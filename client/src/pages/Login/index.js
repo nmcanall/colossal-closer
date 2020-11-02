@@ -43,8 +43,8 @@ const Login = (props) => {
         })
     }
     return (
-        <section id="login-page">
-            <div className="container center ">
+        <section id="login-page" className="main-container">
+            <div className="container center" id="content-wrap">
                 
                 <div className="row" id="form-wrapper">
 

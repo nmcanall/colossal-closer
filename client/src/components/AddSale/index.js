@@ -15,20 +15,24 @@ const AddSale = ({ customerId }) => {
 
     const [show, setShow] = React.useState(false);
     const handleToggle = () => setShow(!show);
-    const [formState, setFormState] = useState({ product: '', dollars: '', units: ''})
+    const [formState, setFormState] = useState({ product: 'print', dollars: 0, units: 0})
 
     const [addSale, { error }] = useMutation(ADD_TRANSACTION);
     
     
-    const handleChange = (event) =>{
+    const handleChange =  (event) =>{
         const {name,value} = event.target
-
+        console.log("old", formState)
         setFormState({
             ...formState,
             [name]: value
         });
+        console.log("new",formState)
     };
-
+    function log(event) {
+        event.preventDefault()
+        console.log(formState)
+    }
     const handleAddSale = async (event) =>{
         event.preventDefault();
         
@@ -58,15 +62,16 @@ const AddSale = ({ customerId }) => {
         console.error(e);
 
         }
-    
+        console.log("just wrote to db", formState)
         setFormState({
-            product : '', 
+            product : 'print', 
             dollars: 0,
             units: 0
             
         })
         
     }
+    
     return (
                 
                 <div className="row center" id="form-wrapper">
@@ -90,11 +95,13 @@ const AddSale = ({ customerId }) => {
                                                     // type="text" 
                                                     name="product"
                                                     value= {formState.product}
-                                                    onChange={handleChange}
+                                                    onChange={event => {
+                                                        setFormState({...formState, product: event.target.value})
+                                                    }}
                                                     >
-                                                        <option value="print">print</option>
-                                                        <option value="card">card</option>
-                                                        <option value="glossy">glossy</option>
+                                                        <option name="product" value="print">print</option>
+                                                        <option name="product" value="card">card</option>
+                                                        <option name="product" value="glossy">glossy</option>
                                                     </select>
                                                     <label htmlFor="product">Product Name</label>
                                                 </div>
