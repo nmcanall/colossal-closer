@@ -6,48 +6,37 @@ import Auth from '../../utils/auth';
 import {Box, Collapse} from '@chakra-ui/core'
 import {useStoreContext, ADD_STATE_CUSTOMERS } from '../../utils/GlobalState';
 // import { useStoreContext, ADD_STATE_CUSTOMERS } from '../../utils/GlobalState';
-
 const ChangeStatus = (props) =>{
     // const token = Auth.getToken()
     // console.log('tokentoken', token)
     console.log('propskis', props)
     const {status , customerId} = props
-
     // const _id = props.customerId
     const currentStatus = props.status
-    console.log('_id work?',customerId)
-
-    console.log('status??', currentStatus)
     // const [state, dispatch] = useStoreContext()
-
     useEffect(() => {
         const selects = document.querySelectorAll('select');
         M.FormSelect.init(selects, {});
     }, [])
-
-    const [formState, setFormState] = useState ({status: currentStatus, _id: customerId })
-
-    console.log('currentformstate', formState)
-
+    const [statusState, setStatusState] = useState(currentStatus)
+    console.log('currentstatusState', statusState)
     const [updateCustomer, {error}] = useMutation(UPDATE_CUSTOMER);
-
     // const handleChange =(event) =>{
     //     const {name, value} = event.target
-    //     console.log('oldForm',formState)
-    //     setFormState({
-    //         ...formState,
+    //     console.log('oldForm',statusState)
+    //     setStatusState({
+    //         ...statusState,
     //         [name]: value
     //     })
-    //     console.log('newform',formState)
-        
+    //     console.log('newform',statusState)
     // }
 const changeStatus =async (event) =>{
     event.preventDefault()
     try{
         const {data}= await updateCustomer({
-            variables: {formState, _id: customerId}
+            variables: {statusState, _id: customerId}
         })
-        console.log('formstate', formState)
+        console.log('statusState', statusState)
         // dispatch({
         //     type: ADD_STATE_CUSTOMERS,
         //     customers: [{...data.updateCustomer}]
@@ -55,37 +44,28 @@ const changeStatus =async (event) =>{
     } catch(e){
         console.log(e)
     }
-
 }
-
-
-
     return(
         <div className=" card-panel light-gray lighten-3 col s6 ">
             <h6><strong>Customer Status</strong></h6>
             <form>  
                 <div className="input-field col">
-                                            
                     <select
                         id="status" 
                         name="status"
-                        value= {formState.status}
+                        value= {statusState}
                         onChange={event =>{
-                            setFormState({...formState, status: event.target.value})
-                        },changeStatus}
+                            setStatusState(event.target.value)
+                        }}
                     >
-                        <option value="" disabled selected>Switch Status</option>
                         <option name="status" value="active">active</option>
                         <option name="status" value="won">won</option>
                         <option name="status" value="lost">lost</option>
-                        
                     </select>
                     <label htmlFor="status">Current Status: {status}</label>
-                    
                 </div>
             </form>
         </div>
     )
 }
-
 export default ChangeStatus;
