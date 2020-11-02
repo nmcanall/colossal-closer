@@ -92,7 +92,7 @@ const SingleCustomer = () =>{
                                     {transactions.slice(Math.max(transactions.length - 5, 0)).map((transaction, i) => (
                                             
                                             <tr key={i}>
-                                                <td>{transaction.createdAt}</td>
+                                                <td>{moment(transaction.createdAt).format("MMM DD, YYYY")}</td>
                                                 <td>{transaction.product}</td>
                                                 <td>${Math.round(transaction.dollars)}</td>
                                             </tr>
