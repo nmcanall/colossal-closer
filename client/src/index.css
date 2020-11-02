@@ -31,9 +31,9 @@ body {
     
   }
 
-  select {
+  /* select {
     display: inline-block;
-  }
+  } */
 
   #login-page{
     background-Position: center;
