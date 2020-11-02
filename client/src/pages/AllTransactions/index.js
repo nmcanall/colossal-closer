@@ -3,7 +3,6 @@ import React from 'react';
 import Auth from '../../utils/auth'
 
 import SalesList from '../../components/SalesList';
-// import AddSale from '../../components/AddSale'
 
 const AllTransactions = () =>{
     const employee = Auth.getProfile().data
@@ -11,7 +10,6 @@ const AllTransactions = () =>{
     return (
         <section className="main-container">
             <div className= "container grey lighten-3" id="content-wrap">
-                    
                 <h4 className="center">
                     {employee.firstName}'s Lifetime Sales
                 </h4>

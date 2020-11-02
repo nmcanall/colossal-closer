@@ -13,10 +13,6 @@ import Auth from '../src/utils/auth';
 import AllTransactions from './pages/AllTransactions';
 import SingleCustomer from './pages/SingleCustomer';
 
-
-
-// import Contact from './components/Contact';
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 

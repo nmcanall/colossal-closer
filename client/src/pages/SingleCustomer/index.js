@@ -6,14 +6,12 @@ import {QUERY_CUSTOMER} from '../../utils/queries'
 import moment from 'moment'
 import { useStoreContext, ADD_STATE_TRANSACTIONS, UPDATE_STATE_CUSTOMER } from '../../utils/GlobalState';
 
-
 import CustomerSaleByTypeGraph from '../../components/CustomerSaleByType';
 
 const SingleCustomer = () =>{
     const {id} = useParams();
     const thisMonth = moment().startOf('month');
     const _id = id.trim()
-    // console.log('neds',_id)
     const [state, dispatch] = useStoreContext()
     const [totalSales, setTotalSales] = useState(0)
     const [mtdSales, setMtdSales] = useState(0)
@@ -31,7 +29,6 @@ const SingleCustomer = () =>{
         }
         let totalDollars = 0
         let monthDollars = 0
-        console.log(transactions)
         for (const transaction of transactions) {
             totalDollars += Math.round(transaction.dollars)
             if(moment(transaction.createdAt).isSameOrAfter(thisMonth)){
