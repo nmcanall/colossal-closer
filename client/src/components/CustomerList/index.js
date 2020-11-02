@@ -16,6 +16,7 @@ const CustomerList = ({ _id }) => {
             })
         }
     }, [data, dispatch])
+    console.log(customers)
     if (loading) {
         return <div>Loading...</div>
     }
@@ -35,7 +36,7 @@ const CustomerList = ({ _id }) => {
                         
                         <tr key={i}>
                             
-                            <td><Link to={`/customers/${customer._id}`}>{customer.businessName}</Link></td>
+                            <td><Link to={`/customers/${customer._id || customer.tempId}`}>{customer.businessName}</Link></td>
                             <td>{customer.phone}</td>
                             <td>${Math.round(customer.dollarsSold)}</td>
                         </tr>

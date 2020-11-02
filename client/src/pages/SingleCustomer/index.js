@@ -19,7 +19,7 @@ const SingleCustomer = () =>{
     const [mtdSales, setMtdSales] = useState(0)
 
     const { loading, data} = useQuery(QUERY_CUSTOMER, {variables: {_id}})
-    const  customer  = data ? data.customer : {}
+    let  customer  = data ? data.customer : {}
     const transactions = state.transactions[id] || []
 
     useEffect(() => {
@@ -48,7 +48,7 @@ const SingleCustomer = () =>{
             })
         }
     }, [data, state.transactions, dispatch, transactions])
-                
+    
     return(
         <section className="main-container">
             <div className="container" id="content-wrap">
