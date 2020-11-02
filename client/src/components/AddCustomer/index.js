@@ -49,13 +49,13 @@ function AddCustomer(){
         
         // use try/catch instead of promises to handle errors
         try{
-        //execute addUser mutation and pass in variable data from form
-        const cleanForm = clean(formState);
-        const { data } = await addCustomer({ variables: { ...cleanForm, } });
-        dispatch({
-            type: ADD_STATE_CUSTOMERS,
-            customers: [{...data.addCustomer}]
-        })
+            //execute addUser mutation and pass in variable data from form
+            const cleanForm = clean(formState);
+            const { data } = await addCustomer({ variables: { ...cleanForm, } });
+            dispatch({
+                type: ADD_STATE_CUSTOMERS,
+                customers: [{...data.addCustomer}]
+            })
         } catch (e){
             if(e.message.includes("`businessName` is required")) {
                 window.alert("You must input a business name");
@@ -72,7 +72,7 @@ function AddCustomer(){
     return (
         <div className="row center ">
             <button 
-            className=" btn right blue lighten-3 waves-effect waves-lightn new-customer " id=""
+            className=" btn right blue lighten-3 waves-effect waves-lightn new-customer " id="add-btn"
             onClick={handleToggle}
             >
             Add New Customer

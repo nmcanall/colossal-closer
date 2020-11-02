@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-// import profileImage from "../../assets/colossal-logo.png";
 import {Link} from 'react-router-dom';
 import Auth from '../../utils/auth';
 
@@ -20,7 +19,6 @@ function Header() {
                 <Link to="/"  className="brand-logo">
                     <h5>Colossal Closer</h5>
                 </Link>
-                {/* <img src={profileImage} className="my-2" style={{ maxWidth: "8%", width: "40%" }} alt="Colossal Closer" /> */}
 
                 <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons"></i></a>
                 <ul id="nav-mobile" className="right ">
@@ -29,16 +27,12 @@ function Header() {
                         <li><a href="" onClick={logout}>Logout</a></li>
                         </>
                     ):(
-                         // <li><a href="sign.html">Login</a></li>
                     <li>
                         <Link to ="/signup">
                             Signup
                         </Link>
                     </li>
-                    )
-                    }
-                
-                    
+                    )}
                 </ul>
             </div>
             <div className="nav-content">
@@ -59,12 +53,10 @@ function Header() {
                                 Sales
                             </Link>
                         </li>
-                        
                     </ul>
                 </ul>
             </div>
         </nav>
-
     );
 }
 export default Header;

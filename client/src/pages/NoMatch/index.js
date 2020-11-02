@@ -4,7 +4,7 @@ const NoMatch = () => {
     return (
         <section className="main-container">
             <div id="content-wrap">
-            Oops, we couldn't find that page.
+                Oops, we couldn't find that page.
             </div>
         </section>
     );

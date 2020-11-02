@@ -49,17 +49,12 @@ const changeStatus = async (status) =>{
     } catch(e){
         console.log(e)
     }
-
 }
-
-
-
     return(
         <div className=" card-panel light-gray lighten-3 col s6 ">
             <h6><strong>Customer Status</strong></h6>
             <form>  
                 <div className="input-field col">
-                                            
                     <select
                         id="status" 
                         name="status"
@@ -78,5 +73,4 @@ const changeStatus = async (status) =>{
         </div>
     )
 }
-
 export default ChangeStatus;

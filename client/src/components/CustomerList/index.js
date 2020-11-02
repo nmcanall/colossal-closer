@@ -16,7 +16,7 @@ const CustomerList = ({ _id }) => {
             })
         }
     }, [data, dispatch])
-    console.log(customers)
+    // console.log(customers)
     if (loading) {
         return <div>Loading...</div>
     }
