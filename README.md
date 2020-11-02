@@ -19,9 +19,7 @@
 
 * Colossal Closer is a Customer Relationship Management application that allows a company to track employee-customer interactions and provide relevant data for the company to view progress.  Designed for the mobile salesman, this application is responsive on all types of devices.  The deep, dark offices of your customer has no service or WiFi?  No worries, Colossal Closer is a downloadable progressive web application that even works offline.  Colossal Closer makes tracking simple for the salesman on the move and the management team back home.
 
-* You can view the deployed site at [#](#).  
-
-* See a walkthrough demonstration [here](https://youtube.com).
+* You can view the deployed site at [https://colossal-closer.herokuapp.com/](https://colossal-closer.herokuapp.com/).
 
 ## Preview
 
