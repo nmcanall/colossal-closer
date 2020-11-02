@@ -3,21 +3,18 @@ import React from 'react'
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_CUSTOMERS } from '../../utils/queries';
 import {Link} from 'react-router-dom';
-// import {useStoreContext, ADD_STATE_TRANSACTIONS} from '../../utils/GlobalState';
 
 const SalesList = ({_id}) =>{
 
     const { loading, data} = useQuery(QUERY_CUSTOMERS, {variables: {_id}})
 
-    const  customers  = data ? data.customers : {}
-    // console.log('customers',customers)
+    const  customers  = data ? data.customers : {};
     
     let transactionsArr = []
 
-//make sure data is coming through
+    //make sure data is coming through
     if(data){
         //loop through data
-    //     const transactions = customers.transaction
         for(const customer of customers){
             const bizName = customer.businessName
             const customerId = customer._id
@@ -25,11 +22,9 @@ const SalesList = ({_id}) =>{
                 transaction.customerId=customerId
                 transaction.businessName=bizName
                 transactionsArr.push(transaction)
-                
             }
         }
     }
-    console.log('dat arrr doe', transactionsArr)
     if(loading){return(<div>Loading...</div>)}
     return(
         <div className=" container">

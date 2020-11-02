@@ -43,7 +43,9 @@
 
 ## Usage
 
-For development, after installing all dependencies, you need to create a `.env` file within the `server` directory to store `JWT_SECRET="<put anything here>"` in order to hash the employee's password within `server/utils/auth.js`.  Run `npm start` to begin running the application.  
+* For development, after installing all dependencies, you need to create a `.env` file within the `server` directory to store `JWT_SECRET="<put anything here>"` in order to hash the employee's password within `server/utils/auth.js`.  Run `npm start` to begin running the application.  
+
+* To sample a deployed employee, use email: "alex@colossalcloser.com" and password: "password123".
 
 ## Contributers
 

@@ -2,11 +2,8 @@ import React, { useState } from 'react'
 import {useMutation} from '@apollo/react-hooks';
 import {LOGIN} from '../../utils/mutations';
 
-
 import logo from '../../assets/colossal-logo.png';
 import Auth from '../../utils/auth';
-
-
 
 const Login = (props) => {
     const [formState, setFormState] = useState({ email: '', password: ''})
@@ -25,8 +22,6 @@ const Login = (props) => {
 
     const handleLogin = async (event) =>{
         event.preventDefault();
-        console.log('button clicked')
-        console.log(formState)
 
         try{
             const {data}= await login({
