@@ -44,7 +44,8 @@ function AddCustomer(){
         // use try/catch instead of promises to handle errors
         try{
         //execute addUser mutation and pass in variable data from form
-        const { data } = await addCustomer({ variables: { ...formState, } });
+        const cleanForm = clean(formState);
+        const { data } = await addCustomer({ variables: { ...cleanForm, } });
         dispatch({
             type: ADD_STATE_CUSTOMERS,
             customers: [{...data.addCustomer}]
