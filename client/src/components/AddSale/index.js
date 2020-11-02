@@ -23,10 +23,10 @@ const AddSale = ({ customerId }) => {
     const [addSale, { error }] = useMutation(ADD_TRANSACTION, {onError: error => {
         console.log("Could not write to mongo db, writing to indexedDB instead")
         const createdAt = Date.now()
-        idbPromise("pendingTransactions", "put", {...formState, pending:true, createdAt}).then(() => {
+        idbPromise("pendingTransactions", "put", {...formState, pending:true, createdAt, customerId}).then(() => {
             dispatch({
                 type: ADD_STATE_TRANSACTIONS,
-                transactions: { [customerId]: [...state.transactions[customerId], {...formState, _id:"test", pending:true, createdAt}]}
+                transactions: { [customerId]: [...state.transactions[customerId], {...formState, _id:"test", pending:true, createdAt, customerId}]}
             })
             clearFormState()
         }).catch(e => console.log(e))

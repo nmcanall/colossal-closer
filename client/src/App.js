@@ -39,7 +39,7 @@ function App() {
         <ApolloProvider client={client}>
             <Router>
                 <StoreProvider>
-                    <OfflineHandler/>
+                    {loggedIn && <OfflineHandler/>}
                     <div id="html">
                         <Header/>
                         <main className="" id="content-wrap" on>
