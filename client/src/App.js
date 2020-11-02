@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { StoreProvider } from './utils/GlobalState'
 //pages and components
@@ -12,7 +12,10 @@ import NoMatch from './pages/NoMatch';
 import Auth from '../src/utils/auth';
 import AllTransactions from './pages/AllTransactions';
 import SingleCustomer from './pages/SingleCustomer';
+import OfflineHandler from './components/OfflineHandler'
 
+// import Contact from './components/Contact';
+// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 
@@ -31,13 +34,15 @@ const client = new ApolloClient({
 
 function App() {
     const loggedIn = Auth.loggedIn()
+    
     return (
         <ApolloProvider client={client}>
             <Router>
                 <StoreProvider>
+                    {loggedIn && <OfflineHandler/>}
                     <div id="html">
                         <Header/>
-                        <main className="" id="content-wrap">
+                        <main className="" id="content-wrap" on>
                             {loggedIn ? (
                                     <Switch>
                                     <Route exact path = '/' component = {Dashboard}/>

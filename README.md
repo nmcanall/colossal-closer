@@ -13,6 +13,8 @@
 
 * [Contributers](#contributers)
 
+* [Way Ahead](#way-ahead)
+
 * [Questions](#questions)
 
 ## Description
@@ -23,7 +25,21 @@
 
 ## Preview
 
-Add screenshots of the final project here.
+* Signup Page
+
+![image](./client/public/images/signup.png)
+
+* Main Dashboard
+
+![image](./client/public/images/dashboard.png)
+
+* Employee's Customer List
+
+![image](./client/public/images/customer-list.png)
+
+* Single Customer Details
+
+![image](./client/public/images/customer-details.png)
 
 ## Usage
 
@@ -34,6 +50,20 @@ Add screenshots of the final project here.
 ## Contributers
 
 This project was designed by a team consisting of four engineers.  [Neil Dino](https://github.com/NGDino) and [Marlon Guandique](https://github.com/chulopapi) built the front-end, and [Nathan McAnally](https://github.com/nmcanall) and [Brian Presta](https://github.com/brian-presta) designed the back-end. 
+
+## Way Ahead
+
+There are a few pending improvements to this page:
+
+* Creation of administrative account, allowing managers to view specific employee details.
+
+* Allow the administrator to create and validate employee emails, ensuring only valid employees register for the site.
+
+* Map displaying location of all customers and businesses.
+
+* Ability to add different types of products to the product list.
+
+* Feature that searches for cetain customers, transactions, or products, and displays the querried data in the requested order.
 
 ## Questions
 
