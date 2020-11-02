@@ -7,9 +7,7 @@ import {Box, Collapse} from '@chakra-ui/core'
 import {useStoreContext, ADD_STATE_CUSTOMERS } from '../../utils/GlobalState';
 // import { useStoreContext, ADD_STATE_CUSTOMERS } from '../../utils/GlobalState';
 const ChangeStatus = (props) =>{
-    // const token = Auth.getToken()
-    // console.log('tokentoken', token)
-    console.log('propskis', props)
+    
     const {status , customerId} = props
     // const _id = props.customerId
     const currentStatus = props.status
@@ -19,28 +17,15 @@ const ChangeStatus = (props) =>{
         M.FormSelect.init(selects, {});
     }, [])
     const [statusState, setStatusState] = useState(currentStatus)
-    console.log('currentstatusState', statusState)
     const [updateCustomer, {error}] = useMutation(UPDATE_CUSTOMER);
-    // const handleChange =(event) =>{
-    //     const {name, value} = event.target
-    //     console.log('oldForm',statusState)
-    //     setStatusState({
-    //         ...statusState,
-    //         [name]: value
-    //     })
-    //     console.log('newform',statusState)
-    // }
+   
 const changeStatus =async (event) =>{
     event.preventDefault()
     try{
         const {data}= await updateCustomer({
             variables: {statusState, _id: customerId}
         })
-        console.log('statusState', statusState)
-        // dispatch({
-        //     type: ADD_STATE_CUSTOMERS,
-        //     customers: [{...data.updateCustomer}]
-        // })
+    
     } catch(e){
         console.log(e)
     }
