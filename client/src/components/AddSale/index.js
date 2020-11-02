@@ -64,23 +64,11 @@ const AddSale = ({ customerId }) => {
             type: ADD_STATE_TRANSACTIONS,
             transactions: { [customerId]: state.transactions[customerId] ? [...state.transactions[customerId], newTransData] : [newTransData]}
         })
-<<<<<<< HEAD
-        
-=======
->>>>>>> master
         } catch (e){
             console.error(e);
         }
-<<<<<<< HEAD
-        setFormState({
-            product : 'print', 
-            dollars: 0,
-            units: 0
-        });
-=======
         clearFormState()
         
->>>>>>> master
     }
     
     return ( 
