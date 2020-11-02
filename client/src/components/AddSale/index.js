@@ -16,7 +16,9 @@ const AddSale = ({ customerId }) => {
     const [state, dispatch] = useStoreContext();
 
     const [show, setShow] = React.useState(false);
+
     const handleToggle = () => setShow(!show);
+    
     const [formState, setFormState] = useState({ product: 'print', dollars: 0, units: 0})
     const clearFormState = () => {setFormState({ product: 'print', dollars: 0, units: 0})}
 
@@ -71,17 +73,19 @@ const AddSale = ({ customerId }) => {
         
     }
     
-    return ( 
-        <div className="row center" id="form-wrapper">
-            <button 
-            className=" btn right blue lighten-3 waves-effect waves-lightn new-customer " id=""
-            onClick={handleToggle}
-            >
-                Add A transaction
-            </button>
-            <div className="col s12 m7 ">
-                <Collapse mt={4} isOpen={show}>
-                    <div className="card" id="signup-card">
+    return (
+                
+                <div className=" " id="form-wrapper">
+                    <button 
+                    
+                    className=" col btn right blue lighten-3 waves-effect waves-lightn new-customer " id="add-btn"
+                    onClick={handleToggle}
+                    >
+                        New Sale
+                    </button>
+                    <div className="col s12 m7 ">
+                        <Collapse mt={4} isOpen={show}>
+                            <div className="card" id="signup-card">
 
                         <div className="card-content">
                             <div className="row">

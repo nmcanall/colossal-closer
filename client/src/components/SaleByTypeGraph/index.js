@@ -41,7 +41,7 @@ const SaleByTypeGraph = () => {
     if(card > 0) {
         saleType.push({x:"card", y: card})
     }
-    if(glossy > 0) {
+    if(print > 0) {
         saleType.push({x:"print", y: print})
     }
     

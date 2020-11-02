@@ -65,8 +65,9 @@ const Dashboard = () => {
     return(
         <section className="main-container" >
             <div className="container center grey lighten-3" id="content-wrap">
-                <h2 className="center">{employee.firstName}'s Sales Dashboard</h2>
-
+               <div className = "card-panel grey col s12 m6 offset-3">
+                <h2 className="center white-text">{employee.firstName}'s Sales Dashboard</h2>
+                </div>
                 <div className="sales-data">
 
                     <div className="row ">

@@ -61,3 +61,16 @@ export const ADD_CUSTOMER = gql`
       }
   }
 `
+
+export const UPDATE_CUSTOMER = gql`
+  mutation updateCustomer($_id: ID!, $businessName: String, $contactName: String, $phone: String, $email: String, $status: String) {
+      updateCustomer(_id: $_id, businessName: $businessName, contactName: $contactName, phone: $phone, email: $email, status: $status) {
+        _id
+        businessName
+        contactName
+        phone
+        email
+        status
+      }
+  }
+`

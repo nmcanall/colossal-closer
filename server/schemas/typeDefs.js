@@ -80,6 +80,7 @@ const typeDefs = gql`
             email: String
             status: String
         ): Customer
+        
         addTransaction(
             customerId: ID!
             product: String
