@@ -8,6 +8,7 @@ import { useStoreContext, ADD_STATE_TRANSACTIONS, UPDATE_STATE_CUSTOMER } from '
 
 
 import CustomerSaleByTypeGraph from '../../components/CustomerSaleByType';
+import ChangeStatus from '../../components/ChangeStatus';
 
 const SingleCustomer = () =>{
     const {id} = useParams();
@@ -21,6 +22,8 @@ const SingleCustomer = () =>{
     const { loading, data} = useQuery(QUERY_CUSTOMER, {variables: {_id}})
     let  customer  = data ? data.customer : {}
     const transactions = state.transactions[id] || []
+
+    const customerStatus= customer.status
 
     useEffect(() => {
         if (data && !state.transactions[id]) {
@@ -53,8 +56,10 @@ const SingleCustomer = () =>{
         <section className="main-container">
             <div className="container" id="content-wrap">
                 <div className="card-panel center grey lighten-3 center col s12">
-                    
-                    <AddSale customerId={id}></AddSale>
+                    <div className="row">
+                        <ChangeStatus customerId={id} status={customerStatus}> </ChangeStatus>
+                        <AddSale customerId={id}></AddSale>
+                    </div>
                     <div className="row center valign-wrapper">
                         <div className=" col s7 offset-s2 center ">
                             <h3 className="center">{customer.businessName}</h3>
