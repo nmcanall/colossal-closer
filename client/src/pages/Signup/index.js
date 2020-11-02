@@ -12,11 +12,13 @@ const Signup = () => {
 
     const [addEmployee, { error }] = useMutation(ADD_EMPLOYEE);
     const loggedIn = Auth.loggedIn()
+
     if (loggedIn) {
         return window.location.assign('/')
     }
+
     const handleChange = (event) =>{
-        const {name,value} = event.target
+        const {name, value} = event.target
 
         setFormState({
             ...formState,
@@ -30,23 +32,37 @@ const Signup = () => {
         
         // use try/catch instead of promises to handle errors
         try{
-        //execute addUser mutation and pass in variable data from form
-        const { data } = await addEmployee({
-            variables: { ...formState }
-        });
-        Auth.login(data.addEmployee.token);
-        } catch (e){
-        console.error(e);
-        }
+            //execute addUser mutation and pass in variable data from form
+            const { data } = await addEmployee({
+                variables: { ...formState }
+            });
+            Auth.login(data.addEmployee.token);
 
-        setFormState({
-            firstName : '', 
-            lastName: '',
-            email: '',
-            password: ''
+            // If everything went well, reset the form
+            setFormState({
+                firstName : '', 
+                lastName: '',
+                email: '',
+                password: ''
+            });
+        } catch (e){
+            // Ensure user input all fields
+            if(e.message.includes("is required")) {
+                window.alert("You must complete all fields.");
+                setFormState({
+                    password: ''
+                });
+            }
             
-        })
-        
+            // Ensure user used a @colossalcloser email
+            if(e.message.includes("valid Colossal Closer email")) {
+                window.alert("You must use a valid Colossal Closer email address.");
+                setFormState({
+                    password: ''
+                });
+            }
+            console.error(e);
+        }
     }
     return (
         <section id="signup-page" className="main-container">

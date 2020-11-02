@@ -29,9 +29,15 @@ const resolvers = {
                 .populate("salesman");
         },
         customer: async (parent, {_id}) => {
-            return Customer.findOne({_id})
+
+            const customer = await Customer.findOne({_id})
                 .select("-__v -password")
                 .populate("salesman");
+
+            // sort the transactions in reverse order by the time they were created
+            customer.transactions.sort((a, b) => (a._id > b._id) ? -1: 1);
+
+            return customer;
         }
     },
     Mutation: {

@@ -28,6 +28,15 @@ function AddCustomer(){
         });
     };
     
+    // Remove empty properties of formState
+    const clean = function(form) {
+        for(let propName in form) {
+            if(!form[propName]) {
+                delete form[propName];
+            }
+        }
+        return form;
+    }
 
     const handleAddCustomer = async (event) =>{
         event.preventDefault();
@@ -41,7 +50,13 @@ function AddCustomer(){
             customers: [{...data.addCustomer}]
         })
         } catch (e){
-        console.error(e);
+            if(e.message.includes("`businessName` is required")) {
+                window.alert("You must input a business name");
+            }
+            else if(e.message.includes("Phone number must be in format")) {
+                window.alert("Input phone number in format 123-456-7890");
+            }
+            console.error(e);
         }
         setFormState({
             businessName : '', 
@@ -79,7 +94,7 @@ function AddCustomer(){
                                                 value= {formState.businessName}
                                                 onChange={handleChange}
                                                 />
-                                                <label htmlFor="businessName">Business Name</label>
+                                                <label htmlFor="businessName">Business Name (required)</label>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -124,7 +139,7 @@ function AddCustomer(){
                                                 <select
                                                     id="status" 
                                                     name="status"
-                                                    value= {formState.status}
+                                                    value={formState.status}
                                                     onChange={handleChange}
                                                 >
                                                     <option name="status" value="active">active</option>
