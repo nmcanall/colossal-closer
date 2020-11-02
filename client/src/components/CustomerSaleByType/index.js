@@ -53,7 +53,7 @@ const CustomerSaleByType = (props) => {
 
 return (
     <div>
-        <h3>Sale by Type</h3>
+        <h4>Sale by Type</h4>
         <svg viewBox="0 0 400 400" >
             <VictoryPie
                 colorScale={[ "mistyrose", "lightcyan", "lavender" ]}

@@ -83,10 +83,10 @@ const AddSale = ({ customerId }) => {
     
     return (
                 
-                <div className=" center" id="form-wrapper">
+                <div className=" " id="form-wrapper">
                     <button 
                     
-                    className=" col s5 btn right blue lighten-3 waves-effect waves-lightn new-customer " id=""
+                    className=" col btn right blue lighten-3 waves-effect waves-lightn new-customer " id="add-btn"
                     onClick={handleToggle}
                     >
                         New Sale

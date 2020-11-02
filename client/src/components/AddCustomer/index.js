@@ -72,7 +72,7 @@ function AddCustomer(){
     return (
         <div className="row center ">
             <button 
-            className=" btn right blue lighten-3 waves-effect waves-lightn new-customer " id=""
+            className=" btn right blue lighten-3 waves-effect waves-lightn new-customer " id="add-btn"
             onClick={handleToggle}
             >
             Add New Customer
